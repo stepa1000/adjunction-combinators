@@ -37,6 +37,18 @@ import Prelude as Pre
 
 -- Combinators for composition and combination adjunctions types or Object and Subject
 
+runMAdj :: Adjunction f g => (a -> M.AdjointT f g m b) -> f a -> m (f b)
+runMAdj = rightAdjunct . (M.runAdjointT .)
+
+mapMAdj :: (Adjunction f g, Monad m) => (f a -> m (f b)) -> M.AdjointT f g m a -> M.AdjointT f g m b
+mapMAdj f (M.AdjointT gmfa) = M.AdjointT $ fmap (>>= f) gmfa
+
+runWAdj :: Adjunction f g => (W.AdjointT f g w a -> b) -> w (g a) -> g b
+runWAdj = leftAdjunct . (. W.AdjointT)
+
+mapWAdj :: (Adjunction f g, Comonad w) => (w (g a) -> g b) -> W.AdjointT f g w a -> W.AdjointT f g w b
+mapWAdj f (W.AdjointT fmga) = W.AdjointT $ fmap (extend f) fmga
+
 -- for Monad, Comonad
 
 ($##) :: (Adjunction f1 g1, Adjunction f2 g2, Monad m) => M.AdjointT f1 g1 m a -> M.AdjointT f2 g2 m b -> M.AdjointT (f2 :.: f1) (g1 :.: g2) m (a, b)
