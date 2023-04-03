@@ -40,7 +40,9 @@ packages:
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
-# extra-deps: []
+extra-deps:
+- git: https://github.com/stepa1000/coandkleisli.git
+  commit: d4f76d1f7f25d4ffff974a7c13483b79f87aa409
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

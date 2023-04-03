@@ -24,14 +24,18 @@ import Data.Bifunctor.Functor
 import Data.Bifunctor.Product
 import Data.Bifunctor.Sum
 -}
-import Data.Function
-import Data.Functor.Adjunction
-import Data.Profunctor.Strong
+
 {-
 import Data.Profunctor
 import Data.Profunctor.Composition
 import Data.Proxy
 -}
+
+import Data.Bitraversable
+import Data.CoAndKleisli
+import Data.Function
+import Data.Functor.Adjunction
+import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
 
@@ -98,8 +102,8 @@ unCompSysAdjComonad wa@(W.AdjointT a1) =
 
 adjWunSumProd ::
   (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
-  W.AdjointT (f1 :+: f2) (g1 :*: g2) w (Either a b) ->
-  Either (W.AdjointT f1 g1 w (Either a b)) (W.AdjointT f2 g2 w (Either a b))
+  W.AdjointT (f1 :+: f2) (g1 :*: g2) w a ->
+  Either (W.AdjointT f1 g1 w a) (W.AdjointT f2 g2 w a)
 adjWunSumProd wa@(W.AdjointT w1)
   | unLR w1 =
       Left $
@@ -141,50 +145,143 @@ combineAdjCoT (CoT a) (CoT b) =
       >>> (\(mr1, mr2) -> mr1 >> mr2)
 
 -- for Kleisli, Cokleisli
-{-
+
+type KleisliAdj f g m a b = Kleisli (M.AdjointT f g m) a b
+
+type CokleisliAdj f g w a b = Cokleisli (W.AdjointT f g w) a b
+
+type CoAndKleisliAdj fw gw w fm gm m a b = CoAndKleisli (W.AdjointT fw gw w) (M.AdjointT fm gm m) a b
+
 ($$##) ::
-  (Adjunction f1 g1, Adjunction f2 g2) =>
-  Kleisli (M.AdjointT f1 g1 m) a a2 ->
-  Kleisli (M.AdjointT f2 g2 m) b b2 ->
-  Kleisli (M.AdjointT (f2 :.: f1) (g1 :.: g2) m) (a, b) (a2, b2)
+  (Adjunction f1 g1, Adjunction f2 g2, Monad m) =>
+  KleisliAdj f1 g1 m a a2 ->
+  KleisliAdj f2 g2 m b b2 ->
+  KleisliAdj (f2 :.: f1) (g1 :.: g2) m (a, b) (a2, b2)
 ($$##) (Kleisli a1) (Kleisli a2) = Kleisli $ (\(x, y) -> (a1 x) $## (a2 y))
 
 ($$+*) ::
-  ( CxtSystemCore s1,
-    CxtSystemCore s2,
-    SysMonad s1 ~ SysMonad s2,
-    MonadPlus (SysMonad s1),
-    Traversable (SysAdjF s1),
-    Traversable (SysAdjF s2)
+  ( MonadPlus m,
+    Traversable f1,
+    Traversable f2,
+    Adjunction f1 g1,
+    Adjunction f2 g2
   ) =>
-  KleisliSAM s1 a a2 ->
-  KleisliSAM s2 b b2 ->
-  KleisliSAM (s1 :+*: s2) (Either a b) (Either a2 b2)
-($$+*) (KleisliSAM (Kleisli a1)) (KleisliSAM (Kleisli a2)) =
-  KleisliSAM $
-    Kleisli $
-      (\x -> (a1 x) $+* (SysAdjMonad $ lift mzero)) ||| (\y -> (SysAdjMonad $ lift mzero) $+* (a2 y))
+  KleisliAdj f1 g1 m a a2 ->
+  KleisliAdj f2 g2 m b b2 ->
+  KleisliAdj (f1 :+: f2) (g1 :*: g2) m (Either a b) (Either a2 b2)
+($$+*) (Kleisli a1) (Kleisli a2) =
+  Kleisli $
+    (\x -> (a1 x) $+* (lift mzero)) ||| (\y -> (lift mzero) $+* (a2 y))
 
 (@@##) ::
-  (CxtSystemCore s1, CxtSystemCore s2, SysComonad s1 ~ SysComonad s2, CxtSysAdjComp s1 s2) =>
-  CokleisliSAW s1 a a2 ->
-  CokleisliSAW s2 b b2 ->
-  CokleisliSAW (s1 :##: s2) (a, b) (a2, b2)
-(@@##) (CokleisliSAW (Cokleisli a1)) (CokleisliSAW (Cokleisli a2)) =
-  CokleisliSAW $
-    Cokleisli $
-      ((\(x, y) -> ((a1 $ fmap fst x), (a2 $ fmap snd y))) . unCompSysAdjComonad)
+  (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
+  CokleisliAdj f1 g1 w a a2 ->
+  CokleisliAdj f2 g2 w b b2 ->
+  CokleisliAdj (f2 :.: f1) (g1 :.: g2) w (a, b) (a2, b2)
+(@@##) (Cokleisli a1) (Cokleisli a2) =
+  Cokleisli $
+    ((\(x, y) -> ((a1 $ fmap fst x), (a2 $ fmap snd y))) . unCompSysAdjComonad)
 
-(@@+*) :: (CxtSystemCore s1, CxtSystemCore s2, SysComonad s1 ~ SysComonad s2, CxtSysAdjComp s1 s2) => CokleisliSAW s1 a a2 -> CokleisliSAW s2 b b2 -> CokleisliSAW (s1 :+*: s2) (Either a b) (Either a2 b2)
-(@@+*) (CokleisliSAW (Cokleisli a1) :: CokleisliSAW s1 a a2) (CokleisliSAW (Cokleisli a2) :: CokleisliSAW s2 b b2) =
-  CokleisliSAW $
-    Cokleisli $
-      f
-        . (\x -> sysAdjWunSumProd x (extract x))
+(@@+*) ::
+  (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
+  CokleisliAdj f1 g1 w a a2 ->
+  CokleisliAdj f2 g2 w a b2 ->
+  CokleisliAdj (f1 :+: f2) (g1 :*: g2) w a (Either a2 b2)
+(@@+*) (Cokleisli a1) (Cokleisli a2) =
+  Cokleisli $
+    f
+      . (\x -> adjWunSumProd x)
   where
     f (Left w) = Left $ a1 w
     f (Right w) = Right $ a2 w
 
+(@$$##) ::
+  ( Adjunction fw1 gw1,
+    Adjunction fm1 gm1,
+    Adjunction fm2 gm2,
+    Comonad w,
+    Monad m
+  ) =>
+  CoAndKleisliAdj fw1 gw1 w fm1 gm1 m a1 b1 ->
+  CoAndKleisliAdj fw1 gw1 w fm2 gm2 m a2 b2 ->
+  CoAndKleisliAdj fw1 gw1 w (fm2 :.: fm1) (gm1 :.: gm2) m (a1, a2) (b1, b2)
+(@$$##) (CoAndKleisli a1) (CoAndKleisli a2) =
+  CoAndKleisli $ (\a -> a . (\x -> (fmap fst x, fmap snd x))) $ runKleisli $ (Kleisli a1) $$## (Kleisli a2)
+
+(@$$+*) ::
+  ( Adjunction fw1 gw1,
+    Adjunction fm1 gm1,
+    Adjunction fm2 gm2,
+    Comonad w,
+    Monad m,
+    MonadPlus m,
+    Traversable fm1,
+    Traversable fm2
+  ) =>
+  CoAndKleisliAdj fw1 gw1 w fm1 gm1 m a1 b1 ->
+  CoAndKleisliAdj fw1 gw1 w fm2 gm2 m a2 b2 ->
+  CoAndKleisliAdj fw1 gw1 w (fm1 :+: fm2) (gm1 :*: gm2) m (Either a1 a2) (Either b1 b2)
+(@$$+*) (CoAndKleisli a1) (CoAndKleisli a2) =
+  CoAndKleisli $ \wa -> case extract wa of
+    (Left x) -> (a1 $ fmap (const x) wa) $+* (lift mzero)
+    (Right y) -> (lift mzero) $+* (a2 $ fmap (const y) wa)
+
+(@@$##) ::
+  ( Adjunction fw1 gw1,
+    Adjunction fm1 gm1,
+    Adjunction fw2 gw2,
+    Comonad w,
+    Monad m
+  ) =>
+  CoAndKleisliAdj fw1 gw1 w fm1 gm1 m a1 b1 ->
+  CoAndKleisliAdj fw2 gw2 w fm1 gm1 m a2 b2 ->
+  CoAndKleisliAdj (fw2 :.: fw1) (gw1 :.: gw2) w fm1 gm1 m (a1, a2) (b1, b2)
+(@@$##) (CoAndKleisli a1) (CoAndKleisli a2) =
+  CoAndKleisli $ (\a -> (\(m1, m2) -> m1 >>= (\x -> m2 >>= (\y -> return (x, y)))) . a) $ runCokleisli $ (Cokleisli a1) @@## (Cokleisli a2)
+
+(@@$+*) ::
+  ( Adjunction fw1 gw1,
+    Adjunction fm1 gm1,
+    Adjunction fw2 gw2,
+    Comonad w,
+    Monad m
+  ) =>
+  CoAndKleisliAdj fw1 gw1 w fm1 gm1 m a b1 ->
+  CoAndKleisliAdj fw2 gw2 w fm1 gm1 m a b2 ->
+  CoAndKleisliAdj (fw1 :+: fw2) (gw1 :*: gw2) w fm1 gm1 m a (Either b1 b2)
+(@@$+*) (CoAndKleisli a1) (CoAndKleisli a2) =
+  CoAndKleisli $ (\a -> bisequence . a) $ runCokleisli $ (Cokleisli a1) @@+* (Cokleisli a2)
+
+(@$##) ::
+  ( Adjunction fw1 gw1,
+    Adjunction fm1 gm1,
+    Adjunction fm2 gm2,
+    Adjunction fw2 gw2,
+    Comonad w,
+    Monad m
+  ) =>
+  CoAndKleisliAdj fw1 gw1 w fm1 gm1 m a1 b1 ->
+  CoAndKleisliAdj fw2 gw2 w fm2 gm2 m a2 b2 ->
+  CoAndKleisliAdj (fw2 :.: fw1) (gw1 :.: gw2) w (fm2 :.: fm1) (gm1 :.: gm2) m (a1, a2) (b1, b2)
+(@$##) (CoAndKleisli a1) (CoAndKleisli a2) =
+  CoAndKleisli $ (\(wa1, wa2) -> (a1 $ fmap fst wa1) $## (a2 $ fmap snd wa2)) . unCompSysAdjComonad
+
+{-
+(@$+*) ::
+  ( Adjunction fw1 gw1,
+    Adjunction fm1 gm1,
+    Adjunction fm2 gm2,
+    Adjunction fw2 gw2,
+    Comonad w,
+    Monad m
+  ) =>
+  CoAndKleisliAdj fw1 gw1 w fm1 gm1 m a1 b1 ->
+  CoAndKleisliAdj fw2 gw2 w fm2 gm2 m a2 b2 ->
+  CoAndKleisliAdj (fw1 :+: fw2) (gw1 :*: gw2) w (fm2 :.: fm1) (gm1 :.: gm2) m (a1, a2) (b1, b2)
+(@$+*) (CoAndKleisli a1) (CoAndKleisli a2) =
+  CoAndKleisli $ \ waa -> (a1 $ fmap fst waa) $## (a2 $ fmap snd waa)
+-}
+{-
 -- profunctors
 
 compProfunctorSys ::

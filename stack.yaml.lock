@@ -3,7 +3,18 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    commit: d4f76d1f7f25d4ffff974a7c13483b79f87aa409
+    git: https://github.com/stepa1000/coandkleisli.git
+    name: coandkleisli
+    pantry-tree:
+      sha256: cd0abaeeea3bda85b7e7d97724d01945e02b271eb7c1906ae41d314dcd2b3623
+      size: 580
+    version: 0.1.0.0
+  original:
+    commit: d4f76d1f7f25d4ffff974a7c13483b79f87aa409
+    git: https://github.com/stepa1000/coandkleisli.git
 snapshots:
 - completed:
     sha256: af5d667f6096e535b9c725a72cffe0f6c060e0568d9f9eeda04caee70d0d9d2d

@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Control.Core.Composition
+      Control.Core.Generic
       Control.Core.Postlude
       Control.Prelude
       Control.Prelude2
@@ -38,6 +39,7 @@ library
       adjunctions
     , base >=4.7 && <5
     , bifunctors
+    , coandkleisli
     , comonad
     , containers
     , distributive
@@ -65,6 +67,7 @@ executable adjunction-combinators-exe
     , adjunctions
     , base >=4.7 && <5
     , bifunctors
+    , coandkleisli
     , comonad
     , containers
     , distributive
@@ -93,6 +96,7 @@ test-suite adjunction-combinators-test
     , adjunctions
     , base >=4.7 && <5
     , bifunctors
+    , coandkleisli
     , comonad
     , containers
     , distributive

@@ -41,6 +41,7 @@ dependencies:
 - these
 - ghc-prim
 - vector
+- coandkleisli
 
 ghc-options:
 - -Wall
