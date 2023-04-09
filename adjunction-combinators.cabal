@@ -27,6 +27,7 @@ library
   exposed-modules:
       Control.Core.Composition
       Control.Core.Generic
+      Control.Core.ParticalCompos
       Control.Core.Postlude
       Control.Prelude
       Control.Prelude2
