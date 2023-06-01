@@ -15,6 +15,17 @@ packages:
   original:
     commit: d4f76d1f7f25d4ffff974a7c13483b79f87aa409
     git: https://github.com/stepa1000/coandkleisli.git
+- completed:
+    commit: d47c29187e5f0c616b992f296e83d0f3253832d3
+    git: https://github.com/stepa1000/free-profunctor.git
+    name: free-profunctor
+    pantry-tree:
+      sha256: 4518bd2b8f419159b2584360ddbb117da71451cef7c20ea141372c7bd14b36fe
+      size: 730
+    version: 0.1.0.0
+  original:
+    commit: d47c29187e5f0c616b992f296e83d0f3253832d3
+    git: https://github.com/stepa1000/free-profunctor.git
 snapshots:
 - completed:
     sha256: af5d667f6096e535b9c725a72cffe0f6c060e0568d9f9eeda04caee70d0d9d2d

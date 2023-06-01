@@ -43,6 +43,8 @@ packages:
 extra-deps:
 - git: https://github.com/stepa1000/coandkleisli.git
   commit: d4f76d1f7f25d4ffff974a7c13483b79f87aa409
+- git: https://github.com/stepa1000/free-profunctor.git
+  commit: d47c29187e5f0c616b992f296e83d0f3253832d3
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

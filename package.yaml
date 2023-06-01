@@ -42,6 +42,7 @@ dependencies:
 - ghc-prim
 - vector
 - coandkleisli
+- free-profunctor
 
 ghc-options:
 - -Wall
