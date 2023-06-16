@@ -53,6 +53,9 @@ runWAdj = leftAdjunct . (. W.AdjointT)
 mapWAdj :: (Adjunction f g, Comonad w) => (w (g a) -> g b) -> W.AdjointT f g w a -> W.AdjointT f g w b
 mapWAdj f (W.AdjointT fmga) = W.AdjointT $ fmap (extend f) fmga
 
+hoistMAdj :: (Adjunction f g, Monad m) => (m (g a) -> m2 (g b)) -> M.AdjointT f g m a -> M.AdjointT f g m2 b
+hoistMAdj = undefined
+
 hoistWAdj :: (Adjunction f g, Comonad w) => (w (g a) -> w2 (g b)) -> W.AdjointT f g w a -> W.AdjointT f g w2 b
 hoistWAdj f (W.AdjointT fmga) = W.AdjointT $ fmap f fmga
 
@@ -269,7 +272,6 @@ type CoAndKleisliAdj fw gw w fm gm m a b = CoAndKleisli (W.AdjointT fw gw w) (M.
 (@$##) (CoAndKleisli a1) (CoAndKleisli a2) =
   CoAndKleisli $ (\(wa1, wa2) -> (a1 $ fmap fst wa1) $## (a2 $ fmap snd wa2)) . unCompSysAdjComonad
 
-{-
 (@$+*) ::
   ( Adjunction fw1 gw1,
     Adjunction fm1 gm1,
@@ -281,9 +283,10 @@ type CoAndKleisliAdj fw gw w fm gm m a b = CoAndKleisli (W.AdjointT fw gw w) (M.
   CoAndKleisliAdj fw1 gw1 w fm1 gm1 m a1 b1 ->
   CoAndKleisliAdj fw2 gw2 w fm2 gm2 m a2 b2 ->
   CoAndKleisliAdj (fw1 :+: fw2) (gw1 :*: gw2) w (fm2 :.: fm1) (gm1 :.: gm2) m (a1, a2) (b1, b2)
-(@$+*) (CoAndKleisli a1) (CoAndKleisli a2) =
-  CoAndKleisli $ \ waa -> (a1 $ fmap fst waa) $## (a2 $ fmap snd waa)
--}
+(@$+*) (CoAndKleisli a1) (CoAndKleisli a2) = undefined
+
+--  CoAndKleisli $ \ waa -> (a1 $ fmap fst waa) $## (a2 $ fmap snd waa)
+
 {-
 -- profunctors
 

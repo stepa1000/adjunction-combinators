@@ -43,6 +43,8 @@ dependencies:
 - vector
 - coandkleisli
 - free-profunctor
+- unordered-containers
+- fgl
 
 ghc-options:
 - -Wall

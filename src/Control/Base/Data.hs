@@ -38,6 +38,7 @@ import Data.CoAndKleisli
 import Data.Dynamic
 import Data.Function
 import Data.Functor.Adjunction
+import Data.Graph.Inductive
 import Data.HashMap.Lazy
 import Data.List.NonEmpty as NE
 import Data.Profunctor.Strong
@@ -47,9 +48,9 @@ import Prelude as Pre
 
 type WAdjData f g a = W.AdjointT f g NonEmpty a
 
-type WAdjDynamic f g = AdjData f g Dynamic
+type WAdjDynamic f g = WAdjData f g Dynamic
 
-unionAdjData :: (Adjunction f1 g1, Adjunction f2 g2, ComonadApply w) => WAdjData f1 g1 a -> WAdjData f2 g2 a -> WAdjData (f2 :.: f1) (g1 :.: g2) a
+unionAdjData :: (Adjunction f1 g1, Adjunction f2 g2) => WAdjData f1 g1 a -> WAdjData f2 g2 a -> WAdjData (f2 :.: f1) (g1 :.: g2) a
 unionAdjData d1 d2 = hoistWAdj undefined $ d1 @## d2
 
 type MAdjData f g a = M.AdjointT f g Vector a
