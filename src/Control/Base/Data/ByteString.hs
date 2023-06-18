@@ -47,3 +47,6 @@ import Prelude as Pre
 
 adjCons :: Monad m => Word -> M.AdjointT (Env ByteString) (Reader ByteString) m ()
 adjCons = adjBiparam BS.cons
+
+adjSnoc :: Monad m => Word -> M.AdjointT (Env ByteString) (Reader ByteString) m ()
+adjSnoc = adjBiparam (\a b -> BS.snoc b a)

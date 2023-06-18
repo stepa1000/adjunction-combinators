@@ -47,3 +47,11 @@ import Prelude as Pre
 
 coadjDecFunD :: Comonad w => W.AdjointT (Env Name) (Reader Name) w [Clause] -> Dec
 coadjDecFunD = coadjBiparam FunD
+
+type AdjDataDF = ((((Env [DerivClause] :.: Env [Con]) :.: Env (Maybe Kind)) :.: Env [TyVarBndr ()]) :.: Cxt)
+type AdjDataDG = (Reader Cxt :.: (Reader [TyVarBndr ()] :.: (Reader (Maybe Kind) :.: (Reader [Con] :.: Reader [DerivClause]) ) ) )
+
+coadjDecDataD :: Comonad w => W.AdjointT (Env Name :.: AdjDataDF) (AdjDataDG :.: Reader Name) w () -> Dec
+coadjDecDataD =  DataD (coask cxtW) (coask nameW) (coask mKindW) (coask lConW) (coask lDerivClauseW)
+  where
+    ((cxtW, (tyVarBndrW, (mKindW, (lConW, lDerivClauseW)))), nameW)

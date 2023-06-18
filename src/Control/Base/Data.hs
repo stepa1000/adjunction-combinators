@@ -51,7 +51,7 @@ type WAdjData f g a = W.AdjointT f g NonEmpty a
 type WAdjDynamic f g = WAdjData f g Dynamic
 
 unionAdjData :: (Adjunction f1 g1, Adjunction f2 g2) => WAdjData f1 g1 a -> WAdjData f2 g2 a -> WAdjData (f2 :.: f1) (g1 :.: g2) a
-unionAdjData d1 d2 = hoistWAdj undefined $ d1 @## d2
+unionAdjData = compAdjComonad liftA
 
 type MAdjData f g a = M.AdjointT f g Vector a
 

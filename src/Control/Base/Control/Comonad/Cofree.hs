@@ -49,3 +49,10 @@ adjState_extract f = adjState $ \c -> (\a -> ((), a)) <$> _extract f c
 
 adjS_unwrap :: Monad m => (g (Cofree g a) -> m (g (Cofree g a))) -> M.AdjointT (Env (Comonad g a)) (Reader (Comonad g a)) m ()
 adjS_unwrap f = adjState $ \c -> (\a -> ((), a)) <$> _unwrap f c
+
+adjStelescoped ::
+  Monad m =>
+  [(Cofree g a -> m (Cofree g a)) -> g (Cofree g a) -> m (g (Cofree g a))] ->
+  (a -> m a) ->
+  M.AdjointT (Env (Comonad g a)) (Reader (Comonad g a)) m ()
+adjStelescoped f g = adjState $ \c -> (\a -> ((), a)) <$> telescoped f g c

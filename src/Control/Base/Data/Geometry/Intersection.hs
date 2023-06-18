@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control where
+module Control.Base.Data.Geometry,Intersection where
 
 -- import qualified Control.Category as Cat
 
@@ -42,13 +42,14 @@ import Data.Functor.Adjunction
 import Data.Functor.Identity
 import Data.Profunctor.Strong
 import GHC.Generics
-import Graphics.Gloss.Data.Color
-import Graphics.Gloss.Data.Picture
-import Graphics.Gloss.Interface.IO.Game
 import Prelude as Pre
+import Linear
 
-coadjThickCircle :: Comonad w => W.AdjointT (Env Float) (Reader Float) w Float -> Picture
-coadjThickCircle = coadjBiparam ThickCircle
+type AdjInRadiusF t a = Env (t a) :.: Env a
+type AdjInRadiusG t a = Reader a :.: Reader (t a)
 
-adjColor :: Monad m => Color -> M.AdjointT (Env Picture) (Reader Picture) m ()
-adjColor = adjBiparam Color
+coadjInRadius :: W.AdjointT (AdjInRadiusF t a) (AdjInRadiusG t a) w (t a) -> Bool
+coadjInRadius w = distance (coask wt) (extract w) < (extract wa)
+  where
+    (wa, wt) = unCompSysAdjComonad w
+

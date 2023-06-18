@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control where
+module Control.Core.Functor.Bifunctor where
 
 -- import qualified Control.Category as Cat
 
@@ -35,6 +35,7 @@ import Control.Monad.Co
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
 import Data.Base.Comonad
+import Data.Bifunctor
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
@@ -42,13 +43,14 @@ import Data.Functor.Adjunction
 import Data.Functor.Identity
 import Data.Profunctor.Strong
 import GHC.Generics
-import Graphics.Gloss.Data.Color
-import Graphics.Gloss.Data.Picture
-import Graphics.Gloss.Interface.IO.Game
 import Prelude as Pre
 
-coadjThickCircle :: Comonad w => W.AdjointT (Env Float) (Reader Float) w Float -> Picture
-coadjThickCircle = coadjBiparam ThickCircle
-
-adjColor :: Monad m => Color -> M.AdjointT (Env Picture) (Reader Picture) m ()
-adjColor = adjBiparam Color
+compBiMapMM ::
+  (Bifunctor f, Monad m, Adjunction f1 g1, Adjunction f2 g2, Adjunction f3 g3) =>
+  (Either a b -> M.AdjointT f3 g3 m c) ->
+  f (M.AdjointT f1 g1 m a) (M.AdjointT f2 g2 m b) ->
+  f (M.AdjointT (f3 :.: f1) (g1 :.: g3) m c) (M.AdjointT (f1 :.: f2) (g2 :.: g3) m c)
+compBiMapMM f =
+  bimap
+    (\m1 -> ((\a -> return () $## (f $ Left a)) =<<) $ m1 $## (return ()))
+    (\m2 -> ((\b -> return () $## (f $ Right b)) =<<) $ adjReturnL m2)

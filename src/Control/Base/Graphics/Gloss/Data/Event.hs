@@ -47,6 +47,11 @@ import Graphics.Gloss.Data.Picture
 import Graphics.Gloss.Interface.IO.Game
 import Prelude as Pre
 
+data EventF f
+  = EventKeyF (KeyF f) (f KeyState) (f Modifiers) (f (Float, Float))
+  | EventMotionF (f (Float, Float))
+  | EventResizeF (f (Int, Int))
+
 data KeyF f
   = CharF (f Char)
   | SpecialKeyF (f SpecialKey)

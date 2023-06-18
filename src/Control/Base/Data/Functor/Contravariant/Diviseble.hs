@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control.Biparam where
+module Control.Base.Data.Functor.Contravariant.Divisible where
 
 -- import qualified Control.Category as Cat
 
@@ -43,3 +43,6 @@ import Data.Functor.Identity
 import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
+
+coadjDivide :: (Comonad w, Divisible f) => (a -> (b, c)) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
+coadjDivide f = coadjBiparam (divide f)

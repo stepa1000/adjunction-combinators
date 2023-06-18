@@ -65,3 +65,9 @@ adjLerp l = adjBiparam (lerp l)
 
 coadjLiftU2 :: (Comonad w, Additive f) => (a -> a -> a) -> W.AdjointT (Env (f a)) (Reader (f a)) w (f a) -> f a
 coadjLiftU2 f = coadjBiparam (liftU2 f)
+
+adjLiftU2 :: (Additive f, Monad m) => (a -> a -> a) -> f a -> M.AdjointT (Env (f a)) (Reader (f a)) m ()
+adjLiftU2 f = adjBiparam (liftU2 f)
+
+coadjLiftI2 :: (Comonad w, Additive f) => (a -> b -> c) -> W.AdjointT (Env (f a)) (Reader (f a)) w (f b) -> f c
+coadjLiftI2 f = coadjBiparam (liftI2 f)

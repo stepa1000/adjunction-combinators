@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control where
+module Control.Base.Prelude.Control.Lens.Operators where
 
 -- import qualified Control.Category as Cat
 
@@ -30,6 +30,7 @@ import Control.Arrow
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Lens.Cons
 import Control.Monad
 import Control.Monad.Co
 import Control.Monad.Trans
@@ -42,13 +43,7 @@ import Data.Functor.Adjunction
 import Data.Functor.Identity
 import Data.Profunctor.Strong
 import GHC.Generics
-import Graphics.Gloss.Data.Color
-import Graphics.Gloss.Data.Picture
-import Graphics.Gloss.Interface.IO.Game
 import Prelude as Pre
 
-coadjThickCircle :: Comonad w => W.AdjointT (Env Float) (Reader Float) w Float -> Picture
-coadjThickCircle = coadjBiparam ThickCircle
-
-adjColor :: Monad m => Color -> M.AdjointT (Env Picture) (Reader Picture) m ()
-adjColor = adjBiparam Color
+adjCons :: (Monad m, Cons s s a a) => a -> M.AdjointT (Env s) (Reader s) m ()
+adjCons = adjBiparam (<|)

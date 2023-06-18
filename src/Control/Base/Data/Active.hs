@@ -53,3 +53,6 @@ adjShiftDynamic = adjBiparam shiftDynamic
 
 coadjMkActiveStart :: Comonad w => (Time Rational -> a) -> W.AdjointT (Env (Time Rational)) (Reader (Time Rational)) w (Time Rational) -> Active a
 coadjMkActiveStart f = coadjBiparam (\a b -> mkActive a b f)
+
+coadjRunActive :: Comonad w => W.AdjointT (Env (Time a)) (Reader (Time a)) w (Active a) -> a
+coadjRunActive = coadjBiparam (\a b -> runActive b a)

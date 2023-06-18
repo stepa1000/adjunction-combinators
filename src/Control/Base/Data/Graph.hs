@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control where
+module Control.Base.Data.Graph where
 
 -- import qualified Control.Category as Cat
 
@@ -40,15 +40,10 @@ import Data.CoAndKleisli
 import Data.Function
 import Data.Functor.Adjunction
 import Data.Functor.Identity
+import Data.Graph.Inductive
 import Data.Profunctor.Strong
 import GHC.Generics
-import Graphics.Gloss.Data.Color
-import Graphics.Gloss.Data.Picture
-import Graphics.Gloss.Interface.IO.Game
 import Prelude as Pre
 
-coadjThickCircle :: Comonad w => W.AdjointT (Env Float) (Reader Float) w Float -> Picture
-coadjThickCircle = coadjBiparam ThickCircle
-
-adjColor :: Monad m => Color -> M.AdjointT (Env Picture) (Reader Picture) m ()
-adjColor = adjBiparam Color
+coadjMatch :: Comonad w => W.AdjointT (Env (gr a b)) (Reader (gr a b)) w Node -> Decomp gr a b
+coadjMatch = coadjBiparam (\gr node -> match node gr)

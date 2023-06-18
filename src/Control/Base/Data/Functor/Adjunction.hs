@@ -52,3 +52,6 @@ adjZipR = adjBiparam (\a b -> (\(c, d) -> c <> d) <$> zipR (a, b))
 
 adjStateZipR :: (Adjunction f u, Monad m) => u b -> M.AdjointT (Env (u a)) (Reader (u a)) m (u (b, a))
 adjStateZipR ub = adjState (\ua -> return $ (zipR (ub, ua), ua))
+
+coadjZapWithAdjunction :: (Adjunction f u, Comonad w) => (a -> b -> c) -> W.AdjointT (Env (u a)) (Reader (u a)) w (f b) -> c
+coadjZapWithAdjunction f = coadjBiparam (zapWithAdjunction f)

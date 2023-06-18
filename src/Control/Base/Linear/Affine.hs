@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Linear.Vector where
+module Control.Base.Linear.Affine where
 
 -- import qualified Control.Category as Cat
 
@@ -56,3 +56,6 @@ adjSubPoint = adjBiparam (\d v -> v .-^ d)
 
 coadjqdA :: (Comonad w, Num a, Affine t) => W.AdjointT (Env (t a)) (Reader (t a)) w (t a) -> a
 coadjqdA = coadjBiparam qdA
+
+coadjDistanceA :: (Comonad w, Num a, Affine t) => W.AdjointT (Env (t a)) (Reader (t a)) w (t a) -> a
+coadjDistanceA = coadjBiparam distanceA
