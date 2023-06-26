@@ -56,3 +56,11 @@ bCombAdjM ::
   b (M.AdjointT f2 g2 m) ->
   b (M.AdjointT (f1 :+: f2) (g1 :*: g2) m)
 bCombAdjM f b1 b2 = bmap (\(Pair adj1 adj2) -> (adj1 $+* adj2) >>= f) $ bprod b1 b2
+
+bCompAdjW ::
+  (ApplicativeB b, Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
+  (forall a. W.AdjointT (f2 :.: f1) (g1 :.: g2) m (a, a) -> a) ->
+  b (W.AdjointT f1 g1 w) ->
+  b (W.AdjointT f2 g2 w) ->
+  b (W.AdjointT (f2 :.: f1) (g1 :.: g2) w)
+bCompAdjW f b1 b2 = bmap (\(Pair adj1 adj2) -> extend f (adj1 @## adj2)) $ bprod b1 b2

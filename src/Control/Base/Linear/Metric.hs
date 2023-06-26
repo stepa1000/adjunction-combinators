@@ -54,6 +54,7 @@ coadjqd = coadjBiparam qd
 coadjDistance :: (Comonad w, Metric t, Floating a) => W.AdjointT (Env (t a)) (Reader (t a)) w (t a) -> a
 coadjDistance = coadjBiparam distance
 
+-- | project u v computes the projection of v onto u.
 coadjProject :: (Comonad w, Metric t, Floating a) => W.AdjointT (Env (t a)) (Reader (t a)) w (t a) -> t a
 coadjProject = coadjBiparam project
 

@@ -27,6 +27,7 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Prelude.Data.Ord
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
@@ -56,3 +57,10 @@ data KeyF f
   = CharF (f Char)
   | SpecialKeyF (f SpecialKey)
   | MouseButtonF (f MouseButton)
+
+coadjEventKeyChar :: Comonad w => EventF (W.AdjointT (Env Char) (Reader Char) w) -> Bool
+coadjEventKeyChar (EventKeyF (CharF w) _ _ _) = coadjEq w
+coadjEventKeyChar _ = False
+
+adjEvent :: Monad m => EventF (M.AdjointT (Env Bool) (Reader Bool) m) -> M.AdjointT (Env Bool) (Reader Bool) m (EventF (M.AdjointT (Env Bool) (Reader Bool) m))
+adjEvent = undefined -- btraverse

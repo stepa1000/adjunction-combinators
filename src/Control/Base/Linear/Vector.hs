@@ -71,3 +71,12 @@ adjLiftU2 f = adjBiparam (liftU2 f)
 
 coadjLiftI2 :: (Comonad w, Additive f) => (a -> b -> c) -> W.AdjointT (Env (f a)) (Reader (f a)) w (f b) -> f c
 coadjLiftI2 f = coadjBiparam (liftI2 f)
+
+coadjRScalar :: (Comonad w, Functor f, Num a) => W.AdjointT (Env (f a)) (Reader (f a)) w a -> f a
+coadjRScalar = coadjBiparam (^*)
+
+adjRScalar :: (Functor f, Num a, Monad m) => a -> M.AdjointT (Env (f a)) (Reader (f a)) m ()
+adjRScalar = adjBiparam (\a fa -> fa ^* a)
+
+coadjOuter :: (Comonad w, Functor f, Functor g, Num a) => W.AdjointT (Env (f a)) (Reader (f a)) w (g a) -> f (g a)
+coadjOuter = coadjBiparam outer

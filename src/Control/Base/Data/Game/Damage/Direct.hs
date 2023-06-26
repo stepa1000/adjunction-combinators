@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control.Biparam where
+module Control.Base.Data.Game.Damage.Direct where
 
 -- import qualified Control.Category as Cat
 
@@ -45,7 +45,10 @@ import Data.List.NonEmpty
 import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
+import Data.Coerce
 
-type AdjHpF hp = AdjTagF hp
+newtype DirectDamage a = DirectDamage {unDirectDamage :: a} deriving
+newtype DirectHealth a = DirectHealth {unDirectHealth :: a} deriving
 
-type AdjHpG hp = AdjTagG hp
+adjSDamage :: (Num a, Monad m) => DirectDamage a -> M.AdjointT (Env (DirectHealth a)) (Reader (DirectHealth a)) m ()
+adjSDamage dd = adjState $ \ dh -> return $ ((), dh - (coerce dd))

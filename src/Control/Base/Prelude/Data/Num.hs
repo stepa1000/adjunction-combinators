@@ -83,3 +83,9 @@ coadjmod = coadjBiparam mod
 
 adjmod :: (Integral a, Monad m) => a -> M.AdjointT (Env a) (Reader a) m ()
 adjmod = adjBiparam mod
+
+coadjQuotRem :: (Integral a, Comonad w) => W.AdjointT (Env a) (Reader a) w a -> (a, a)
+coadjQuotRem = coadjBiparam quotRem
+
+coadjDivMod :: (Integral a, Comonad w) => W.AdjointT (Env a) (Reader a) w a -> (a, a)
+coadjDivMod = coadjBiparam divMod

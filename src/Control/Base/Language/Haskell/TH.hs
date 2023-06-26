@@ -55,3 +55,16 @@ coadjDecDataD :: Comonad w => W.AdjointT (Env Name :.: AdjDataDF) (AdjDataDG :.:
 coadjDecDataD =  DataD (coask cxtW) (coask nameW) (coask mKindW) (coask lConW) (coask lDerivClauseW)
   where
     ((cxtW, (tyVarBndrW, (mKindW, (lConW, lDerivClauseW)))), nameW)
+
+type AdjNewtypeDF = ((((Env [DerivClause] :.: Env Con) :.: Env (Maybe Kind)) :.: Env [TyVarBndr ()]) :.: Cxt)
+type AdjNewtypeDG = (Reader Cxt :.: (Reader [TyVarBndr ()] :.: (Reader (Maybe Kind) :.: (Reader Con :.: Reader [DerivClause]) ) ) )
+
+coadjDecDataD :: Comonad w => W.AdjointT (Env Name :.: AdjDataDF) (AdjDataDG :.: Reader Name) w () -> Dec
+coadjDecDataD = NewtypeD (coask cxtW) (coask nameW) (coask mKindW) (coask lConW) (coask lDerivClauseW)
+  where
+    ((cxtW, (tyVarBndrW, (mKindW, (lConW, lDerivClauseW)))), nameW)
+
+-- type AdjTySynDF = 
+-- type AdjTySynDG = 
+
+coadjTySynD :: 

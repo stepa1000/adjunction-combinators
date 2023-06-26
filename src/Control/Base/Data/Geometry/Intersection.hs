@@ -44,12 +44,32 @@ import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
 import Linear
+import Data.Bool
+import Lens 
 
 type AdjInRadiusF t a = Env (t a) :.: Env a
 type AdjInRadiusG t a = Reader a :.: Reader (t a)
 
-coadjInRadius :: W.AdjointT (AdjInRadiusF t a) (AdjInRadiusG t a) w (t a) -> Bool
+coadjInRadius ::  (Comonad w, Metric t, Floating a) => W.AdjointT (AdjInRadiusF t a) (AdjInRadiusG t a) w (t a) -> Bool
 coadjInRadius w = distance (coask wt) (extract w) < (extract wa)
   where
     (wa, wt) = unCompSysAdjComonad w
+
+type AdjInProjectedF t a = Env (t a) :.: Env (t a)
+type AdjInProjectedG t a = Reader (t a) :.: Reader (t a)
+
+coadjInProject :: (Comonad w, Metric t, Floating a) => W.AdjointT (AdjInProjectedF t a) (AdjInProjectedG t a) w (t a) -> Bool
+coadjInProject w = (inProject $ coadjProject wt1) && (inProject $ coadjProject wt2)
+  where
+    inProject wtp = (extract $ coadjqd wtp) < (quadrance $ coask wtp)
+    (wt1, wt2) = unCompSysAdjComonad w
+
+coadjIntersectProject :: 
+  (Comonad w, Metric t, Floating a,  f) => 
+  W.AdjointT (AdjInProjectedF t a) (AdjInProjectedG t a) w (f (t a)) ->
+  W.AdjointT (AdjInProjectedF t a) (AdjInProjectedG t a) w (f (t a)) ->
+  Bool
+coadjIntersectProject w1 w2 = undefined 
+--  where
+--    ww1 = fmap (const $ extract w2) w1
 

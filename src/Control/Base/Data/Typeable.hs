@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Data.Functor.Contravariant.Divisible where
+module Control.Base.Prelude.Control.Biparam where
 
 -- import qualified Control.Category as Cat
 
@@ -39,16 +39,11 @@ import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
 import Data.Functor.Adjunction
-import Data.Functor.Contravariant.Compose
 import Data.Functor.Identity
 import Data.Profunctor.Strong
+import Data.Typeable
 import GHC.Generics
 import Prelude as Pre
 
-coadjDivide :: (Comonad w, Divisible f) => (a -> (b, c)) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
-coadjDivide f = coadjBiparam (divide f)
-
-coadjDecidable :: (Comonad w, Decidable f) => (a -> Either b c) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
-coadjDecidable f = coadjBiparam (choose f)
-
--- Data.Functor.Contravariant.Compose
+coadjEqT :: (Typeable a, Typeable b) => W.AdjointT (Env a) (Reader a) w b -> Maybe (a :~: b)
+coadjEqT = coadjBiparam (\(a :: a) (b :: b) -> eqT @a @b)

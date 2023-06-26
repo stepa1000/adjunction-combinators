@@ -45,7 +45,10 @@ import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
 
-adjScutoff :: (Monad m, Functor f) => Integer -> M.AdjointT (Env (Free f a)) (Reader (Free f a)) m ()
-adjScutoff i = coadjBiparam (cutoff i)
+adjCutoff :: (Monad m, Functor f) => Integer -> M.AdjointT (Env (Free f a)) (Reader (Free f a)) m ()
+adjCutoff i = adjBiparam cutoff
 
 -- iterA cutoff
+
+coadjReCutoff :: (Monad m, Functor f) => W.AdjointT (Env Integer) (Reader Integer) m (Free f a) -> Free f (Maybe a)
+coadjReCutoff = coadjBiparam cutoff

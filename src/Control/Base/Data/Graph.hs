@@ -45,5 +45,11 @@ import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
 
-coadjMatch :: Comonad w => W.AdjointT (Env (gr a b)) (Reader (gr a b)) w Node -> Decomp gr a b
+coadjMatch :: (Comonad w, Graph gr) => W.AdjointT (Env (gr a b)) (Reader (gr a b)) w Node -> Decomp gr a b
 coadjMatch = coadjBiparam (\gr node -> match node gr)
+
+coadjMkGraph :: (Comonad w, Graph gr) => W.AdjointT (Env [LNode a]) (Reader [LNode a]) w [LEdge b] -> gr a b
+coadjMkGraph = coadjBiparam mkGraph
+
+adjMerge :: (Monad m, DynGraph gr) => Context a b -> M.AdjointT (Env (gr a b)) (Reader (gr a b)) m ()
+adjMerge = adjBiparam (&)

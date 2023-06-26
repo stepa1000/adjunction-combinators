@@ -12,6 +12,9 @@ import Control.Monad.Trans.Adjoint as M
 coask :: (Adjunction f g, Comonad w) => W.AdjointT (EnvT e f) (ReaderT e g) w a -> e
 coask = mapWAdj ((ask <<) . extract)
 
+adjEnv :: Comonad w => e -> w () -> W.AdjointT (Env e) (Reader e) w ()
+adjEnv e w = W.AdjointT $ env e $ fmap (pure) w
+
 adjSetEnv :: (Adjunction f g, Monad m) => e -> w a -> M.AdjointT (EnvT e f) (ReaderT e g) m a
 adjSetEnv e wa = mapMAdj (const $ return $ EnvT e wa) (return ())
 

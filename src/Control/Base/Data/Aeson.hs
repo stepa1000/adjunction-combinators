@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Data.Functor.Contravariant.Divisible where
+module Control.Base.Data.Aeson where
 
 -- import qualified Control.Category as Cat
 
@@ -34,21 +34,19 @@ import Control.Monad
 import Control.Monad.Co
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
+import Data.Aeson
 import Data.Base.Comonad
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
 import Data.Functor.Adjunction
-import Data.Functor.Contravariant.Compose
 import Data.Functor.Identity
 import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
 
-coadjDivide :: (Comonad w, Divisible f) => (a -> (b, c)) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
-coadjDivide f = coadjBiparam (divide f)
+coadjEncodeFile :: (ToJSON a, Comonad w) => W.AdjointT (Env FilePath) (Reader FilePath) w a -> IO ()
+coadjEncodeFile = coadjBiparam encodeFile
 
-coadjDecidable :: (Comonad w, Decidable f) => (a -> Either b c) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
-coadjDecidable f = coadjBiparam (choose f)
-
--- Data.Functor.Contravariant.Compose
+coadjDecodeFileStrict :: (ToJSON a, Comonad w) => W.AdjointT (Env FilePath) (Reader FilePath) w () -> IO a
+coadjDecodeFileStrict = coadjBiparam (\fp _ -> decodeFileStrict fp)

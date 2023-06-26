@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Data.Functor.Contravariant.Divisible where
+module Control.Base.System.Random where
 
 -- import qualified Control.Category as Cat
 
@@ -39,16 +39,23 @@ import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
 import Data.Functor.Adjunction
-import Data.Functor.Contravariant.Compose
 import Data.Functor.Identity
 import Data.Profunctor.Strong
 import GHC.Generics
+import System.Random
 import Prelude as Pre
 
-coadjDivide :: (Comonad w, Divisible f) => (a -> (b, c)) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
-coadjDivide f = coadjBiparam (divide f)
+coadjRandomR :: (Comonad w, RandomGen g, Random a) => W.AdjointT (Env (a, a)) (Reader (a, a)) w g -> (a, g)
+coadjRandomR = coadjBiparam randomR
 
-coadjDecidable :: (Comonad w, Decidable f) => (a -> Either b c) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
-coadjDecidable f = coadjBiparam (choose f)
+adjSRandomR :: (Monad m, RandomGen g, Random a) => (a, a) -> M.AdjointT (Env g) (Reader g) m a
+adjSRandomR p =
+  adjState
+    ( \g -> return $ randomR p g
+    )
 
--- Data.Functor.Contravariant.Compose
+adjSRandom :: (Monad m, RandomGen g, Random a) => M.AdjointT (Env g) (Reader g) m a
+adjSRandom =
+  adjState
+    ( \g -> return $ random p g
+    )

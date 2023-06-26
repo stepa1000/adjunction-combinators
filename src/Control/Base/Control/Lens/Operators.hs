@@ -47,3 +47,9 @@ import Prelude as Pre
 
 adjCons :: (Monad m, Cons s s a a) => a -> M.AdjointT (Env s) (Reader s) m ()
 adjCons = adjBiparam (<|)
+
+adjSnoc :: (Monad m, Snoc s s a a) => a -> M.AdjointT (Env s) (Reader s) m ()
+adjSnoc = adjBiparam (<|)
+
+coadjGetting :: Comonad w => Getting (Endo [a]) s a -> W.AdjointT (Env s) (Reader s) w c -> [a]
+coadjGetting geting = coadjBiparam (^.. geting)

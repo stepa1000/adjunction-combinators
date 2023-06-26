@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Data.Functor.Contravariant.Divisible where
+module Control.Base.AI.BPANN where
 
 -- import qualified Control.Category as Cat
 
@@ -25,6 +25,7 @@ import Data.Profunctor.Composition
 import Data.Proxy
 -}
 
+import AI.BPANN
 import Control.Applicative
 import Control.Arrow
 import Control.Comonad
@@ -39,16 +40,22 @@ import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
 import Data.Functor.Adjunction
-import Data.Functor.Contravariant.Compose
 import Data.Functor.Identity
 import Data.Profunctor.Strong
 import GHC.Generics
+import System.Random
 import Prelude as Pre
 
-coadjDivide :: (Comonad w, Divisible f) => (a -> (b, c)) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
-coadjDivide f = coadjBiparam (divide f)
+coadjCreateRandomNetwork :: Comonad w => W.AdjointT (Env Int) (Reader Int) w [Int] -> Network
+coadjCreateRandomNetwork = coadjBiparam createRandomNetwork
 
-coadjDecidable :: (Comonad w, Decidable f) => (a -> Either b c) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
-coadjDecidable f = coadjBiparam (choose f)
+adjSCreateRandomNetwork :: (Monad m, MonadIO m) => [Int] -> M.AdjointT (Env Int) (Reader Int) m Network
+adjSCreateRandomNetwork ll =
+  adjState
+    ( \s -> do
+        s2 <- randomIO
+        return $ (createRandomNetwork s ll, s2)
+    )
 
--- Data.Functor.Contravariant.Compose
+coadjCalculate :: Comonad w => W.AdjointT (Env Network) (Reader Network) w [Double] -> [Double]
+coadjCalculate = coadjBiparam calculate

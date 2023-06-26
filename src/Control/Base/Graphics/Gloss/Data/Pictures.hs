@@ -50,5 +50,20 @@ import Prelude as Pre
 coadjThickCircle :: Comonad w => W.AdjointT (Env Float) (Reader Float) w Float -> Picture
 coadjThickCircle = coadjBiparam ThickCircle
 
+coadjColor :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w Color -> Picture
+coadjColor = coadjBiparam (\p c -> Color c p)
+
 adjColor :: Monad m => Color -> M.AdjointT (Env Picture) (Reader Picture) m ()
 adjColor = adjBiparam Color
+
+coadjTranslate :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w (Float, Float) -> Picture
+coadjTranslate = coadjBiparam (\p (x, y) -> Translate x y p)
+
+adjTranslate :: Monad m => (Float, Float) -> M.AdjointT (Env Picture) (Reader Picture) m ()
+adjTranslate = adjBiparam (\(x, y) p -> Translate x y p)
+
+coadjRotate :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w Float -> Picture
+coadjRotate = coadjBiparam (\pic r -> Rotate r pic)
+
+adjRotate :: Monad m => Float -> M.AdjointT (Env Picture) (Reader Picture) m ()
+adjRotate = adjBiparam Rotate

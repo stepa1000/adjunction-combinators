@@ -56,3 +56,9 @@ adjStelescoped ::
   (a -> m a) ->
   M.AdjointT (Env (Comonad g a)) (Reader (Comonad g a)) m ()
 adjStelescoped f g = adjState $ \c -> (\a -> ((), a)) <$> telescoped f g c
+
+adjSshoots :: (Monad m, Traversable g) => (a -> m a) -> M.AdjointT (Env (Comonad g a)) (Reader (Comonad g a)) m ()
+adjSshoots f = adjState $ \c -> (\a -> ((), a)) <$> shoots f c
+
+adjSleaves :: (Monad m, Traversable g) => (a -> m a) -> M.AdjointT (Env (Comonad g a)) (Reader (Comonad g a)) m ()
+adjSleaves f = adjState $ \c -> (\a -> ((), a)) <$> leaves f c
