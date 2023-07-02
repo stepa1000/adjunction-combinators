@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control where
+module Control.Base.Graphics.Gloss.Data.Event where
 
 -- import qualified Control.Category as Cat
 
@@ -27,6 +27,8 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Data.Ord
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
@@ -34,7 +36,6 @@ import Control.Monad
 import Control.Monad.Co
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
@@ -47,23 +48,19 @@ import Graphics.Gloss.Data.Picture
 import Graphics.Gloss.Interface.IO.Game
 import Prelude as Pre
 
-coadjThickCircle :: Comonad w => W.AdjointT (Env Float) (Reader Float) w Float -> Picture
-coadjThickCircle = coadjBiparam ThickCircle
+data EventF f
+  = EventKeyF (KeyF f) (f KeyState) (f Modifiers) (f (Float, Float))
+  | EventMotionF (f (Float, Float))
+  | EventResizeF (f (Int, Int))
 
-coadjColor :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w Color -> Picture
-coadjColor = coadjBiparam (\p c -> Color c p)
+data KeyF f
+  = CharF (f Char)
+  | SpecialKeyF (f SpecialKey)
+  | MouseButtonF (f MouseButton)
 
-adjColor :: Monad m => Color -> M.AdjointT (Env Picture) (Reader Picture) m ()
-adjColor = adjBiparam Color
+coadjEventKeyChar :: Comonad w => EventF (W.AdjointT (Env Char) (Reader Char) w) -> Bool
+coadjEventKeyChar (EventKeyF (CharF w) _ _ _) = coadjEq w
+coadjEventKeyChar _ = False
 
-coadjTranslate :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w (Float, Float) -> Picture
-coadjTranslate = coadjBiparam (\p (x, y) -> Translate x y p)
-
-adjTranslate :: Monad m => (Float, Float) -> M.AdjointT (Env Picture) (Reader Picture) m ()
-adjTranslate = adjBiparam (\(x, y) p -> Translate x y p)
-
-coadjRotate :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w Float -> Picture
-coadjRotate = coadjBiparam (\pic r -> Rotate r pic)
-
-adjRotate :: Monad m => Float -> M.AdjointT (Env Picture) (Reader Picture) m ()
-adjRotate = adjBiparam Rotate
+adjEvent :: Monad m => EventF (M.AdjointT (Env Bool) (Reader Bool) m) -> M.AdjointT (Env Bool) (Reader Bool) m (EventF (M.AdjointT (Env Bool) (Reader Bool) m))
+adjEvent = undefined -- btraverse

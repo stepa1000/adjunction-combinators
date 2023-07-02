@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control.Biparam where
+module Control.Base.Data.Typeable where
 
 -- import qualified Control.Category as Cat
 
@@ -27,14 +27,17 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Control.Biparam
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
@@ -45,5 +48,5 @@ import Data.Typeable
 import GHC.Generics
 import Prelude as Pre
 
-coadjEqT :: (Typeable a, Typeable b) => W.AdjointT (Env a) (Reader a) w b -> Maybe (a :~: b)
+coadjEqT :: (Typeable a, Typeable b, Comonad w) => W.AdjointT (Env a) (Reader a) w b -> Maybe (a :~: b)
 coadjEqT = coadjBiparam (\(a :: a) (b :: b) -> eqT @a @b)

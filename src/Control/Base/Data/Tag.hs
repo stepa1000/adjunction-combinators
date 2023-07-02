@@ -27,15 +27,19 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Control.Biparam
 import Control.Base.Prelude.Data.Ord
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
+import Control.Core.Composition
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
@@ -50,6 +54,6 @@ type AdjTagF a = (Env a :.: Env String)
 type AdjTagG a = (Reader String :.: Reader a)
 
 coadjIsTag :: Comonad w => W.AdjointT (AdjTagF a) (AdjTagG a) w String -> Maybe a
-coadjIsTag w = if coadjEq ws then Just $ extract wa else Nothing
+coadjIsTag w = if coadjEq ws then Just $ coask wa else Nothing
   where
     (ws, wa) = unCompSysAdjComonad w

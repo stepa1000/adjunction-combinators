@@ -7,7 +7,10 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control.Control.Cofree where
+-- | ** Cofree
+--
+--  uses for working with recursion in adjoint.
+module Control.Base.Control.Comonad.Cofree where
 
 -- import qualified Control.Category as Cat
 
@@ -27,14 +30,18 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Control.Biparam
 import Control.Comonad
+import Control.Comonad.Cofree
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
@@ -44,21 +51,21 @@ import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
 
-adjState_extract :: Monad m => (a -> m a) -> M.AdjointT (Env (Comonad g a)) (Reader (Comonad g a)) m ()
+adjState_extract :: Monad m => (a -> m a) -> M.AdjointT (Env (Cofree g a)) (Reader (Cofree g a)) m ()
 adjState_extract f = adjState $ \c -> (\a -> ((), a)) <$> _extract f c
 
-adjS_unwrap :: Monad m => (g (Cofree g a) -> m (g (Cofree g a))) -> M.AdjointT (Env (Comonad g a)) (Reader (Comonad g a)) m ()
+adjS_unwrap :: Monad m => (g (Cofree g a) -> m (g (Cofree g a))) -> M.AdjointT (Env (Cofree g a)) (Reader (Cofree g a)) m ()
 adjS_unwrap f = adjState $ \c -> (\a -> ((), a)) <$> _unwrap f c
 
 adjStelescoped ::
   Monad m =>
   [(Cofree g a -> m (Cofree g a)) -> g (Cofree g a) -> m (g (Cofree g a))] ->
   (a -> m a) ->
-  M.AdjointT (Env (Comonad g a)) (Reader (Comonad g a)) m ()
+  M.AdjointT (Env (Cofree g a)) (Reader (Cofree g a)) m ()
 adjStelescoped f g = adjState $ \c -> (\a -> ((), a)) <$> telescoped f g c
 
-adjSshoots :: (Monad m, Traversable g) => (a -> m a) -> M.AdjointT (Env (Comonad g a)) (Reader (Comonad g a)) m ()
+adjSshoots :: (Monad m, Traversable g) => (a -> m a) -> M.AdjointT (Env (Cofree g a)) (Reader (Cofree g a)) m ()
 adjSshoots f = adjState $ \c -> (\a -> ((), a)) <$> shoots f c
 
-adjSleaves :: (Monad m, Traversable g) => (a -> m a) -> M.AdjointT (Env (Comonad g a)) (Reader (Comonad g a)) m ()
+adjSleaves :: (Monad m, Traversable g) => (a -> m a) -> M.AdjointT (Env (Cofree g a)) (Reader (Cofree g a)) m ()
 adjSleaves f = adjState $ \c -> (\a -> ((), a)) <$> leaves f c

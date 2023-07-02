@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control.Biparam where
+module Control.Base.Language.Haskell.TH where
 
 -- import qualified Control.Category as Cat
 
@@ -27,6 +27,7 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
@@ -34,7 +35,6 @@ import Control.Monad
 import Control.Monad.Co
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
@@ -49,22 +49,26 @@ coadjDecFunD :: Comonad w => W.AdjointT (Env Name) (Reader Name) w [Clause] -> D
 coadjDecFunD = coadjBiparam FunD
 
 type AdjDataDF = ((((Env [DerivClause] :.: Env [Con]) :.: Env (Maybe Kind)) :.: Env [TyVarBndr ()]) :.: Cxt)
-type AdjDataDG = (Reader Cxt :.: (Reader [TyVarBndr ()] :.: (Reader (Maybe Kind) :.: (Reader [Con] :.: Reader [DerivClause]) ) ) )
+
+type AdjDataDG = (Reader Cxt :.: (Reader [TyVarBndr ()] :.: (Reader (Maybe Kind) :.: (Reader [Con] :.: Reader [DerivClause]))))
 
 coadjDecDataD :: Comonad w => W.AdjointT (Env Name :.: AdjDataDF) (AdjDataDG :.: Reader Name) w () -> Dec
-coadjDecDataD =  DataD (coask cxtW) (coask nameW) (coask mKindW) (coask lConW) (coask lDerivClauseW)
+coadjDecDataD w = DataD (coask cxtW) (coask nameW) (coask mKindW) (coask lConW) (coask lDerivClauseW)
   where
-    ((cxtW, (tyVarBndrW, (mKindW, (lConW, lDerivClauseW)))), nameW)
+    ((cxtW, (tyVarBndrW, (mKindW, (lConW, lDerivClauseW)))), nameW) =
+      first (first (first (first (first unCompSysAdjComonad . unCompSysAdjComonad) . unCompSysAdjComonad) . unCompSysAdjComonad) . unCompSysAdjComonad) $ unCompSysAdjComonad w
 
 type AdjNewtypeDF = ((((Env [DerivClause] :.: Env Con) :.: Env (Maybe Kind)) :.: Env [TyVarBndr ()]) :.: Cxt)
-type AdjNewtypeDG = (Reader Cxt :.: (Reader [TyVarBndr ()] :.: (Reader (Maybe Kind) :.: (Reader Con :.: Reader [DerivClause]) ) ) )
+
+type AdjNewtypeDG = (Reader Cxt :.: (Reader [TyVarBndr ()] :.: (Reader (Maybe Kind) :.: (Reader Con :.: Reader [DerivClause]))))
 
 coadjDecDataD :: Comonad w => W.AdjointT (Env Name :.: AdjDataDF) (AdjDataDG :.: Reader Name) w () -> Dec
 coadjDecDataD = NewtypeD (coask cxtW) (coask nameW) (coask mKindW) (coask lConW) (coask lDerivClauseW)
   where
-    ((cxtW, (tyVarBndrW, (mKindW, (lConW, lDerivClauseW)))), nameW)
+    ((cxtW, (tyVarBndrW, (mKindW, (lConW, lDerivClauseW)))), nameW) =
+      first (first (first (first (first unCompSysAdjComonad . unCompSysAdjComonad) . unCompSysAdjComonad) . unCompSysAdjComonad) . unCompSysAdjComonad) $ unCompSysAdjComonad w
 
--- type AdjTySynDF = 
--- type AdjTySynDG = 
+-- type AdjTySynDF =
+-- type AdjTySynDG =
 
-coadjTySynD :: 
+-- coadjTySynD ::

@@ -27,14 +27,16 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
@@ -53,5 +55,5 @@ adjBiparam biparam a = adjModify Identity (biparam a)
 adjState :: Monad m => (a -> m (c, a)) -> M.AdjointT (Env a) (Reader a) m c
 adjState s = do
   a <- adjGetEnv
-  (c, a2) lift $ s a
-  adjSetEnv a2 (point c)
+  (c, a2) <- lift $ s a
+  adjSetEnv a2 (pure c)

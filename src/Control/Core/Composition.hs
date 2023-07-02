@@ -59,8 +59,8 @@ hoistMAdj = undefined
 hoistWAdj :: (Adjunction f g, Comonad w) => (w (g a) -> w2 (g b)) -> W.AdjointT f g w a -> W.AdjointT f g w2 b
 hoistWAdj f (W.AdjointT fmga) = W.AdjointT $ fmap f fmga
 
-adjReturnL :: (Adjunction f1 g1, Adjunction f2 g2, Monad m) => M.AdjointT f1 g1 m a -> M.AdjointT (f2 :.: f1) (g1 :.: g2) m b
-adjReturnL m = m $## (return ())
+adjReturnL :: (Adjunction f1 g1, Adjunction f2 g2, Monad m) => M.AdjointT f1 g1 m a -> M.AdjointT (f2 :.: f1) (g1 :.: g2) m a
+adjReturnL m = fst <$> (m $## (return ()))
 
 -- for Monad, Comonad
 

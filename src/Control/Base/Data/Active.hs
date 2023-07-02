@@ -27,15 +27,18 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Control.Biparam
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
 import Data.Active
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
@@ -54,7 +57,7 @@ adjShiftDynamic = adjBiparam shiftDynamic
 coadjMkActiveStart :: Comonad w => (Time Rational -> a) -> W.AdjointT (Env (Time Rational)) (Reader (Time Rational)) w (Time Rational) -> Active a
 coadjMkActiveStart f = coadjBiparam (\a b -> mkActive a b f)
 
-coadjRunActive :: Comonad w => W.AdjointT (Env (Time a)) (Reader (Time a)) w (Active a) -> a
+coadjRunActive :: Comonad w => W.AdjointT (Env (Time Rational)) (Reader (Time Rational)) w (Active a) -> a
 coadjRunActive = coadjBiparam (\a b -> runActive b a)
 
 adjSetEra :: Monad m => Era Rational -> M.AdjointT (Env (Active a)) (Reader (Active a)) m ()

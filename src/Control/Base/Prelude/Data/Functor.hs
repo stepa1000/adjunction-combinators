@@ -27,14 +27,17 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Control.Biparam
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.Bool
 import Data.CoAndKleisli
@@ -45,7 +48,7 @@ import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
 
-adjfmap :: (Functor t, Monad m) => (a -> a) -> M.AdjointT (Env (f a)) (Reader (f a)) m ()
+adjfmap :: (Functor f, Monad m) => (a -> a) -> M.AdjointT (Env (f a)) (Reader (f a)) m ()
 adjfmap e = do
   a <- adjGetEnv
-  adjSetEnv (e <$> a) (point ())
+  adjSetEnv (e <$> a) (pure ())

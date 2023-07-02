@@ -27,14 +27,17 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Control.Biparam
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.Bool
 import Data.CoAndKleisli
@@ -45,8 +48,8 @@ import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
 
-coadjSemi :: Semigroup a => W.AdjointT (Env a) (Reader a) w a -> a
+coadjSemi :: (Semigroup a, Comonad w) => W.AdjointT (Env a) (Reader a) w a -> a
 coadjSemi = coadjBiparam (<>)
 
-adjSemi :: Semigroup a => a -> M.AdjointT (Env a) (Reader a) m ()
+adjSemi :: (Semigroup a, Monad m) => a -> M.AdjointT (Env a) (Reader a) m ()
 adjSemi = adjBiparam (<>)

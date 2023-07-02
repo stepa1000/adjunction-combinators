@@ -29,13 +29,13 @@ dependencies:
 - bifunctors
 - distributive
 - free
-# - JuicyPixels
-# - logict
+- JuicyPixels
+- logict
 - lens
 - containers
 - kan-extensions
-# - functor-combinators
-# - linear
+- functor-combinators
+- linear
 - extra
 - random
 - these
@@ -45,6 +45,14 @@ dependencies:
 - free-profunctor
 - unordered-containers
 - fgl
+- bpann
+- active
+- aeson
+- bytestring
+- template-haskell
+- gloss
+- contravariant
+- barbies
 
 ghc-options:
 - -Wall

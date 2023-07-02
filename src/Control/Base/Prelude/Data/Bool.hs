@@ -27,16 +27,19 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Control.Biparam
 import Control.Comonad
 import Control.Comonad.Cofree
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
 import Control.Monad
 import Control.Monad.Co
 import Control.Monad.Free
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.Bool
 import Data.CoAndKleisli
@@ -69,12 +72,14 @@ adjBool b = adjBiparam (\a d -> bool a d b)
 coadjBoolE :: Comonad w => a -> W.AdjointT (Env Bool) (Reader Bool) w a -> a
 coadjBoolE b = coadjBiparam (\a d -> bool b d a)
 
-adjBoolE :: Monad m => a -> a -> M.AdjointT (Env Bool) (Reader Bool) m ()
-adjBoolE b = adjBiparam (\a d -> bool b a d)
+adjBoolE :: Monad m => a -> a -> M.AdjointT (Env Bool) (Reader Bool) m a
+adjBoolE a b = adjState (\d -> return (bool b a d, d))
 
+{-
 coadjFree :: Comonad w => W.AdjointT (Free (Env a)) (Cofree (Reader a)) w b -> [w b]
 coadjFree (W.AdjointT fwg) = iterA calc fwg
   where
     calc envWCoFreeReader = flipWM $ extend (foldMap (\r -> [runReader r b]) . extract) wCoFreeReader
       where
         (b, wCoFreeReader) = runEnv envWCoFreeReader
+-}

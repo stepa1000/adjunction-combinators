@@ -27,20 +27,23 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Control.Biparam
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
 import Data.Functor.Adjunction
 import Data.Functor.Identity
-import Data.Graph.Inductive
+import Data.Graph.Inductive as Gr
 import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
@@ -52,4 +55,4 @@ coadjMkGraph :: (Comonad w, Graph gr) => W.AdjointT (Env [LNode a]) (Reader [LNo
 coadjMkGraph = coadjBiparam mkGraph
 
 adjMerge :: (Monad m, DynGraph gr) => Context a b -> M.AdjointT (Env (gr a b)) (Reader (gr a b)) m ()
-adjMerge = adjBiparam (&)
+adjMerge = adjBiparam (Gr.&)

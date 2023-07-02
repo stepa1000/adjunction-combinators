@@ -1,0 +1,43 @@
+
+module Prelude3 where (module X)
+-- import qualified Control.Category as Cat
+
+-- import Control.Invertible.Monoidal.Free as Inv
+
+{-
+import Data.Bifunctor.Functor
+import Data.Bifunctor.Product
+import Data.Bifunctor.Sum
+-}
+
+{-
+import Data.Profunctor
+import Data.Profunctor.Composition
+import Data.Proxy
+-}
+{-
+import Control.Applicative as X
+import Control.Arrow as X
+import Control.Base.Comonad as X
+import Control.Base.Prelude.Control.Biparam as X
+import Control.Comonad as X
+import Control.Comonad.Cofree as X
+import Control.Comonad.Trans.Adjoint as X
+import Control.Comonad.Trans.Class as X
+import Control.Comonad.Trans.Env as X
+import Control.Monad as X
+import Control.Monad.Co as X
+import Control.Monad.Free as X
+import Control.Monad.Reader as X
+import Control.Monad.Trans as X
+import Control.Monad.Trans.Adjoint as X
+import Data.Bitraversable as X
+import Data.Bool as X
+import Data.CoAndKleisli as X
+import Data.Foldable as X
+import Data.Function as X
+import Data.Functor.Adjunction as X
+import Data.Functor.Identity as X
+import Data.Profunctor.Strong as X
+import GHC.Generics as X
+-}

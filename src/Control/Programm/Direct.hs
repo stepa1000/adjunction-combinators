@@ -7,7 +7,11 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Data.Functor.Contravariant.Divisible where
+-- | *** Programm direct on free profunctor to recursion shemes.
+--
+-- Combinators for including functors or ricursion shemes into graph and into
+-- free profunctor.
+module Control.Programm.Direct where
 
 -- import qualified Control.Category as Cat
 
@@ -39,16 +43,7 @@ import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
 import Data.Functor.Adjunction
-import Data.Functor.Contravariant.Compose
 import Data.Functor.Identity
 import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
-
-coadjDivide :: (Comonad w, Divisible f) => (a -> (b, c)) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
-coadjDivide f = coadjBiparam (divide f)
-
-coadjDecidable :: (Comonad w, Decidable f) => (a -> Either b c) -> W.AdjointT (Env (f b)) (Reader (f b)) w (f c) -> f a
-coadjDecidable f = coadjBiparam (choose f)
-
--- Data.Functor.Contravariant.Compose

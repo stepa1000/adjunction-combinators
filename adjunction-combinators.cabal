@@ -25,36 +25,78 @@ source-repository head
 
 library
   exposed-modules:
+      Control.Base.AI.BPANN
+      Control.Base.Comonad
+      Control.Base.Control.Comonad.Cofree
+      Control.Base.Control.Comonad.Free
+      Control.Base.Control.Lens.Operators
       Control.Base.Data
+      Control.Base.Data.Active
+      Control.Base.Data.Aeson
+      Control.Base.Data.ByteString
+      Control.Base.Data.Functor.Adjunction
+      Control.Base.Data.Functor.Contravariant.Divisible
+      Control.Base.Data.Game.Damage.Direct
+      Control.Base.Data.Geometry.Intersection
+      Control.Base.Data.Graph
+      Control.Base.Data.Tag
+      Control.Base.Data.Typeable
+      Control.Base.Linear.Affine
+      Control.Base.Linear.Metric
+      Control.Base.Linear.Vector
+      Control.Base.Prelude.Control.Applicative
+      Control.Base.Prelude.Control.Biparam
+      Control.Base.Prelude.Data.Bool
+      Control.Base.Prelude.Data.Functor
+      Control.Base.Prelude.Data.Monoid
+      Control.Base.Prelude.Data.Num
+      Control.Base.Prelude.Data.Ord
+      Control.Base.Prelude.Data.Traversable
+      Control.Base.System.Random
       Control.Core.Composition
+      Control.Core.Functor.Barbie
+      Control.Core.Functor.Bifunctor
       Control.Core.Generic
       Control.Core.ParticalCompos
       Control.Core.Postlude
       Control.Prelude
       Control.Prelude2
+      Control.Programm.Direct
   other-modules:
       Paths_adjunction_combinators
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      adjunctions
+      JuicyPixels
+    , active
+    , adjunctions
+    , aeson
+    , barbies
     , base >=4.7 && <5
     , bifunctors
+    , bpann
+    , bytestring
     , coandkleisli
     , comonad
     , containers
+    , contravariant
     , distributive
     , extra
     , fgl
     , free
     , free-profunctor
+    , functor-combinators
     , ghc-prim
+    , gloss
     , kan-extensions
     , lens
+    , linear
+    , logict
     , mtl
     , profunctors
     , random
+    , template-haskell
     , these
     , unordered-containers
     , vector
@@ -68,24 +110,36 @@ executable adjunction-combinators-exe
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      adjunction-combinators
+      JuicyPixels
+    , active
+    , adjunction-combinators
     , adjunctions
+    , aeson
+    , barbies
     , base >=4.7 && <5
     , bifunctors
+    , bpann
+    , bytestring
     , coandkleisli
     , comonad
     , containers
+    , contravariant
     , distributive
     , extra
     , fgl
     , free
     , free-profunctor
+    , functor-combinators
     , ghc-prim
+    , gloss
     , kan-extensions
     , lens
+    , linear
+    , logict
     , mtl
     , profunctors
     , random
+    , template-haskell
     , these
     , unordered-containers
     , vector
@@ -100,24 +154,36 @@ test-suite adjunction-combinators-test
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      adjunction-combinators
+      JuicyPixels
+    , active
+    , adjunction-combinators
     , adjunctions
+    , aeson
+    , barbies
     , base >=4.7 && <5
     , bifunctors
+    , bpann
+    , bytestring
     , coandkleisli
     , comonad
     , containers
+    , contravariant
     , distributive
     , extra
     , fgl
     , free
     , free-profunctor
+    , functor-combinators
     , ghc-prim
+    , gloss
     , kan-extensions
     , lens
+    , linear
+    , logict
     , mtl
     , profunctors
     , random
+    , template-haskell
     , these
     , unordered-containers
     , vector

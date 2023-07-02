@@ -27,14 +27,16 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.Bool
 import Data.CoAndKleisli
@@ -45,8 +47,8 @@ import Data.Profunctor.Strong
 import GHC.Generics
 import Prelude as Pre
 
-adjTraverse :: (Monad m, Traverseble t) => (a -> m b) -> M.AdjointT (Env (t a)) (Reader (t a)) m ()
+adjTraverse :: (Monad m, Traversable t) => (a -> m a) -> M.AdjointT (Env (t a)) (Reader (t a)) m ()
 adjTraverse f = do
   a <- adjGetEnv
-  a2 <- traverse f a
-  adjSetEnv a2 pure
+  a2 <- lift $ mapM f a
+  adjSetEnv a2 (pure ())

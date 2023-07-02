@@ -41,6 +41,7 @@ import Data.Functor.Adjunction
 import Data.Graph.Inductive
 import Data.HashMap.Lazy
 import Data.List.NonEmpty as NE
+import Data.Monoid
 import Data.Profunctor.Strong
 import Data.Vector as V
 import GHC.Generics
@@ -50,8 +51,8 @@ type WAdjData f g a = W.AdjointT f g NonEmpty a
 
 type WAdjDynamic f g = WAdjData f g Dynamic
 
-unionAdjData :: (Adjunction f1 g1, Adjunction f2 g2) => WAdjData f1 g1 a -> WAdjData f2 g2 a -> WAdjData (f2 :.: f1) (g1 :.: g2) a
-unionAdjData = compAdjComonad liftA
+unionAdjData :: (Adjunction f1 g1, Adjunction f2 g2, Semigroup a) => WAdjData f1 g1 a -> WAdjData f2 g2 a -> WAdjData (f2 :.: f1) (g1 :.: g2) a
+unionAdjData w1 w2 = (\(a, b) -> a <> b) <$> compAdjComonad liftW2 w1 w2
 
 type MAdjData f g a = M.AdjointT f g Vector a
 

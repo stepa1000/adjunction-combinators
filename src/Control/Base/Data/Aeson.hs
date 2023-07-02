@@ -27,15 +27,18 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Control.Biparam
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
 import Data.Aeson
-import Data.Base.Comonad
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
@@ -48,5 +51,5 @@ import Prelude as Pre
 coadjEncodeFile :: (ToJSON a, Comonad w) => W.AdjointT (Env FilePath) (Reader FilePath) w a -> IO ()
 coadjEncodeFile = coadjBiparam encodeFile
 
-coadjDecodeFileStrict :: (ToJSON a, Comonad w) => W.AdjointT (Env FilePath) (Reader FilePath) w () -> IO a
+coadjDecodeFileStrict :: (FromJSON a, Comonad w) => W.AdjointT (Env FilePath) (Reader FilePath) w () -> IO (Maybe a)
 coadjDecodeFileStrict = coadjBiparam (\fp _ -> decodeFileStrict fp)

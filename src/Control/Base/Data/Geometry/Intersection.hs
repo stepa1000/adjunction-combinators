@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Data.Geometry,Intersection where
+module Control.Base.Data.Geometry.Intersection where
 
 -- import qualified Control.Category as Cat
 
@@ -27,49 +27,57 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Linear.Metric
+import Control.Base.Prelude.Control.Biparam
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
+import Control.Comonad.Trans.Env
+import Control.Core.Composition
 import Control.Monad
 import Control.Monad.Co
+import Control.Monad.Reader as R
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
 import Data.Bitraversable
+import Data.Bool
 import Data.CoAndKleisli
 import Data.Function
 import Data.Functor.Adjunction
 import Data.Functor.Identity
 import Data.Profunctor.Strong
 import GHC.Generics
-import Prelude as Pre
 import Linear
-import Data.Bool
-import Lens 
+import Prelude as Pre
 
 type AdjInRadiusF t a = Env (t a) :.: Env a
+
 type AdjInRadiusG t a = Reader a :.: Reader (t a)
 
-coadjInRadius ::  (Comonad w, Metric t, Floating a) => W.AdjointT (AdjInRadiusF t a) (AdjInRadiusG t a) w (t a) -> Bool
-coadjInRadius w = distance (coask wt) (extract w) < (extract wa)
+coadjInRadius :: (Comonad w, Metric t, Floating a, Ord a) => W.AdjointT (AdjInRadiusF t a) (AdjInRadiusG t a) w (t a) -> Bool
+coadjInRadius w = distance (coask wt) (extract w) < (coask wa)
   where
     (wa, wt) = unCompSysAdjComonad w
 
 type AdjInProjectedF t a = Env (t a) :.: Env (t a)
+
 type AdjInProjectedG t a = Reader (t a) :.: Reader (t a)
 
-coadjInProject :: (Comonad w, Metric t, Floating a) => W.AdjointT (AdjInProjectedF t a) (AdjInProjectedG t a) w (t a) -> Bool
-coadjInProject w = (inProject $ coadjProject wt1) && (inProject $ coadjProject wt2)
+coadjInProject :: (Comonad w, Metric t, Floating a, Ord a) => W.AdjointT (AdjInProjectedF t a) (AdjInProjectedG t a) w (t a) -> Bool
+coadjInProject w = (inProject $ extend coadjProject wt1) && (inProject $ extend coadjProject wt2)
   where
-    inProject wtp = (extract $ coadjqd wtp) < (quadrance $ coask wtp)
+    inProject :: (Comonad w, Metric t, Floating a, Ord a) => W.AdjointT (Env (t a)) (Reader (t a)) w (t a) -> Bool
+    inProject wtp = coadjqd wtp < (quadrance $ coask wtp)
     (wt1, wt2) = unCompSysAdjComonad w
 
-coadjIntersectProject :: 
-  (Comonad w, Metric t, Floating a,  f) => 
+{-
+coadjIntersectProject ::
+  (Comonad w, Metric t, Floating a, f) =>
   W.AdjointT (AdjInProjectedF t a) (AdjInProjectedG t a) w (f (t a)) ->
   W.AdjointT (AdjInProjectedF t a) (AdjInProjectedG t a) w (f (t a)) ->
   Bool
-coadjIntersectProject w1 w2 = undefined 
+coadjIntersectProject w1 w2 = undefined
+-}
 --  where
 --    ww1 = fmap (const $ extract w2) w1
-
