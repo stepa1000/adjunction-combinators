@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Base.Prelude.Control.Biparam where
+module Control.Core.Biparam where
 
 -- import qualified Control.Category as Cat
 
@@ -57,3 +57,14 @@ adjState s = do
   a <- adjGetEnv
   (c, a2) <- lift $ s a
   adjSetEnv a2 (pure c)
+  
+runAdjT :: Monad m => a -> M.AdjointT (Env a) (Reader a) m b -> m (a,b)
+runAdjT a (M.AdjointT rme) = runEnv <$> runReader rme a
+
+runAdjTfst :: (Monad m, Functor f, Functor g) 
+  => a -> M.AdjointT (Env a :.: f) (g :.: Reader a) m b -> M.AdjointT f g m (a,b)
+runAdjTfst a (M.AdjointT rme) = M.AdjointT $ (fmap . fmap) ((\(x,f)->(\y->(x,y)) <$> f) . runEnv . unComp1) $ fmap (`runReader` a) $ unComp1 rme
+
+runAdjTsnd :: (Monad m, Functor f, Functor g) 
+  => a -> M.AdjointT (f :.: Env a) (Reader a :.: g) m b -> M.AdjointT f g m (a,b)
+runAdjTsnd a (M.AdjointT rme) = M.AdjointT $ (fmap . fmap) (fmap runEnv . unComp1) $ (`runReader` a) $ unComp1 rme

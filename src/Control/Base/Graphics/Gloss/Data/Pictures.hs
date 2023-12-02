@@ -46,6 +46,9 @@ import Graphics.Gloss.Data.Color
 import Graphics.Gloss.Data.Picture
 import Graphics.Gloss.Interface.IO.Game
 import Prelude as Pre
+import Control.Comonad.Env
+import Control.Monad.Reader
+import Control.Core.Biparam
 
 coadjThickCircle :: Comonad w => W.AdjointT (Env Float) (Reader Float) w Float -> Picture
 coadjThickCircle = coadjBiparam ThickCircle
@@ -67,3 +70,30 @@ coadjRotate = coadjBiparam (\pic r -> Rotate r pic)
 
 adjRotate :: Monad m => Float -> M.AdjointT (Env Picture) (Reader Picture) m ()
 adjRotate = adjBiparam Rotate
+
+coadjScale :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w (Float,Float) -> Picture
+coadjScale = coadjBiparam (\pic (x,y) -> Scale x y pic)
+
+adjScale :: Monad m => (Float, Float) -> M.AdjointT (Env Picture) (Reader Picture) m ()
+adjScale = adjBiparam (\(x, y) p -> Scale x y p)
+
+coadjPictures :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w [Picture] -> Picture
+coadjPictures = coadjBiparam (\pic picl -> Pictures $ pic:picl)
+
+adjPictures :: Monad m => [Picture] -> M.AdjointT (Env Picture) (Reader Picture) m ()
+adjPictures = adjBiparam (\picl p -> Pictures $ p:picl)
+
+-- Re coadj
+
+coadjColorRe :: Comonad w => W.AdjointT (Env Color) (Reader Color) w Picture -> Picture
+coadjColorRe = coadjBiparam (\c p -> Color c p)
+{-
+coadjTranslateRe :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w (Float, Float) -> Picture
+coadjTranslateRe = coadjBiparam (\p (x, y) -> Translate x y p)
+
+coadjRotateRe :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w Float -> Picture
+coadjRotateRe = coadjBiparam (\pic r -> Rotate r pic)
+
+coadjScaleRe :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w (Float,Float) -> Picture
+coadjScaleRe = coadjBiparam (\pic (x,y) -> Scale x y pic)
+-}

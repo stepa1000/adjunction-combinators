@@ -30,7 +30,7 @@ import Control.Applicative
 import Control.Arrow
 import Control.Base.Comonad
 import Control.Base.Data.Tag
-import Control.Base.Prelude.Control.Biparam
+import Control.Core.Biparam
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class

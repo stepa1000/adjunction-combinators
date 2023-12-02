@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Control.Core.Functor.Bifunctor where
+module Control.Base.Graphics.Gloss.Data.Event where
 
 -- import qualified Control.Category as Cat
 
@@ -27,6 +27,8 @@ import Data.Proxy
 
 import Control.Applicative
 import Control.Arrow
+import Control.Base.Comonad
+import Control.Base.Prelude.Data.Ord
 import Control.Comonad
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Class
@@ -34,8 +36,6 @@ import Control.Monad
 import Control.Monad.Co
 import Control.Monad.Trans
 import Control.Monad.Trans.Adjoint as M
-import Data.Base.Comonad
-import Data.Bifunctor
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
@@ -43,14 +43,29 @@ import Data.Functor.Adjunction
 import Data.Functor.Identity
 import Data.Profunctor.Strong
 import GHC.Generics
+import Graphics.Gloss.Data.Color
+import Graphics.Gloss.Data.Picture
+import Graphics.Gloss.Interface.IO.Game
 import Prelude as Pre
+import Control.Core.Biparam
+import Control.Comonad.Env
+import Control.Monad.Reader
 
-compBiMapMM ::
-  (Bifunctor f, Monad m, Adjunction f1 g1, Adjunction f2 g2, Adjunction f3 g3) =>
-  (Either a b -> M.AdjointT f3 g3 m c) ->
-  f (M.AdjointT f1 g1 m a) (M.AdjointT f2 g2 m b) ->
-  f (M.AdjointT (f3 :.: f1) (g1 :.: g3) m c) (M.AdjointT (f1 :.: f2) (g2 :.: g3) m c)
-compBiMapMM f =
-  bimap
-    (\m1 -> ((\a -> return () $## (f $ Left a)) =<<) $ m1 $## (return ()))
-    (\m2 -> ((\b -> return () $## (f $ Right b)) =<<) $ adjReturnL m2)
+data EventF f
+  = EventKeyF (KeyF f) (f KeyState) (f Modifiers) (f (Float, Float))
+  | EventMotionF (f (Float, Float))
+  | EventResizeF (f (Int, Int))
+
+data KeyF f
+  = CharF (f Char)
+  | SpecialKeyF (f SpecialKey)
+  | MouseButtonF (f MouseButton)
+
+coadjEventKeyChar :: Comonad w => EventF (W.AdjointT (Env Char) (Reader Char) w) -> Bool
+coadjEventKeyChar (EventKeyF (CharF w) _ _ _) = coadjEq w
+coadjEventKeyChar _ = False
+
+adjEvent :: Monad m 
+  => EventF (M.AdjointT (Env Bool) (Reader Bool) m) 
+  -> M.AdjointT (Env Bool) (Reader Bool) m (EventF (M.AdjointT (Env Bool) (Reader Bool) m))
+adjEvent = undefined -- btraverse

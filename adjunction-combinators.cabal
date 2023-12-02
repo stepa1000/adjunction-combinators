@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.35.2.
+-- This file has been generated from package.yaml by hpack version 0.36.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -41,11 +41,12 @@ library
       Control.Base.Data.Graph
       Control.Base.Data.Tag
       Control.Base.Data.Typeable
+      Control.Base.Graphics.Gloss.Data.Event
+      Control.Base.Graphics.Gloss.Data.Pictures
       Control.Base.Linear.Affine
       Control.Base.Linear.Metric
       Control.Base.Linear.Vector
       Control.Base.Prelude.Control.Applicative
-      Control.Base.Prelude.Control.Biparam
       Control.Base.Prelude.Data.Bool
       Control.Base.Prelude.Data.Functor
       Control.Base.Prelude.Data.Monoid
@@ -53,15 +54,14 @@ library
       Control.Base.Prelude.Data.Ord
       Control.Base.Prelude.Data.Traversable
       Control.Base.System.Random
+      Control.Core.Biparam
       Control.Core.Composition
       Control.Core.Functor.Barbie
-      Control.Core.Functor.Bifunctor
       Control.Core.Generic
       Control.Core.ParticalCompos
       Control.Core.Postlude
       Control.Prelude
       Control.Prelude2
-      Control.Programm.Direct
   other-modules:
       Paths_adjunction_combinators
   hs-source-dirs:
