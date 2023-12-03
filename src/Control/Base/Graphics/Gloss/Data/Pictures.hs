@@ -87,13 +87,13 @@ adjPictures = adjBiparam (\picl p -> Pictures $ p:picl)
 
 coadjColorRe :: Comonad w => W.AdjointT (Env Color) (Reader Color) w Picture -> Picture
 coadjColorRe = coadjBiparam (\c p -> Color c p)
-{-
-coadjTranslateRe :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w (Float, Float) -> Picture
-coadjTranslateRe = coadjBiparam (\p (x, y) -> Translate x y p)
 
-coadjRotateRe :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w Float -> Picture
-coadjRotateRe = coadjBiparam (\pic r -> Rotate r pic)
+coadjTranslateRe :: Comonad w => W.AdjointT (Env (Float,Float)) (Reader (Float,Float)) w Picture -> Picture
+coadjTranslateRe = coadjBiparam (\(x, y) p -> Translate x y p)
 
-coadjScaleRe :: Comonad w => W.AdjointT (Env Picture) (Reader Picture) w (Float,Float) -> Picture
-coadjScaleRe = coadjBiparam (\pic (x,y) -> Scale x y pic)
--}
+coadjRotateRe :: Comonad w => W.AdjointT (Env Float) (Reader Float) w Picture -> Picture
+coadjRotateRe = coadjBiparam (\r pic -> Rotate r pic)
+
+coadjScaleRe :: Comonad w => W.AdjointT (Env (Float,Float)) (Reader (Float,Float)) w Picture -> Picture
+coadjScaleRe = coadjBiparam (\(x,y) pic -> Scale x y pic)
+
