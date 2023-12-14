@@ -59,25 +59,43 @@ hoistMAdj = undefined
 hoistWAdj :: (Adjunction f g, Comonad w) => (w (g a) -> w2 (g b)) -> W.AdjointT f g w a -> W.AdjointT f g w2 b
 hoistWAdj f (W.AdjointT fmga) = W.AdjointT $ fmap f fmga
 
-adjReturnL :: (Adjunction f1 g1, Adjunction f2 g2, Monad m) => M.AdjointT f1 g1 m a -> M.AdjointT (f2 :.: f1) (g1 :.: g2) m a
-adjReturnL m = fst <$> (m $## (return ()))
+adjSnd :: (Adjunction f1 g1, Adjunction f2 g2, Monad m) => M.AdjointT f1 g1 m a -> M.AdjointT (f2 :.: f1) (g1 :.: g2) m a
+adjSnd m = fst <$> (m $## (return ()))
+
+adjFst :: (Adjunction f1 g1, Adjunction f2 g2, Monad m) => M.AdjointT f2 g2 m a -> M.AdjointT (f2 :.: f1) (g1 :.: g2) m a
+adjFst m = snd <$> ((return ()) $## m)
+
+coadjSnd :: (Adjunction f1 g1, Adjunction f2 g2, Comonad w) => W.AdjointT (f2 :.: f1) (g1 :.: g2) w a -> W.AdjointT f1 g1 w a
+coadjSnd = fst . unCompSysAdjComonad
+
+coadjFst :: (Adjunction f1 g1, Adjunction f2 g2, Comonad w) => W.AdjointT (f2 :.: f1) (g1 :.: g2) w a -> W.AdjointT f2 g2 w a
+coadjFst = snd . unCompSysAdjComonad
 
 -- for Monad, Comonad
 
-($##) :: (Adjunction f1 g1, Adjunction f2 g2, Monad m) => M.AdjointT f1 g1 m a -> M.AdjointT f2 g2 m b -> M.AdjointT (f2 :.: f1) (g1 :.: g2) m (a, b)
+($##) :: (Adjunction f1 g1, Adjunction f2 g2, Monad m) => 
+  M.AdjointT f1 g1 m a -> 
+  M.AdjointT f2 g2 m b -> 
+  M.AdjointT (f2 :.: f1) (g1 :.: g2) m (a, b)
 ($##) (M.AdjointT a1) (M.AdjointT a2) =
   M.AdjointT $
     (fmap . fmap) Comp1 $
       Comp1 $
         fmap (\x -> fmap ((>>= (\y -> (\y2 -> ((\z -> (\x2 -> (x2, z)) <$> y2) <$> y)) <$> x))) a2) a1
 
-($+*) :: (Adjunction f1 g1, Adjunction f2 g2, Monad m) => M.AdjointT f1 g1 m a -> M.AdjointT f2 g2 m b -> M.AdjointT (f1 :+: f2) (g1 :*: g2) m (Either a b)
+($+*) :: (Adjunction f1 g1, Adjunction f2 g2, Monad m) => 
+  M.AdjointT f1 g1 m a -> 
+  M.AdjointT f2 g2 m b -> 
+  M.AdjointT (f1 :+: f2) (g1 :*: g2) m (Either a b)
 ($+*) (M.AdjointT a1) (M.AdjointT a2) =
   M.AdjointT $
     ((fmap . fmap) (L1 . fmap Left) a1)
       :*: ((fmap . fmap) (R1 . fmap Right) a2)
 
-(@##) :: (Adjunction f1 g1, Adjunction f2 g2, ComonadApply w) => W.AdjointT f1 g1 w a -> W.AdjointT f2 g2 w b -> W.AdjointT (f2 :.: f1) (g1 :.: g2) w (a, b)
+(@##) :: (Adjunction f1 g1, Adjunction f2 g2, ComonadApply w) => 
+  W.AdjointT f1 g1 w a -> 
+  W.AdjointT f2 g2 w b -> 
+  W.AdjointT (f2 :.: f1) (g1 :.: g2) w (a, b)
 (@##) (W.AdjointT a1) (W.AdjointT a2) =
   W.AdjointT $
     (fmap . fmap) Comp1 $
