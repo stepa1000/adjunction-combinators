@@ -33,17 +33,9 @@ packages:
       size: 204
   original:
     hackage: bpann-0.1.1
-- completed:
-    hackage: functor-combinators-0.4.1.2@sha256:016ea62aaa27ad749d496d07e90ac8628c5d4fb910f650da539acd6aa548a996,5694
-    pantry-tree:
-      sha256: 189bc904b94ae0300bfe91d3eef4c9369d41069786b5f02554422211b47ba7c9
-      size: 2700
-  original:
-    hackage: functor-combinators-0.4.1.2
 snapshots:
 - completed:
-    sha256: af5d667f6096e535b9c725a72cffe0f6c060e0568d9f9eeda04caee70d0d9d2d
-    size: 649133
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/20/12.yaml
-  original:
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/20/12.yaml
+    sha256: 7b975b104cb3dbf0c297dfd01f936a4d2ee523241dd0b1ae960522b833fe3027
+    size: 714096
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/7.yaml
+  original: lts-22.7

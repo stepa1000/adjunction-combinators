@@ -34,7 +34,7 @@ dependencies:
 - lens
 - containers
 - kan-extensions
-- functor-combinators
+#- functor-combinators
 - linear
 - extra
 - random

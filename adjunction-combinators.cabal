@@ -86,7 +86,6 @@ library
     , fgl
     , free
     , free-profunctor
-    , functor-combinators
     , ghc-prim
     , gloss
     , kan-extensions
@@ -129,7 +128,6 @@ executable adjunction-combinators-exe
     , fgl
     , free
     , free-profunctor
-    , functor-combinators
     , ghc-prim
     , gloss
     , kan-extensions
@@ -173,7 +171,6 @@ test-suite adjunction-combinators-test
     , fgl
     , free
     , free-profunctor
-    , functor-combinators
     , ghc-prim
     , gloss
     , kan-extensions
