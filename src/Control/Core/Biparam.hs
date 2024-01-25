@@ -68,3 +68,6 @@ runAdjTfst a (M.AdjointT rme) = M.AdjointT $ (fmap . fmap) ((\(x,f)->(\y->(x,y))
 runAdjTsnd :: (Monad m, Functor f, Functor g) 
   => a -> M.AdjointT (f :.: Env a) (Reader a :.: g) m b -> M.AdjointT f g m (a,b)
 runAdjTsnd a (M.AdjointT rme) = M.AdjointT $ (fmap . fmap) (fmap runEnv . unComp1) $ (`runReader` a) $ unComp1 rme
+
+createCoadj :: Comonad w => w a -> W.AdjointT (Env a) (Reader a) w ()
+createCoadj wa = W.AdjointT $ env (extract wa) $ fmap (const (return ())) wa
