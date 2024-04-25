@@ -40,6 +40,7 @@ import Control.Monad.Trans.Adjoint as M
 import Data.Bitraversable
 import Data.CoAndKleisli
 import Data.Function
+import Data.Distributive
 import Data.Functor.Adjunction
 import Data.Functor.Identity
 import Data.Profunctor.Strong
@@ -63,7 +64,37 @@ runAdjT a (M.AdjointT rme) = runEnv <$> runReader rme a
 
 runAdjTfst :: (Monad m, Functor f, Functor g) 
   => a -> M.AdjointT (Env a :.: f) (g :.: Reader a) m b -> M.AdjointT f g m (a,b)
-runAdjTfst a (M.AdjointT rme) = M.AdjointT $ (fmap . fmap) ((\(x,f)->(\y->(x,y)) <$> f) . runEnv . unComp1) $ fmap (`runReader` a) $ unComp1 rme
+runAdjTfst a (M.AdjointT rme) = M.AdjointT $ 
+  (fmap . fmap) ((\(x,f)->(\y->(x,y)) <$> f) . runEnv . unComp1) $ 
+  fmap (`runReader` a) $ 
+  unComp1 rme
+
+subAdjSnd :: 
+  ( Monad m, Functor f, Functor g ,Functor f1, Functor g1,
+    Adjunction f g, Adjunction f1 g1
+  ) 
+  => 
+  M.AdjointT (f1 :.: f) (g :.: g1) m b -> 
+  M.AdjointT f1 g1 (M.AdjointT f g m) b
+subAdjSnd (M.AdjointT rme) =
+  M.AdjointT $
+  fmap M.AdjointT $
+  (fmap . fmap . fmap) ((\f1f-> fmap (\_->fmap (extractL) f1f) $ extractL f1f) . unComp1) $
+  distribute $
+  unComp1 rme
+
+subAdjFst :: 
+  ( Monad m, Functor f, Functor g ,Functor f1, Functor g1,
+    Adjunction f g, Adjunction f1 g1
+  ) 
+  => 
+  M.AdjointT (f1 :.: f) (g :.: g1) m b -> 
+  M.AdjointT f g (M.AdjointT f1 g1 m) b
+subAdjFst (M.AdjointT rme) =
+  M.AdjointT $
+  fmap M.AdjointT $
+  (fmap . fmap . fmap) unComp1 $
+  unComp1 rme
 
 runAdjTsnd :: (Monad m, Functor f, Functor g) 
   => a -> M.AdjointT (f :.: Env a) (Reader a :.: g) m b -> M.AdjointT f g m (a,b)
