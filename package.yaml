@@ -45,7 +45,6 @@ dependencies:
 - free-profunctor
 - unordered-containers
 - fgl
-- bpann
 - active
 - aeson
 - bytestring

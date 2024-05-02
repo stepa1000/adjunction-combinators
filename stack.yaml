@@ -44,7 +44,6 @@ extra-deps:
   commit: bb1589221de5f2506a167b7fdf9d667cee6a5d7f
 - git: https://github.com/stepa1000/free-profunctor.git
   commit: d47c29187e5f0c616b992f296e83d0f3253832d3
-- bpann-0.1.1
 #- functor-combinators-0.4.1.2
 # - invertible-0.2.0.6
 
