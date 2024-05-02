@@ -25,7 +25,6 @@ source-repository head
 
 library
   exposed-modules:
-      Control.Base.AI.BPANN
       Control.Base.Comonad
       Control.Base.Control.Comonad.Cofree
       Control.Base.Control.Comonad.Free
@@ -75,7 +74,6 @@ library
     , barbies
     , base >=4.7 && <5
     , bifunctors
-    , bpann
     , bytestring
     , coandkleisli
     , comonad
@@ -117,7 +115,6 @@ executable adjunction-combinators-exe
     , barbies
     , base >=4.7 && <5
     , bifunctors
-    , bpann
     , bytestring
     , coandkleisli
     , comonad
@@ -160,7 +157,6 @@ test-suite adjunction-combinators-test
     , barbies
     , base >=4.7 && <5
     , bifunctors
-    , bpann
     , bytestring
     , coandkleisli
     , comonad

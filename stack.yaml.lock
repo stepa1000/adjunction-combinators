@@ -26,13 +26,6 @@ packages:
   original:
     commit: d47c29187e5f0c616b992f296e83d0f3253832d3
     git: https://github.com/stepa1000/free-profunctor.git
-- completed:
-    hackage: bpann-0.1.1@sha256:f3245a48d2a67f7e6551559ecc216f841db4887311392e60f53c07a0eeab3365,738
-    pantry-tree:
-      sha256: 2b0f6446394f669f6ab30725358f2ea7f28f919955005bdde74bd46adca68f75
-      size: 204
-  original:
-    hackage: bpann-0.1.1
 snapshots:
 - completed:
     sha256: 7b975b104cb3dbf0c297dfd01f936a4d2ee523241dd0b1ae960522b833fe3027
