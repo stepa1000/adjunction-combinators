@@ -24,6 +24,9 @@ adjEnv e w = W.AdjointT $ env e $ fmap (pure) w
 adjSetEnv :: (Adjunction f g, Monad m) => e -> f a -> M.AdjointT (EnvT e f) (ReaderT e g) m a
 adjSetEnv e wa = mapMAdj (const $ return $ EnvT e wa) (return ())
 
+adjSetEnvId :: (Monad m) => e -> M.AdjointT (Env e) (Reader e) m ()
+adjSetEnvId e = adjSetEnv e (return ())
+
 adjGetEnv :: (Adjunction f g, Monad m) => M.AdjointT (EnvT e f) (ReaderT e g) m e
 adjGetEnv = mapMAdj (\(EnvT e wa) -> return $ EnvT e ((const e) <$> wa)) (return ())
 
@@ -31,7 +34,7 @@ adjModify :: (Adjunction f g, Monad m) => (forall a. a -> f a) -> (e -> e) -> M.
 adjModify point e = do
   a <- adjGetEnv
   adjSetEnv (e a) (point ())
-
+  
 {-
 coadjFreeTrapez :: Comonad w => W.AdjointT (Free (Env a)) (Cofree (Reader a)) w b -> [w b]
 coadjFreeTrapez (W.AdjointT fwg) = f calc fwg

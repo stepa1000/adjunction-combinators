@@ -63,7 +63,9 @@ runAdjT :: Monad m => a -> M.AdjointT (Env a) (Reader a) m b -> m (a,b)
 runAdjT a (M.AdjointT rme) = runEnv <$> runReader rme a
 
 runAdjTfst :: (Monad m, Functor f, Functor g) 
-  => a -> M.AdjointT (Env a :.: f) (g :.: Reader a) m b -> M.AdjointT f g m (a,b)
+  => a -> 
+  M.AdjointT (Env a :.: f) (g :.: Reader a) m b -> 
+  M.AdjointT f g m (a,b)
 runAdjTfst a (M.AdjointT rme) = M.AdjointT $ 
   (fmap . fmap) ((\(x,f)->(\y->(x,y)) <$> f) . runEnv . unComp1) $ 
   fmap (`runReader` a) $ 
@@ -97,8 +99,43 @@ subAdjFst (M.AdjointT rme) =
   unComp1 rme
 
 runAdjTsnd :: (Monad m, Functor f, Functor g) 
-  => a -> M.AdjointT (f :.: Env a) (Reader a :.: g) m b -> M.AdjointT f g m (a,b)
+  => a -> 
+  M.AdjointT (f :.: Env a) (Reader a :.: g) m b -> 
+  M.AdjointT f g m (a,b)
 runAdjTsnd a (M.AdjointT rme) = M.AdjointT $ (fmap . fmap) (fmap runEnv . unComp1) $ (`runReader` a) $ unComp1 rme
 
 createCoadj :: Comonad w => w a -> W.AdjointT (Env a) (Reader a) w ()
 createCoadj wa = W.AdjointT $ env (extract wa) $ fmap (const (return ())) wa
+
+stateW :: (Comonad w, Monad m) => 
+  W.AdjointT (Env e) (Reader e) w a -> 
+  M.AdjointT (Env e) (Reader e) m b -> 
+  m (W.AdjointT (Env e) (Reader e) w (a,b))
+stateW w m = do
+    (a,b) <- runAdjT (coask w) m
+    return $ fmap (const (extract w,b)) $ adjEnv a (lower w)
+
+stateWFst :: (Comonad w, Monad m) => 
+  ( forall x y. W.AdjointT f g w x ->
+    M.AdjointT f g m y ->
+    m (W.AdjointT f g w (x,y))
+  ) ->
+  W.AdjointT (Env a :.: f) (g :.: Reader a) w c -> 
+  M.AdjointT (Env a :.: f) (g :.: Reader a) m b -> 
+  m (W.AdjointT (Env a :.: f) (g :.: Reader a) w (c,b))
+stateWFst f w m = do
+    wab <- f (coadjSnd w) $ runAdjTfst (coask $ coadjFst w) m
+    return $ fmap fst $ wab @## (adjEnv a (lower w))
+
+stateWSnd :: (Comonad w, Monad m) => 
+  ( forall x y. W.AdjointT f g w x ->
+    M.AdjointT f g m y ->
+    m (W.AdjointT f g w (x,y))
+  ) ->
+  W.AdjointT (f :.: Env a) (Reader a :.: g) w c -> 
+  M.AdjointT (f :.: Env a) (Reader a :.: g) m b -> 
+  m (W.AdjointT (f :.: Env a) (Reader a :.: g) w (c,b))
+stateWSnd f w m = do
+    wab <- f (coadjFst w) $ runAdjTsnd (coask $ coadjSnd w) m
+    return $ fmap snd $ (adjEnv a (lower w)) @## wab
+
