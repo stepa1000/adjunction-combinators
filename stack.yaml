@@ -8,17 +8,17 @@
 # A snapshot resolver dictates the compiler version and the set of packages
 # to be used for project dependencies. For example:
 #
-# resolver: lts-3.5
-# resolver: nightly-2015-09-21
-# resolver: ghc-7.10.2
+# resolver: lts-22.7
+# resolver: nightly-2024-01-20
+# resolver: ghc-9.6.4
 #
 # The location of a snapshot can be provided as a file or url. Stack assumes
 # a snapshot provided as a file might change, whereas a url resource does not.
 #
 # resolver: ./custom-snapshot.yaml
-# resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-22.7
-
+# resolver: https://example.com/snapshots/2023-01-01.yaml
+resolver: ghc-9.8.2 # https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/24/28.yaml
+ 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
 #
@@ -29,23 +29,130 @@ resolver: lts-22.7
 #   - auto-update
 #   - wai
 packages:
-- .
+- adj-combinators
+- adj-sendbox
 # Dependency packages to be pulled from upstream that are not in the resolver.
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
 #
-# extra-deps:
+extra-deps:
+- git: https://github.com/stepa1000/coandkleisli.git
+  commit: bb1589221de5f2506a167b7fdf9d667cee6a5d7f
+- JuicyPixels-3.3.9@sha256:8ccf945dfe1628b63985b0fd3a9b8248e9f5a2c1f2a75808c04b9fd530a04dbc,4045
+- active-0.2.1@sha256:2fb8837f62d0e99bddff7e8ecee92e128a3a65dd93e5f0e8e97992dfdc1db473,1687
+- adjunctions-4.4.3@sha256:766e116f1c348b6518b96291961a7768e98fc467cfd29e51c230177eb997e676,3161
+- aeson-2.2.3.0@sha256:7d48c2395ef168d2c2070fdb02c7998384be27d31a03bb35d1740af4a19a857b,6368
+- barbies-2.1.1.0@sha256:ec928dbc06fa00e1f323b9b7f4f5ba3cffcaa1e0d7d3cc275789a40a5a32f053,3238
+- bifunctors-5.6.2@sha256:115a621c4eaaabb07834f9e4dd3371e21f39d034305062f4bd5cd72c2f8880d2,3332
+- comonad-5.0.9@sha256:75aded79bf583c908e4e4687c0ae067f256e2507536b75f58ffba7748767c353,3587
+- contravariant-1.5.5@sha256:470ed0e040e879e2da4af1b2c8f94e199f6135852a8107858d5ae0a95365835f,3041
+- distributive-0.6.2.1@sha256:0f99f5541cca04acf89b64432b03422b6408e830a8dff30e6c4334ef1a48680c,2996
+- extra-1.8@sha256:57d9200fbea2e88e05e0be35925511764827b1c86d3214106b0b610f331fc40c,2725
+- fgl-5.8.3.0@sha256:507f764d5096605759d8639d3a0113f596db08b197a54899e6b2559e113cd68f,3949
+- free-5.2@sha256:7f3992a66987bbba5a6546420f6129fb9b66b80cdd005d34ec77a1e1c8ed8340,4178
+- functor-combinators-0.4.1.4@sha256:839456c5a5ad9297fba3838a741564685924235067ff9031d0c4d9709144daff,5891
+- gloss-1.13.2.2@sha256:31467330073c706f28a640b1c891f527b11b5489f2566930a05f29fb872fd0ef,4099
+- invertible-0.2.0.8@sha256:a6bfbf7e48a1744716134d8c73b3dec2d668ee13ba2c7cffce73621a275d559f,3628
+- kan-extensions-5.2.7@sha256:b91397acc14202e8a9eb5717c9d5ca12b63c00b410e902cb11f76d38fcec7895,2569
+- lens-5.3.5@sha256:3bce9b67767ff9feccba39e41f9ad21a0fbf395b75069ecefe400a791a9acd69,14788
+- linear-1.23.2@sha256:6d4c5e5917a275305f6e9430f6d8e0a5299b877647c12deacb1f7e9863b4d9b2,4264
+- logict-0.8.2.0@sha256:24e023b7c75cbf61d1c94c84479949dc4715dbce0824fa7562396679f56a2647,1722
+- profunctors-5.6.3@sha256:bfdb8c8b8cd4390e30219219edaff6ae7f428516f7338f0b7c39cb16b84bad2c,2408
+- random-1.3.1@sha256:0b4f649c3e78713b2ccad1535251ee34b148237fb2229d7058c2b1d9ccc324b8,6004
+- these-1.2.1@sha256:35c57aede96c15ea1fed559ac287b1168eb2b2869d79e62ed8c845780b7ea136,2294
+- unordered-containers-0.2.20.1@sha256:e2ee0d7d8f19747d8c4a0f0a3aa617b1ce1317abd2904c743c04fda25feec685,3789
+- vector-0.13.2.0@sha256:9ac338c8da52d8a37db08434ca4480fef2cea4f9aac240f4f994bb467f5275b4,8804
+- GLUT-2.7.0.16@sha256:c31fd94b840d3ddbde8afab035a8fb66243cfd4111dca886c4de530a1245d575,24158
+- OneTuple-0.4.2@sha256:dd7266f983da2970e5662168add810dabadabb3a4bb9b137181eafc0ac7ea4d4,2013
+- OpenGL-3.0.3.0@sha256:bcd8a08d9e2679b28faffffa71e3c7cc101bb72d7518ead85155dd3a194a2988,7875
+- QuickCheck-2.16.0.0@sha256:f4210647167f873196b01050ac074a44821b6687e26f792ad3474b6388c5f8b7,9208
+- StateVar-1.2.2@sha256:3c022c00485fe165e3080d5da6b3ca9c9b02f62c5deebc584d1b3d1309ce673e,1673
+- assoc-1.1.1@sha256:0ab39b4d1feb4caca95ac6e314f48782b27a86a6b8d1f5e8dc4be9fbed11185f,1420
+- base-orphans-0.9.3@sha256:c95cd3490ef99998a496de26afe8879a1d7780fa181a4479a956c690d74f75f1,3161
+- bmp-1.2.6.4@sha256:454afd2876cbd54582207d8efbeae6b02af33eaf9ee80ec1f724695fc73985e9,1377
+- bytes-0.17.4@sha256:27b117394065d8b8bd845c54dc0128f88f4b0c1a1242699f7603a80963ba1f4a,2269
+- call-stack-0.4.0@sha256:ac44d2c00931dc20b01750da8c92ec443eb63a7231e8550188cb2ac2385f7feb,1200
+- cereal-0.5.8.3@sha256:87a227c7b510217ea059db3dd59d9665edd8f0d1d3d8de39458e371a1d9402fb,2767
+- character-ps-0.1@sha256:b38ed1c07ae49e7461e44ca1d00c9ca24d1dcb008424ccd919916f92fd48d9fe,1315
+- clock-0.8.4@sha256:b938655b00cf204ce69abfff946021bed111d2609a9f7a9c22e28a1a202e9115,4631
+- constraints-0.14.2@sha256:381a53e9d5aad937644d13b5c2c4fcc3698aeba2f83945a42100c6324e0ea8e7,2384
+- data-fix-0.3.4@sha256:ee78be6168ca0878d670fede957195d3debf4a37a806d13d72182b274901261b,1406
+- deriving-compat-0.6.7@sha256:b4edb909e6ecc7e0c88dda5f7f25579ed682ab3a97388e9a9e1976aa9ca0b772,7986
+- dlist-1.0@sha256:854727594c5a816ab3d10f15b1bc4fedaf9e3f7d1ef517a2bb9011f29ba261d2,3942
+- generically-0.1.1@sha256:3f64278f5c582dd7c6963967b1290079bcd03b8348989f909ac9bd972ddc452e,1203
+- gloss-rendering-1.13.2.1@sha256:a121fdbc789bfa788ab5acdad8315207aae6bea9a004be3c60fcb53187242418,1706
+- hashable-1.5.0.0@sha256:2f23146cbe0325029927b221647695a4c7d6e97548ff731110979e34361f58ef,5914
+- haskell-src-meta-0.8.15@sha256:44f9763df639f47c91f31125e9b9af1c23ca3f4af4a96279935284a3d0b767b9,2557
+- indexed-traversable-0.1.4@sha256:42d9e84a65a0c17c248233cab98ada872ff6140dfa24d109d6eb285204d07e7d,2098
+- indexed-traversable-instances-0.1.2@sha256:68df0fc8070ae2c15f9e6febf1449fee364c131a6d1e93cac45e7895ba86dd89,2401
+- integer-conversion-0.1.1@sha256:941d4ae16e2124cbff5defe2abedb49efc8e03a594f817035bf231a317e6c1c9,2256
+- integer-logarithms-1.0.4@sha256:caa8eaf9e69fe19f0d356b3f3185df628131407413c182b314ac5dfe2217e4d1,3082
+- invariant-0.6.4@sha256:4a9a609f4e93ffed158b3b4f5a80822c6da30aa71a5370307c0c00c2d658d1c6,3513
+- mmorph-1.2.1@sha256:e6c20cbc83a84177e6efac1b43b686dea149f30d241d4c10e7140348d7c01aeb,1036
+- natural-transformation-0.4.1@sha256:747450b8778a5dee76e81904445363e911dbf262bb46e18127447fe1300edfa6,2479
+- network-uri-2.6.4.2@sha256:6fffb57373962b5651a2db8b0af732098b3bf029a7ced76a9855615de2026588,3217
+- nonempty-containers-0.3.5.0@sha256:e7d70e03ff17357d99e37891926a1411e592c71ea0f8bf1c4277ebfac6cdac7f,2706
+- parallel-3.2.2.0@sha256:3df46ec247e12b5e406a0adb9577294431b24814b30df420551d176fd112a966,2038
+- partial-isomorphisms-0.2.4.0@sha256:9255a61a6c65796ab7488abc3cb9cc52299907fe518bccf3a7f73feec16943a7,1924
+- pointed-5.0.5@sha256:d02fd1e73a62348377cb9b1697bf576af45a61a4b911732a116c8a4258962910,3065
+- primitive-0.9.1.0@sha256:dfdd6572944c11e69208237dd32a2eb9d975b4f4e9064a7b8dc952cb0e256846,3119
+- reflection-2.1.9@sha256:eaf28dc9884718a306ed1e0c215a24b36c68b8aa3be425617f66d886d43fe1e0,4171
+- scientific-0.3.8.0@sha256:ba83a6701dd0110138443757aca4a42786afa94272b73045ef878fd860d1732e,4397
+- semialign-1.3.1@sha256:dfe515a9e43230f5308564a649a04ea1538499ed98b944644b77bed5394b9deb,2224
+- semigroupoids-6.0.1@sha256:bfee06a6d88038a88ddd10fc21c230bf5ee3a14d0584dc6ab7ad54a9252c2c21,7539
+- semigroups-0.20@sha256:925341e6f7eb104cb490bef06eab93bb7995c7c67c51ee938185a2ddefa7aaf2,6333
+- sop-core-0.5.0.2@sha256:0bb74cafff423180df3909f5b7ce069131078b132da4b4e292ef4d1601499a4e,3005
+- splitmix-0.1.3.1@sha256:d0002f3fb16a2cc5ba8afd47a6657726386edccfe8853d310e3479fe3b45201b,6552
+- strict-0.5.1@sha256:58c373b7c7748cbb4a5a6c8c15073f99a1c10a9a9bb6894ac33f43a5cdb901f2,3557
+- tagged-0.8.9@sha256:6aad7d2fd594bd51834450d97850b9959305951993ea739fa2bbc18b55d8767d,2123
+- tasty-1.5.3@sha256:6b5dda3f16db1274a0b3e6c4073ac57172a1e96b1dca05666c5cbd1183639412,2923
+- text-iso8601-0.1.1@sha256:e07a625eef969338992bf9bba8e5dc73f07ac65f991ba636b8f1175890d15849,2411
+- text-short-0.1.6@sha256:41be94ccd3f6646ab69b0b05c5130ea3c7911a4598ab9b9192f21ad25a69163a,2827
+- th-abstraction-0.7.1.0@sha256:3011403d85b0070630e33d66b9370535ccd1e0e672ae58f847550b2b15bb4fd8,2268
+- time-compat-1.9.8@sha256:31af49b09fa7195071cd841aa142eb1c4601d4a336ee76cd63242eebff8f98a7,5002
+- transformers-base-0.4.6@sha256:6f18f320e371c8954c4b6b211e2fdd5d15a6d6310bd605b9d640f47ede408961,1643
+- transformers-compat-0.7.2@sha256:044fb9955f63ee138fcebedfdcbe54afe741f2d5892a2d0bdf3a8052bd342643,5601
+- trivial-constraint-0.7.0.0@sha256:32c2906df935c17c2b313f71d8ed1f06df1e0f1a19d55959f9a731f90a196dd9,4093
+- uuid-types-1.0.6@sha256:5ac2b681a8d7676f6a51ac1b113bfdcf18dd7fdbb313034850ed6493eef96da0,2619
+- vector-stream-0.1.0.1@sha256:483be6df13c72169a917640589666f9fece7bea9fa13fcd41d052dab37ea289e,1642
+- vinyl-0.14.3@sha256:08565c5d9ed8a5ba69915bffe8960f048587478155d5915a56d2e93b8ba3466f,4267
+- void-0.7.3@sha256:13d30f62fcdf065e595d679d4ac8b4b0c1bb1a1b73db7b5b5a8f857cb5c8a546,1857
+- witherable-0.5@sha256:85bab588ebca37996fc3171b9d8b2e065eb0536c9f44224bcf037c0849a881de,2343
+# - zlib-0.7.1.1@sha256:cf2f8f91b10b635bdaa2c3010f40a5562a06ede24b92d819758e7f1b7d04f9f2,5206
+- GLURaw-2.0.0.5@sha256:eaa04b8afa8159d50558a30074c1ee8ae8fce96b0261a886e170025453157bae,2408
+- ObjectName-1.1.0.2@sha256:ede9e59944db8e67ea0301b41b60b410cb83bc57eddaf13b13f00c386c7cb94f,1247
+- OpenGLRaw-3.3.4.1@sha256:01b745fbd269fc96d982c3c915c5559793457ff02f9f6cce3ee259aed97378f1,26636
+- ansi-terminal-1.1.3@sha256:4b26711a95ec724284cdf41aaebc624d9f8a51799424f90ab09d1276bb154e7f,2760
+- binary-orphans-1.0.5@sha256:1217df567aae672d09979480c362d27559d226081b9b9bc4107d4af008da1f5f,1997
+- boring-0.2.2@sha256:f6d705c30830a337862210f12c4ce38d5ab4d3660631e0214b504f10815a2e8d,1779
+- data-default-class-0.2.0.0@sha256:788dc5c0be3981ca83ad11206e300a77ae8a1c8b9bc4f9630f563d37f540ccbd,728
+- haskell-src-exts-1.23.1@sha256:339841f4a6710e915a0bac8df18d8a454c11d626131aee4d05b6be150b7f863e,4577
+- nonempty-vector-0.2.4@sha256:4d3ae65f1356afae372be81310d9ca16e602d7a6e3102163f6db47725860536e,1429
+- optparse-applicative-0.19.0.0@sha256:0b47b3ff7eb4a855b5f7d401690365fc62a32057374927ce0d478b620996222d,5813
+- os-string-2.0.8@sha256:d8b0f9cc3c7efb14c9924699322c8f151f30a65e8845bdf53bd344af47452344,3298
+- syb-0.7.3@sha256:9975950b1ae7f3de8b226a702d384606099742791b6a5d89228e25d87d5527af,3740
+- th-compat-0.1.6@sha256:e83d97946f84fe492762ceb3b4753b4770c78b0b70e594078700baa91a5106c2,2885
+- th-orphans-0.13.16@sha256:83d4a7d5d18a49f02b039bdfcf9adb8840cbd58409b283750747af6a559b9e86,2466
+- ansi-terminal-types-1.1.3@sha256:1d6061eceaf35a9ed269b81177dd4c8c60403a499526f7f68fdffa4ec7842e7f,1523
+- colour-2.3.6@sha256:ebdcbf15023958838a527e381ab3c3b1e99ed12d1b25efeb7feaa4ad8c37664a,2378
+- data-default-0.8.0.1@sha256:536ff91641a39b8ad302eebceff767d86ec6b543b44b1db9104650a2b1bc63bd,1110
+- fixed-0.3@sha256:f76bb14011911bdd9d71ecc16ffc8000821adfefdd48b38f952b2484900f37f6,868
+- half-0.3.3@sha256:f1e2e1167a167a23097fd4be018f7785605e425326c4aa02922f03ae7ebdf392,1922
+- happy-2.1.7@sha256:aca19e09e9273b569cef189cb70f54958808a1f587ad96dc98fcccedd3b22aa4,5040
+- prettyprinter-1.7.1@sha256:9c43c9d8c3cd9f445596e5a2379574bba87f935a4d1fa41b5407ee3cf4edc743,6987
+- prettyprinter-ansi-terminal-1.1.3@sha256:b00f727b964cf13adff7acf575a71fa7e405f5240aff50b07f10df76ab89f8d3,2574
+- th-lift-0.8.6@sha256:0d1298f0604415e801ee1bc9095d8c26246d911d8d78e86d61b10a2588fab727,2592
+- th-reify-many-0.1.10@sha256:1827dcffb0c9f214e9739053fc808683336ea65c3749ff2d6148db189cbbd2a4,1753
+- happy-lib-2.1.7@sha256:e15498775b118d8985275573e2659d248e66f75e076f09adb85be38e4edfb0dd,6081
+- safe-0.3.21@sha256:b928ea1645876788155b38ce85c7e46d157a1bb41d2b05f5770b13d60bc6a3f7,2400
+- th-expand-syns-0.4.12.0@sha256:bb5f7482afb3b85dec2e955c72adf99976811b77561b87472529e62c4cbbcf33,2042
+
+
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
-extra-deps:
-- git: https://github.com/stepa1000/coandkleisli.git
-  commit: bb1589221de5f2506a167b7fdf9d667cee6a5d7f
-- git: https://github.com/stepa1000/free-profunctor.git
-  commit: d47c29187e5f0c616b992f296e83d0f3253832d3
-#- functor-combinators-0.4.1.2
-# - invertible-0.2.0.6
+# extra-deps: []
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
@@ -58,7 +165,7 @@ extra-deps:
 #
 # Require a specific version of Stack, using version ranges
 # require-stack-version: -any # Default
-# require-stack-version: ">=2.9"
+# require-stack-version: ">=2.15"
 #
 # Override the architecture used by Stack, especially useful on Windows
 # arch: i386

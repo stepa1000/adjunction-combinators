@@ -1,0 +1,184 @@
+cabal-version: 2.2
+
+-- This file has been generated from package.yaml by hpack version 0.36.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           adj-sendbox
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/adj-sendbox#readme>
+homepage:       https://github.com/githubuser/adj-sendbox#readme
+bug-reports:    https://github.com/githubuser/adj-sendbox/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2026 Author name here
+license:        BSD-3-Clause
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/adj-sendbox
+
+library
+  exposed-modules:
+      Control.Base.Comonad
+      Control.Base.Control.Comonad.Cofree
+      Control.Base.Control.Comonad.Free
+      Control.Base.Control.Lens.Operators
+      Control.Base.Data
+      Control.Base.Data.Active
+      Control.Base.Data.Aeson
+      Control.Base.Data.ByteString
+      Control.Base.Data.Functor.Adjunction
+      Control.Base.Data.Functor.Contravariant.Divisible
+      Control.Base.Data.Game.Damage.Direct
+      Control.Base.Data.Geometry.Intersection
+      Control.Base.Data.Graph
+      Control.Base.Data.Tag
+      Control.Base.Data.Typeable
+      Control.Base.Graphics.Gloss.Data.Event
+      Control.Base.Graphics.Gloss.Data.Pictures
+      Control.Base.Linear.Affine
+      Control.Base.Linear.Metric
+      Control.Base.Linear.Vector
+      Control.Base.Prelude.Control.Applicative
+      Control.Base.Prelude.Data.Bool
+      Control.Base.Prelude.Data.Functor
+      Control.Base.Prelude.Data.Monoid
+      Control.Base.Prelude.Data.Num
+      Control.Base.Prelude.Data.Ord
+      Control.Base.Prelude.Data.Traversable
+      Control.Base.System.Random
+  other-modules:
+      Paths_adj_sendbox
+  autogen-modules:
+      Paths_adj_sendbox
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      active
+    , adj-combinators
+    , adjunctions
+    , aeson
+    , barbies
+    , base >=4.7 && <5
+    , bifunctors
+    , bytestring
+    , coandkleisli
+    , comonad
+    , containers
+    , contravariant
+    , distributive
+    , extra
+    , fgl
+    , free
+    , functor-combinators
+    , ghc-prim
+    , gloss
+    , invertible
+    , kan-extensions
+    , lens
+    , linear
+    , logict
+    , mtl
+    , profunctors
+    , random
+    , template-haskell
+    , these
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable adj-sendbox-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_adj_sendbox
+  autogen-modules:
+      Paths_adj_sendbox
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      active
+    , adj-combinators
+    , adj-sendbox
+    , adjunctions
+    , aeson
+    , barbies
+    , base >=4.7 && <5
+    , bifunctors
+    , bytestring
+    , coandkleisli
+    , comonad
+    , containers
+    , contravariant
+    , distributive
+    , extra
+    , fgl
+    , free
+    , functor-combinators
+    , ghc-prim
+    , gloss
+    , invertible
+    , kan-extensions
+    , lens
+    , linear
+    , logict
+    , mtl
+    , profunctors
+    , random
+    , template-haskell
+    , these
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+test-suite adj-sendbox-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_adj_sendbox
+  autogen-modules:
+      Paths_adj_sendbox
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      active
+    , adj-combinators
+    , adj-sendbox
+    , adjunctions
+    , aeson
+    , barbies
+    , base >=4.7 && <5
+    , bifunctors
+    , bytestring
+    , coandkleisli
+    , comonad
+    , containers
+    , contravariant
+    , distributive
+    , extra
+    , fgl
+    , free
+    , functor-combinators
+    , ghc-prim
+    , gloss
+    , invertible
+    , kan-extensions
+    , lens
+    , linear
+    , logict
+    , mtl
+    , profunctors
+    , random
+    , template-haskell
+    , these
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
