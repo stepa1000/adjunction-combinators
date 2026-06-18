@@ -30,6 +30,7 @@ import Data.Profunctor
 import Data.Profunctor.Composition
 import Data.Proxy
 -}
+import Data.Functor.Day as Day
 import Control.Comonad.Cofree
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Env
@@ -183,7 +184,31 @@ unLR (R1 _) = False
 (@+*) (W.AdjointT a1) (W.AdjointT a2) =
   [W.AdjointT $ ((fmap . fmap) (\g -> (fmap Left g) :*: (fmap Right $ extract $ extractL $ a2))) $ L1 a1]
     ++ [W.AdjointT $ (((fmap . fmap) (\g2 -> (fmap Left $ extract $ extractL a1) :*: (fmap Right g2)) . R1) a2)]
+{-
+freelyW :: (Adjunction f g, Comonad w) =>
+   [W.AdjointT f g w a] ->
+   W.AdjointT (Free f) (Cofree g) w a
+freelyW lw = W.AdjointT $ fmap (foldl1 (liftW2) ) $ sequence $ 
+   fmap (\w-> (Free . fmap (Pure . fmap (\g-> [coiter (const g) (extract w)] )) . W.runAdjointT) w) $ lw
+-}
+adjDayW ::
+  (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
+  W.AdjointT f1 g1 w a ->
+  W.AdjointT f2 g2 w b ->
+  W.AdjointT (Day f1 f2) (Day g1 g2) w ((a,b),(a,b))
+adjDayW (W.AdjointT w1) (W.AdjointT w2) = W.AdjointT $ 
+   Day ((fmap . fmap) (\ga1 -> Day ga1 (extract $ extractL w2)) w1 (\x y -> (x,y))) 
+       ((fmap . fmap) (\ga2 -> Day (extract $ extractL w1) ga2 (\x y -> (x,y))) w2)
+       (\x y -> (x,y))
 
+adjUnDay ::
+  (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
+  W.AdjointT (Day f1 f2) (Day g1 g2) w a -> 
+  (W.AdjointT f1 g1 w a, W.AdjointT f2 g2 w a)
+adjUnDay w@(W.AdjointT (Day wf1 wf2)) = 
+   ( W.AdjointT $ (fmap . fmap) (\(Day g1 g2)-> fmap (const $ extract w) g1) wf1
+   , W.AdjointT $ (fmap . fmap) (\(Day g1 g2)-> fmap (const $ extract w) g2) wf2
+   )
 -- CoT
 {-}
 type AdjCoT fw gw w m a = CoT (W.AdjointT fw gw w) m a
