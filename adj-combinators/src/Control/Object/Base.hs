@@ -74,16 +74,29 @@ adjObjComb (wv1 :< wo1) (wv2 :< wo2) = do
    wo <- (wo1 @+* wo2)
    return $ (void wv) :< (fmap (const $ adjObjComb (extract wo1) (extract wo2)) wo)
 
+ 
+
 adjObjCombE ::  
    ( Comonad w
    , Adjunction fo1 go1, Adjunction fv1 gv1
    , Adjunction fo2 go2, Adjunction fv2 gv2) =>
-   Either (AdjObject w fo1 go1 fv1 gv1) (AdjObject w fo2 go2 fv2 gv2) ->
+   [Bool] ->
+   (AdjObject w fo1 go1 fv1 gv1) ->
+   (AdjObject w fo2 go2 fv2 gv2) ->
    AdjObject w (fo1 :+: fo2) (go1 :*: go2) (fv1 :+: fv2) (gv1 :*: gv2)
-adjObjCombE (wv1 :< wo1) (wv2 :< wo2) = do
-   wv <- (wv1 @+* wv2) 
-   wo <- (wo1 @+* wo2)
-   return $ (void wv) :< (fmap (const $ adjObjComb (extract wo1) (extract wo2)) wo)
+adjObjCombE [] (wv1 :< wo1) w2 = let
+   wv = (adjCombW $ Left wv1) 
+   wo = (adjCombW $ Left wo1)
+   in (void wv) :< (fmap (const $ adjObjCombE [] (extract wo1) w2) wo)
+adjObjCombE (True:lb) (wv1 :< wo1) w2 = let
+   wv = (adjCombW $ Left wv1) 
+   wo = (adjCombW $ Left wo1)
+   in (void wv) :< (fmap (const $ adjObjCombE lb (extract wo1) w2 ) wo)
+adjObjCombE (False:lb) w1 (wv2 :< wo2) = let
+   wv = (adjCombW $ Right wv2) 
+   wo = (adjCombW $ Right wo2)
+   in (void wv) :< (fmap (const $ adjObjCombE lb w1 (extract wo2)) wo)
+
 {-
 adjObjComb ::  
    ( Comonad w
@@ -182,18 +195,90 @@ systemComp f (FreeT msys1) (FreeT msys2) = FreeT $ do
          b $ extractSysteme $ extract fb
          retrun $ Pure $ adjObjComp a b
 
-systemComb :: 
+systemComb' :: 
    ( ComonadApply w, Monad m
    , Adjunction fo1 go1, Adjunction fv1 gv1
    , Adjunction fo2 go2, Adjunction fv2 gv2) =>
+   [Bool] -> 
    (m x -> m y -> m (Either x y))
    System m w fo1 go1 fv1 gv1 ->
    System m w fo2 go2 fv2 gv2 ->
    System m w (fo1 :+: fo2) (go1 :*: go2) (fv1 :+: fv2) (gv1 :*: gv2)
-systemComb f s1@(FreeT msys1) s2@(FreeT msys2) = FreeT $ do
+systemComb' lb f s1@(FreeT msys1) s2@(FreeT msys2) = FreeT $ do
    esys <- f msys1 msys2
    case esys of
-      (Left (Free fx)) -> return $ Free $ fmap (\x-> systemComb x s2) $ adjCombW $ Left fx
-      (Right (Free fy)) -> return $ Free $ fmap (\y-> systemComb s1 y) $ adjCombW $ Right fy
-      (Left (Pure x)) -> 
- 
+      (Left (Free fx)) -> return $ Free $ fmap (\x-> systemComb' (True:lb) x s2) $ adjCombW $ Left fx
+      (Right (Free fy)) -> return $ Free $ fmap (\y-> systemComb' (False:lb) s1 y) $ adjCombW $ Right fy
+      (Left (Pure x)) -> do
+         y <- extractSysteme s2
+         return $ Pure $ adjObjCombE (reverse lb) x y
+      (Right (Pure y)) -> do
+         x <- extractSysteme s1
+	 return $ Pure $ adjObjCombE (reverse lb) x y
+      
+systemComb = systemComb' []
+
+systemDay :: 
+   ( ComonadApply w, Monad m
+   , Adjunction fo1 go1, Adjunction fv1 gv1
+   , Adjunction fo2 go2, Adjunction fv2 gv2) =>
+   (m x -> m y -> m (x, y))
+   System m w fo1 go1 fv1 gv1 ->
+   System m w fo2 go2 fv2 gv2 ->
+   System m w (Day fo1 fo2) (Day go1 go2) (Day fv1 fv2) (Day gv1 gv2)
+systemDay f (FreeT msys1) (FreeT msys2) = FreeT $ do
+   (sys1,sys2) <- f msys1 msys2
+   case (sys1,sys2) of
+      (Pure a, Pure b) -> retrun $ Pure $ adjObjDay a b
+      (Free fa, Free fb) -> do
+         retrun $ Free $ fmap (\(x,y)-> systemComp f x y) $ adjObjDay fa fb
+      (Free fa, Pure b) -> do
+         a $ extractSysteme $ extract fa
+         retrun $ Pure $ adjObjDay a b
+      (Pure a, Free fb) -> do
+         b $ extractSysteme $ extract fb
+         retrun $ Pure $ adjObjDay a b
+
+-- Classes
+
+class (Adjunction f g, ComonadApply w) => AdjHas f g w a where
+   adjGet :: W.AdjointT f g w b -> e
+   -- adjGet = coask
+   adjSet :: w e -> W.AdjointT f g w ()
+
+instance AdjHas (EnvT e Identity) (ReaderT e Identity) w e where
+   adjGet = coask
+   adjSet we = void $ adjEnv (extract we) we
+
+instance (AdjHas f1 g1 w a, AdjHas f2 g2 w b) => AdjHas (f2 :.: f1) (g1 :.: g2) w (a, b) where
+   adjGet = (\(x,y)-> (adjGet x, adjGet y)) . unCompSysAdjComonad
+   adjSet we = void $ (adjSet $ fmap fst we) @## (adjSet $ fmap snd we)
+
+instance (AdjHas f1 g1 w a, AdjHas f2 g2 w b) => AdjHas (f1 :+: f2) (g1 :*: g2) w (Either a b) where
+   adjGet = f . adjWunSumProd
+      where
+         f (Left w) = Left $ adjGet w
+	 f (Right w) = Right $ adjGet w
+   adjSet we = void $ f $ extract we
+      where
+         f (Left w) = adjCombW $ Left $ adjSet $ fmap (\(Left a) -> a) we
+         f (Right w) = adjCombW $ Right $ adjSet $ fmap (\(Right a) -> a) we
+	 
+instance (AdjHas f1 g1 w a, AdjHas f2 g2 w b) => AdjHas (Day f1 f2) (Day g1 g2) w (a, b) where
+   adjGet = (\(x,y)-> (adjGet x, adjGet y)) . adjUnDay
+   adjSet we = void $ adjDayW (adjSet $ fmap fst we) (adjSet $ fmap snd we)
+
+
+-- newtype TimeTick = TimeTick Integer
+
+newtype DeltaTick = DeltaTick Integer
+
+newtype Tick = Tick Integer
+
+type HasTick w = AdjHas (EnvT Tick Identity) (ReaderT Tick Identity) w Tick
+
+type HasDeltaTick w = AdjHas (EnvT DeltaTick Identity) (ReaderT DeltaTick Identity) w DeltaTick
+
+initTick :: w Integer -> AdjObject w fo go fv gv
+initTick wi = viewObject
+
