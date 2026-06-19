@@ -176,6 +176,15 @@ adjWunSumProd wa@(W.AdjointT w1)
 unLR (L1 _) = True
 unLR (R1 _) = False
 
+adjCombW ::
+  (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
+  Either (W.AdjointT f1 g1 w a) (W.AdjointT f2 g2 w b) ->
+  W.AdjointT (f1 :+: f2) (g1 :*: g2) w (Either a b)
+adjCombW (Right (W.AdjointT a1)) =
+   W.AdjointT $ ((fmap . fmap) (\g -> (fmap Left g) :*: (fmap Left $ tabulateAdjunction (const $ extract a1) ))) $ L1 a1
+adjCombW (Left (W.AdjointT a2)) =
+   W.AdjointT $ (((fmap . fmap) (\g2 -> (fmap Right $ tabulateAdjunction (const $ extract a2) ) :*: (fmap Right g2)) . R1) a2)
+
 (@+*) ::
   (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
   W.AdjointT f1 g1 w a ->

@@ -73,6 +73,17 @@ adjObjComb (wv1 :< wo1) (wv2 :< wo2) = do
    wv <- (wv1 @+* wv2) 
    wo <- (wo1 @+* wo2)
    return $ (void wv) :< (fmap (const $ adjObjComb (extract wo1) (extract wo2)) wo)
+
+adjObjCombE ::  
+   ( Comonad w
+   , Adjunction fo1 go1, Adjunction fv1 gv1
+   , Adjunction fo2 go2, Adjunction fv2 gv2) =>
+   Either (AdjObject w fo1 go1 fv1 gv1) (AdjObject w fo2 go2 fv2 gv2) ->
+   AdjObject w (fo1 :+: fo2) (go1 :*: go2) (fv1 :+: fv2) (gv1 :*: gv2)
+adjObjCombE (wv1 :< wo1) (wv2 :< wo2) = do
+   wv <- (wv1 @+* wv2) 
+   wo <- (wo1 @+* wo2)
+   return $ (void wv) :< (fmap (const $ adjObjComb (extract wo1) (extract wo2)) wo)
 {-
 adjObjComb ::  
    ( Comonad w
@@ -123,15 +134,66 @@ vuObject ::
    AdjObject w V1 U1 V1 U1
 vuObject w = unfold (\wx-> (V1 , V1 ) ) w
 
-viewObject :: 
+viewObject :: (Comonad w, Adjunction fo go, Adjunction fv gv)
    (W.AdjointT fo go w () -> (W.AdjointT fv gv w (), W.AdjointT fo go w ())) ->
    W.AdjointT fo go w () ->
    AdjObject w fo go fv gv ->
    --AdjObject w fo go (fv2 :.: fv) (gv :.: gv2)
-viewObject f w = unfold ((\(x,y)->(x,dublicate y)) . f) wo
+viewObject f w = unfold ((\(x,y)->(x,dublicate y)) . f) w
 
 --data SystemF fv gv fc gc
 
 type System m w fo go fv gv = FreeT (W.AdjointT fv gv w) m (AdjObject w fo go fv gv)
 
+viewSystem :: (Comonad w, Monad m 
+   , Adjunction fo go, Adjunction fv gv)
+   (W.AdjointT fo go w () -> m (W.AdjointT fv gv w (), W.AdjointT fo go w ()))
+   W.AdjointT fo go w () -> 
+   System m w fo go fv gv
+viewSystem f w = unfoldM (FreeT . fmap (\(x,y)-> Free $ fmap (const $ return (x,y)) x) . (fmap (\(x,y)->(x,dublicate y))) . f) w
 
+extractSystem ::(Comonad w, Monad m 
+   , Adjunction fo go, Adjunction fv gv) =>
+   System m w fo go fv gv -> m (AdjObject w fo go fv gv)
+extractSysteme (FreeT msys) = do
+   sys <- msys
+   case sys of
+      (Pure a) -> return a
+      (Free fb) -> extractSysteme $ extrac fb
+
+systemComp :: 
+   ( ComonadApply w, Monad m
+   , Adjunction fo1 go1, Adjunction fv1 gv1
+   , Adjunction fo2 go2, Adjunction fv2 gv2) =>
+   (m x -> m y -> m (x,y))
+   System m w fo1 go1 fv1 gv1 ->
+   System m w fo2 go2 fv2 gv2 ->
+   System m w (fo2 :.: fo1) (go1 :.: go2) (fv2 :.: fv1) (gv1 :.: gv2)
+systemComp f (FreeT msys1) (FreeT msys2) = FreeT $ do
+   (sys1,sys2) <- f msys1 msys2
+   case (sys1,sys2) of
+      (Pure a, Pure b) -> retrun $ Pure $ adjObjComp a b
+      (Free fa, Free fb) -> do
+         retrun $ Free $ fmap (\(x,y)-> systemComp f x y) $ adjObjComp fa fb
+      (Free fa, Pure b) -> do
+         a $ extractSysteme $ extract fa
+         retrun $ Pure $ adjObjComp a b
+      (Pure a, Free fb) -> do
+         b $ extractSysteme $ extract fb
+         retrun $ Pure $ adjObjComp a b
+
+systemComb :: 
+   ( ComonadApply w, Monad m
+   , Adjunction fo1 go1, Adjunction fv1 gv1
+   , Adjunction fo2 go2, Adjunction fv2 gv2) =>
+   (m x -> m y -> m (Either x y))
+   System m w fo1 go1 fv1 gv1 ->
+   System m w fo2 go2 fv2 gv2 ->
+   System m w (fo1 :+: fo2) (go1 :*: go2) (fv1 :+: fv2) (gv1 :*: gv2)
+systemComb f s1@(FreeT msys1) s2@(FreeT msys2) = FreeT $ do
+   esys <- f msys1 msys2
+   case esys of
+      (Left (Free fx)) -> return $ Free $ fmap (\x-> systemComb x s2) $ adjCombW $ Left fx
+      (Right (Free fy)) -> return $ Free $ fmap (\y-> systemComb s1 y) $ adjCombW $ Right fy
+      (Left (Pure x)) -> 
+ 
