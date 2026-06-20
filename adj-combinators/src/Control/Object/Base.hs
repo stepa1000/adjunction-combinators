@@ -154,9 +154,20 @@ viewObject :: (Comonad w, Adjunction fo go, Adjunction fv gv)
    --AdjObject w fo go (fv2 :.: fv) (gv :.: gv2)
 viewObject f w = unfold ((\(x,y)->(x,dublicate y)) . f) w
 
+reviewObject :: (Comonad w, Adjunction fo go, Adjunction fv gv)
+   ((W.AdjointT fv gv w (), W.AdjointT fo go w ()) -> (W.AdjointT fv gv w (), W.AdjointT fo go w ())) ->
+   AdjObject w fo go fv gv ->
+   AdjObject w fo go fv gv ->
+   --AdjObject w fo go (fv2 :.: fv) (gv :.: gv2)
+reviewObject f (a :< w) = ((\(x,y)->(x :< fmap (reviewObject f) y)) $ f (a, (void w)))
+
+
 --data SystemF fv gv fc gc
 
 type System m w fo go fv gv = FreeT (W.AdjointT fv gv w) m (AdjObject w fo go fv gv)
+
+returnSys :: (AdjObject w fo go fv gv) -> System m w fo go fv gv
+returnSys (a :< o) = FreeT $ return $ Free $ fmap (const $ returnSys $ extract o) a
 
 viewSystem :: (Comonad w, Monad m 
    , Adjunction fo go, Adjunction fv gv)
@@ -164,6 +175,14 @@ viewSystem :: (Comonad w, Monad m
    W.AdjointT fo go w () -> 
    System m w fo go fv gv
 viewSystem f w = unfoldM (FreeT . fmap (\(x,y)-> Free $ fmap (const $ return (x,y)) x) . (fmap (\(x,y)->(x,dublicate y))) . f) w
+
+reviewSystem :: 
+   ( Comonad w, Monad m 
+   , Adjunction fo go, Adjunction fv gv)
+   ((W.AdjointT fv gv w (), W.AdjointT fo go w ()) -> m (W.AdjointT fv gv w (), W.AdjointT fo go w ()))
+   AdjObject w fo go fv gv ->
+   System m w fo go fv gv
+reviewSystem f w = (join $ fmap (\(x,y)-> sequence (x :< sequence fmap (reviewSystem f) y)) $ f (a, (void w)))
 
 extractSystem ::(Comonad w, Monad m 
    , Adjunction fo go, Adjunction fv gv) =>
@@ -271,14 +290,33 @@ instance (AdjHas f1 g1 w a, AdjHas f2 g2 w b) => AdjHas (Day f1 f2) (Day g1 g2) 
 
 -- newtype TimeTick = TimeTick Integer
 
-newtype DeltaTick = DeltaTick Integer
+newtype DeltaTick p = DeltaTick Integer deriving
+ 
+newtype Tick p = Tick Integer deriving
 
-newtype Tick = Tick Integer
+type HasTick p f g w = AdjHas f g w (Tick p)-- (EnvT (Tick p) Identity) (ReaderT (Tick p) Identity) w (Tick p)
 
-type HasTick w = AdjHas (EnvT Tick Identity) (ReaderT Tick Identity) w Tick
+type HasDeltaTick p f g w = AdjHas f g w (DeltaTick p)--(EnvT (DeltaTick p) Identity) (ReaderT (DeltaTick p) Identity) w (DeltaTick p)
 
-type HasDeltaTick w = AdjHas (EnvT DeltaTick Identity) (ReaderT DeltaTick Identity) w DeltaTick
+type HasDTT p fo1 go1 fo2 go2 fv gv w = (HasTick p fo1 go1 w, HasTick p fv gv w, HasDeltaTick p fo2 go2 w)
 
-initTick :: w Integer -> AdjObject w fo go fv gv
-initTick wi = viewObject
+type HasDTT2 p f g w = AdjHas f g w (DeltaTick p, Tick p)
 
+initTick :: (HasTick p fo1 go1 w, HasTick p fv gv w, HasDeltaTick p fo2 go2 w) => Proxu p -> w Integer -> AdjObject w (fo2 :.: fo1) (go1 :.: go2) fv gv
+initTick (Proxy :: Proxy p) wi = viewObject (\w-> f w ) (adjSet $ fmap (\i-> (DeltaTick @p i , Tick @p 0) ) wi)
+   where 
+      f w = let
+         (DeltaTick dt, Tick t) = adjGet w
+	 in if t >= dt then (DeltaTick dt, Tick 0) else (DeltaTick dt, Tick (t + 1))  
+
+type Updater a = Updater (a -> a) deriving
+
+type UpdaterType a = UpdaterType (TypeRep (Update a)) deriving
+
+type HasUpdater a f g w = AdjHas f g w (Updater a)
+
+type HasUpdateType a f g w = AdjHas f g w (UpdaterType a)
+
+type HasUT a fo go fv gv w = (Typeable a, HasUpdater a fo go w, HasUpdateType a fv gv w)
+
+initUpdater :: (HasUpdater a fo go w, HasUpdateType a f g w) => w (a -> a) -> AdjObject w fo go fv gv 
