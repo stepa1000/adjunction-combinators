@@ -159,8 +159,14 @@ reviewObject :: (Comonad w, Adjunction fo go, Adjunction fv gv)
    AdjObject w fo go fv gv ->
    AdjObject w fo go fv gv ->
    --AdjObject w fo go (fv2 :.: fv) (gv :.: gv2)
-reviewObject f (a :< w) = ((\(x,y)->(x :< fmap (reviewObject f) y)) $ f (a, (void w)))
+reviewObject f (a :< w) = ((\(x,y)->(x :< fmap (const $ reviewObject f $ extract w) y)) $ f (a, (void w)))
 
+upviewObject :: (Comonad w, Adjunction fo go, Adjunction fv gv)
+   ((W.AdjointT fv gv w (), W.AdjointT fo go w ()) -> (W.AdjointT fv gv w (), W.AdjointT fo go w ())) ->
+   AdjObject w fo go fv gv ->
+   AdjObject w fo go fv gv ->
+   --AdjObject w fo go (fv2 :.: fv) (gv :.: gv2)
+upviewObject f (a :< w) = viewObject (\z-> f (a,z)) (void w)--((\(x,y)->(x :< fmap (const $ viewObject (\z-> f ()) $ extract w) y)) $ f (a, (void w)))
 
 --data SystemF fv gv fc gc
 
@@ -182,7 +188,15 @@ reviewSystem ::
    ((W.AdjointT fv gv w (), W.AdjointT fo go w ()) -> m (W.AdjointT fv gv w (), W.AdjointT fo go w ()))
    AdjObject w fo go fv gv ->
    System m w fo go fv gv
-reviewSystem f w = (join $ fmap (\(x,y)-> sequence (x :< sequence fmap (reviewSystem f) y)) $ f (a, (void w)))
+reviewSystem f (a :< w) = (join $ fmap (\(x,y)-> sequence (x :< sequence fmap (const $ reviewSystem f $ extract w) y)) $ f (a, (void w)))
+
+upviewSystem :: 
+   ( Comonad w, Monad m 
+   , Adjunction fo go, Adjunction fv gv)
+   ((W.AdjointT fv gv w (), W.AdjointT fo go w ()) -> m (W.AdjointT fv gv w (), W.AdjointT fo go w ()))
+   AdjObject w fo go fv gv ->
+   System m w fo go fv gv
+upviewSystem f (a :< w) = viewSystem (\z-> f (a,z)) (void w)
 
 extractSystem ::(Comonad w, Monad m 
    , Adjunction fo go, Adjunction fv gv) =>
@@ -260,10 +274,13 @@ systemDay f (FreeT msys1) (FreeT msys2) = FreeT $ do
 
 -- Classes
 
-class (Adjunction f g, ComonadApply w) => AdjHas f g w a where
+class (Adjunction f g, ComonadApply w) => AdjHas f g w e where
    adjGet :: W.AdjointT f g w b -> e
    -- adjGet = coask
    adjSet :: w e -> W.AdjointT f g w ()
+
+adjSetE :: AdjHas f g w e => e -> w b -> W.AdjointT f g w ()
+adjSetE e w = adjSet $ fmap (const e) w
 
 instance AdjHas (EnvT e Identity) (ReaderT e Identity) w e where
    adjGet = coask
@@ -306,8 +323,10 @@ initTick :: (HasTick p fo1 go1 w, HasTick p fv gv w, HasDeltaTick p fo2 go2 w) =
 initTick (Proxy :: Proxy p) wi = viewObject (\w-> f w ) (adjSet $ fmap (\i-> (DeltaTick @p i , Tick @p 0) ) wi)
    where 
       f w = let
+         w' = lower w
          (DeltaTick dt, Tick t) = adjGet w
-	 in if t >= dt then (DeltaTick dt, Tick 0) else (DeltaTick dt, Tick (t + 1))  
+	 in if t >= dt then (adjSet $ fmap (const (Tick 0)) w', adjSet $ fmap (const (DeltaTick dt, Tick 0)) w' ) 
+	    else (adjSet $ fmap (const (Tick $ t + 1)) w', adjSet $ fmap (const (DeltaTick dt, Tick $ t + 1)) w' )  
 
 type Updater a = Updater (a -> a) deriving
 
@@ -319,4 +338,31 @@ type HasUpdateType a f g w = AdjHas f g w (UpdaterType a)
 
 type HasUT a fo go fv gv w = (Typeable a, HasUpdater a fo go w, HasUpdateType a fv gv w)
 
-initUpdater :: (HasUpdater a fo go w, HasUpdateType a f g w) => w (a -> a) -> AdjObject w fo go fv gv 
+initUpdater :: (HasUpdater a fo go w, HasUpdateType a f g w) => w (a -> a) -> AdjObject w fo go fv gv
+initUpdater (we :: w (a -> a)) = viewObject f (adjSet $ fmap (\e-> Updater e) wa)
+   where
+      f w = let
+         (Update up) = adjGet w
+	 in (adjSetE (typeOf $ Update up) (lower w) , adjSetE (Update up) (lower w))
+
+appUpdater :: 
+   ( HasUpdater a fo go w, HasUpdateType a fv gv w
+   , AdjHas fo2 go2 w a, Adjunction fv2 gv2) => 
+   AdjObject w fo go fv gv -> AdjObject w fo2 go2 fv2 gv2 ->
+   AdjObject w (fo2 :.: fo) (go :.: go2) (fv2 :.: fv) (gv :.: gv2)
+appUpdater w1 w2 = upviewObject f $ adjObjComp w1 w2
+   where
+      f (wa,wo) = let
+         (Update up, a) = adjGet wo
+	 in (wa , adjSetE (Update up, up a) (lower wo))
+
+appUpdaterReV :: 
+   ( HasUpdater a fo go w, HasUpdateType a fv gv w
+   , AdjHas fo2 go2 w a, Adjunction fv2 gv2) => 
+   AdjObject w fo go fv gv -> AdjObject w fo2 go2 fv2 gv2 ->
+   AdjObject w (fo2 :.: fo) (go :.: go2) (fv2 :.: fv) (gv :.: gv2)
+appUpdaterRev w1 w2 = reviewObject f $ adjObjComp w1 w2
+   where
+      f (wa,wo) = let
+         (Update up, a) = adjGet wo
+	 in (wa , adjSetE (Update up, up a) (lower wo))
