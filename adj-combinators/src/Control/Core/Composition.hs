@@ -218,6 +218,48 @@ adjUnDay w@(W.AdjointT (Day wf1 wf2)) =
    ( W.AdjointT $ (fmap . fmap) (\(Day g1 g2)-> fmap (const $ extract w) g1) wf1
    , W.AdjointT $ (fmap . fmap) (\(Day g1 g2)-> fmap (const $ extract w) g2) wf2
    )
+
+newtype FixAdjoint f g a = FixAdjoint 
+  { runFixAdjoint :: AdjointT f g (FixAdjoint f g) a }
+
+zeroFCAdjoint :: Adjunction f g => w a -> W.AdjointT (Free f) (Cofree g) w a
+zeroFCAdjoint wa = W.AdjointT $ Pure $ fmap (\a-> coiter (\a1-> tabulateAdjunction (const a1)) a ) wa
+
+oneFCAdjoint :: Adjunction f g => 
+   W.AdjointT f g w a -> 
+   W.AdjointT (Free f) (Cofree g) w a
+oneFCAdjoint w@(W.AdjointT fwga) = W.AdjointT $ Free fmap (\wga-> 
+   Pure $ fmap (\ga -> unfold (\ga1-> (extract w, fmap (const ga1) ga1 )) ga) wga) fwga
+
+unionFCAdj :: (Adjunction f g ComonadApply w) => 
+   W.AdjointT (Free f) (Cofree g) w a -> 
+   W.AdjointT (Free f) (Cofree g) w a -> 
+   W.AdjointT (Free f) (Cofree g) w a
+unionFCAdj w1@(W.AdjointT fwga1) w2@(W.AdjointT fwga2) = W.AdjointT $
+   fwga1 >>= (\wga1 -> do
+   wga2 <- fwga2
+   return $ liftW2 (\ ga1 ga2 -> unfold f (False,ga1,ga2)) wga1 wga2
+   )
+   where 
+      f (False,a :< ga1,ga2) = (a , fmap (\a1-> (True,a1,ga2)) ga1)
+      f (True, ga1, a :< ga2) = (a , fmap (\a2-> (False,ga1,a2)) ga2)
+
+-- | Продвижение сопряжения на один шаг вглубь структуры.
+-- Мы берем монаду/комонаду текущего слоя и заворачиваем ее в базовый AdjointT.
+stepAdjoint 
+  :: Adjunction f g 
+  => AdjointT f g (AdjointT (Free f) (Cofree g) w) a 
+  -> AdjointT (Free f) (Cofree g) w a
+stepAdjoint (W.AdjointT ffwgga) =  undefined -- Раскрывает ньютайп и пересобирает через Roll / (:<)
+
+-- | Обратная операция — снятие одного слоя рекурсии.
+unstepAdjoint 
+  :: Adjunction f g 
+  => AdjointT (Free f) (Cofree g) w a 
+  -> AdjointT f g (AdjointT (Free f) (Cofree g) w) a
+unstepAdjoint = undefined
+
+
 -- CoT
 {-}
 type AdjCoT fw gw w m a = CoT (W.AdjointT fw gw w) m a
