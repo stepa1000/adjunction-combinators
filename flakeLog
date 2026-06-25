@@ -1,0 +1,1458 @@
+got build log for '/nix/store/8g5ada4d9pc6wn92x8kqf9ikd512nmb3-ghcide-2.13.0.0.drv' from 'daemon'
+Running phase: setupCompilerEnvironmentPhase
+@nix { "action": "setPhase", "phase": "setupCompilerEnvironmentPhase" }
+Build with /nix/store/f7g95gp3fj45cipdck1hn949j6vnipkp-ghc-9.12.4.
+Running phase: unpackPhase
+@nix { "action": "setPhase", "phase": "unpackPhase" }
+unpacking source archive /nix/store/j070rv651hmvzlpa740bkqiwh359ap4q-ghcide-2.13.0.0.tar.gz
+source root is ghcide-2.13.0.0
+setting SOURCE_DATE_EPOCH to timestamp 1000000000 of file "ghcide-2.13.0.0/src/Text/Fuzzy/Parallel.hs"
+Running phase: patchPhase
+@nix { "action": "setPhase", "phase": "patchPhase" }
+Running phase: compileBuildDriverPhase
+@nix { "action": "setPhase", "phase": "compileBuildDriverPhase" }
+setupCompileFlags: -package-db=/build/tmp.KfYL1N6zzM/setup-package.conf.d -threaded
+[1 of 2] Compiling Main             ( /nix/store/4mdp8nhyfddh7bllbi7xszz7k9955n79-Setup.hs, /build/tmp.KfYL1N6zzM/Main.o )
+[2 of 2] Linking Setup
+Running phase: updateAutotoolsGnuConfigScriptsPhase
+@nix { "action": "setPhase", "phase": "updateAutotoolsGnuConfigScriptsPhase" }
+Running phase: configurePhase
+@nix { "action": "setPhase", "phase": "configurePhase" }
+configureFlags: --verbose --prefix=/nix/store/g11rbkxiyligiqnwk1g4fgg1l507dmpw-ghcide-2.13.0.0 --libdir=$prefix/lib/$compiler/lib --libsubdir=$abi/$libname --docdir=/nix/store/6g8jxz651c60990yd1m99df9xp9rnx1x-ghcide-2.13.0.0-doc/share/doc/ghcide-2.13.0.0 --with-gcc=gcc --package-db=/build/tmp.KfYL1N6zzM/package.conf.d --ghc-option=-j16 --ghc-option=+RTS --ghc-option=-A64M --ghc-option=-RTS --enable-library-profiling --profiling-detail=exported-functions --disable-profiling --enable-shared --disable-coverage --enable-static --disable-executable-dynamic --enable-tests --disable-benchmarks --enable-library-vanilla --disable-library-for-ghci --enable-split-sections --enable-library-stripping --enable-executable-stripping --ghc-option=-fobject-determinism --ghc-option=-haddock --extra-lib-dirs=/nix/store/wl2nw5l4x4dg6kclbgpq7v9212i1s6cy-ncurses-6.6/lib --extra-lib-dirs=/nix/store/2zs4bbi72plfm8j6zxf1js4f3yc4yzwy-libffi-3.5.2/lib --extra-lib-dirs=/nix/store/qhmqdg27kcrlkl8ida6d5hiacw0y8d21-elfutils-0.194/lib --extra-lib-dirs=/nix/store/y56aqb1m3y5davn6hsv4jfbml78qw4mv-gmp-with-cxx-6.3.0/lib --extra-lib-dirs=/nix/store/wjfhh11sfcdf97mvg7hbxickybxzk850-numactl-2.0.18/lib --extra-lib-dirs=/nix/store/f7g95gp3fj45cipdck1hn949j6vnipkp-ghc-9.12.4/lib
+Using Parsec parser
+Configuring ghcide-2.13.0.0...
+Flags chosen: executable=True, pedantic=False
+Dependency Diff >=0.5 && <0.6 || >=1.0.0 && <1.1: using Diff-1.0.2
+Dependency Glob: using Glob-0.10.2
+Dependency aeson: using aeson-2.2.4.1
+Dependency array: using array-0.5.8.0
+Dependency async: using async-2.2.6
+Dependency base >=4.16 && <5: using base-4.21.2.0
+Dependency base16-bytestring >=0.1.1 && <1.1: using base16-bytestring-1.0.2.0
+Dependency binary: using binary-0.8.9.3
+Dependency bytestring: using bytestring-0.12.2.0
+Dependency case-insensitive: using case-insensitive-1.2.1.0
+Dependency co-log-core: using co-log-core-0.3.2.6
+Dependency containers: using containers-0.7
+Dependency cryptohash-sha1 >=0.11.100 && <0.12: using
+cryptohash-sha1-0.11.101.0
+Dependency data-default: using data-default-0.8.0.2
+Dependency deepseq: using deepseq-1.5.1.0
+Dependency dependent-map: using dependent-map-0.4.0.1
+Dependency dependent-sum: using dependent-sum-0.7.2.0
+Dependency directory: using directory-1.3.10.1
+Dependency dlist: using dlist-1.0
+Dependency edit-distance: using edit-distance-0.2.2.1
+Dependency enummapset: using enummapset-0.7.3.0
+Dependency exceptions: using exceptions-0.10.12
+Dependency extra >=1.7.14: using extra-1.8.1
+Dependency filepath: using filepath-1.5.5.0
+Dependency fingertree: using fingertree-0.1.6.3
+Dependency focus >=1.0.3.2: using focus-1.0.3.2
+Dependency ghc >=9.2: using ghc-9.12.4
+Dependency ghc-boot: using ghc-boot-9.12.4
+Dependency ghc-boot-th: using ghc-boot-th-9.12.4
+Dependency ghc-trace-events: using ghc-trace-events-0.1.2.10
+Dependency haddock-library >=1.8 && <1.12: using haddock-library-1.11.0
+Dependency hashable: using hashable-1.5.1.0
+Dependency hie-bios >=0.17.0 && <0.18: using hie-bios-0.17.0
+Dependency hiedb >=0.7.0.0 && <0.8: using hiedb-0.7.0.0
+Dependency hls-graph ==2.13.0.0: using hls-graph-2.13.0.0
+Dependency hls-plugin-api ==2.13.0.0: using hls-plugin-api-2.13.0.0
+Dependency implicit-hie >=0.1.4.0 && <0.1.5: using implicit-hie-0.1.4.0
+Dependency lens: using lens-5.3.6
+Dependency lens-aeson: using lens-aeson-1.2.3
+Dependency list-t: using list-t-1.0.5.7
+Dependency lsp >=2.7 && <2.8: using lsp-2.7.0.1
+Dependency lsp-types >=2.3 && <2.4: using lsp-types-2.3.0.1
+Dependency mtl: using mtl-2.3.2
+Dependency opentelemetry >=0.6.1: using opentelemetry-0.8.0
+Dependency optparse-applicative: using optparse-applicative-0.18.1.0
+Dependency os-string: using os-string-2.0.10
+Dependency parallel: using parallel-3.2.2.0
+Dependency prettyprinter >=1.7: using prettyprinter-1.7.1
+Dependency prettyprinter-ansi-terminal: using
+prettyprinter-ansi-terminal-1.1.3
+Dependency process: using process-1.6.26.1
+Dependency random: using random-1.2.1.3
+Dependency regex-tdfa >=1.3.1.0: using regex-tdfa-1.3.2.5
+Dependency safe-exceptions: using safe-exceptions-0.1.7.4
+Dependency sorted-list: using sorted-list-0.2.3.1
+Dependency sqlite-simple: using sqlite-simple-0.4.19.0
+Dependency stm: using stm-2.5.3.1
+Dependency stm-containers: using stm-containers-1.2.2
+Dependency syb: using syb-0.7.2.4
+Dependency text: using text-2.1.4
+Dependency text-rope: using text-rope-0.3
+Dependency time: using time-1.14
+Dependency transformers: using transformers-0.6.3.0
+Dependency unix: using unix-2.8.8.0
+Dependency unliftio >=0.2.6: using unliftio-0.2.25.1
+Dependency unliftio-core: using unliftio-core-0.2.1.0
+Dependency unordered-containers >=0.2.10.0: using
+unordered-containers-0.2.20.1
+Dependency vector: using vector-0.13.2.0
+Dependency base >=4.16 && <5: using base-4.21.2.0
+Dependency data-default: using data-default-0.8.0.2
+Dependency extra: using extra-1.8.1
+Dependency ghcide: using ghcide-2.13.0.0
+Dependency gitrev: using gitrev-1.3.1
+Dependency hls-plugin-api: using hls-plugin-api-2.13.0.0
+Dependency lsp: using lsp-2.7.0.1
+Dependency lsp-types: using lsp-types-2.3.0.1
+Dependency optparse-applicative: using optparse-applicative-0.18.1.0
+Source component graph:
+    component lib
+    component exe:ghcide dependency lib
+Configured component graph:
+    component ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5
+        include Diff-1.0.2-LqeJxBIE7IpL5JAKaonpDM
+        include Glob-0.10.2-LaqCnRX2U4a106WQZoG92X
+        include aeson-2.2.4.1-LKN7Dar38UCDUGRYW3jhRo
+        include array-0.5.8.0-e202
+        include async-2.2.6-FR93zc6DnafIh9YBBxzluJ
+        include base-4.21.2.0-216a
+        include base16-bytestring-1.0.2.0-EP0GRazduuFC6xGALcM3pP
+        include binary-0.8.9.3-8c14
+        include bytestring-0.12.2.0-a09d
+        include case-insensitive-1.2.1.0-LlT1lrc2Xnq5O0uGGAkBAE
+        include co-log-core-0.3.2.6-EoLXImGaMA2308ne3kqanC
+        include containers-0.7-19b1
+        include cryptohash-sha1-0.11.101.0-64Mj4KsFC8o69uhYgWzO5f
+        include data-default-0.8.0.2-9plnOlu0RVoFFHham0bTmK
+        include deepseq-1.5.1.0-c1fe
+        include dependent-map-0.4.0.1-LF1C3FOxoVdrXGPkNa8Xt
+        include dependent-sum-0.7.2.0-IHOIgT4XgRX6SPShIxk9NH
+        include directory-1.3.10.1-aa24
+        include dlist-1.0-Li2GQXRbd2iFmjRytQrxRB
+        include edit-distance-0.2.2.1-5Qm4E2iwRoOj9VA7Lhkl5
+        include enummapset-0.7.3.0-HRBfMmHaCbKHFnHxC4cmHc
+        include exceptions-0.10.12-18e2
+        include extra-1.8.1-5htsrEv6tYjLDAepyFK20W
+        include filepath-1.5.5.0-5706
+        include fingertree-0.1.6.3-HsbqfSTBzmm3i7nCeQVQ0U
+        include focus-1.0.3.2-DhamvaZau5hI2KwH3zBKtK
+        include ghc-9.12.4-3251
+        include ghc-boot-9.12.4-38ca
+        include ghc-boot-th-9.12.4-4c27
+        include ghc-trace-events-0.1.2.10-DOHCK5U3ZIDCLNBKTaKYad
+        include haddock-library-1.11.0-c387
+        include hashable-1.5.1.0-GvKh6Oitao8FRBxiw0Mgkf
+        include hie-bios-0.17.0-36zjGkU1M0bKNSXbXG7kT2
+        include hiedb-0.7.0.0-88GAKPvtU87B8PfE5lEBlc
+        include hls-graph-2.13.0.0-2YzrlIL0slg7KsjmvlVuf3
+        include hls-plugin-api-2.13.0.0-1SmEp2YeAOV7wmZWWdEr0a
+        include implicit-hie-0.1.4.0-1Ohj1rjYkSPDsPMgcGtgry
+        include lens-5.3.6-FUC6LAKizjG2XOgYLOutN3
+        include lens-aeson-1.2.3-I1eicBZId6uJyMkLHxxFoj
+        include list-t-1.0.5.7-21CPvnX5tZQ36olBvO9BcH
+        include lsp-2.7.0.1-FAfMJt3cqrPCe9lxvT2Rnd
+        include lsp-types-2.3.0.1-DPtwvPcrL573oBBSK3Ygd0
+        include mtl-2.3.2-5c4f
+        include opentelemetry-0.8.0-1yT1nHWchdsADV9jlmqsPV
+        include optparse-applicative-0.18.1.0-7cjXnZZAEltFXnUHxajLVj
+        include os-string-2.0.10-d573
+        include parallel-3.2.2.0-6HaifnBToum92krIuV9IGp
+        include prettyprinter-1.7.1-BOx7My75bUgGvs4AGvcdml
+        include prettyprinter-ansi-terminal-1.1.3-EROTly2hGBmHXMWJNcLnXN
+        include process-1.6.26.1-f830
+        include random-1.2.1.3-KuYB2Vo7kLC1dN2CkDkkZc
+        include regex-tdfa-1.3.2.5-i6XNC0K00d8d7hfKM5TPM
+        include safe-exceptions-0.1.7.4-FjIXQhrZpiR16oYEJUrfmq
+        include sorted-list-0.2.3.1-Al7ciGHQMNvCm97z9kUScT
+        include sqlite-simple-0.4.19.0-8ZFiLq2b7dLDcAPCvjADiP
+        include stm-2.5.3.1-d211
+        include stm-containers-1.2.2-LDfSlExDoT437j71cTh8Ut
+        include syb-0.7.2.4-9gbEkWXTlFEELqLSyEUCvX
+        include text-2.1.4-781d
+        include text-rope-0.3-7ZWkjpvs28e2M4iOkG1Hn3
+        include time-1.14-3039
+        include transformers-0.6.3.0-9f97
+        include unix-2.8.8.0-6707
+        include unliftio-0.2.25.1-84PG2rWfL0tEaHlPoMMjOZ
+        include unliftio-core-0.2.1.0-Fh6ZrCntqNhHIw71Xm4WEC
+        include unordered-containers-0.2.20.1-6DpecqdZGKuGtkge1YAYT4
+        include vector-0.13.2.0-BkGTe0MWfBe3bf0Sc6eaJG
+    component ghcide-2.13.0.0-8qxQK2BYad3CRh4wuKtncx-ghcide
+        include base-4.21.2.0-216a
+        include data-default-0.8.0.2-9plnOlu0RVoFFHham0bTmK
+        include extra-1.8.1-5htsrEv6tYjLDAepyFK20W
+        include ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5
+        include gitrev-1.3.1-65HBJbWw1WsCDvlXVzklci
+        include hls-plugin-api-2.13.0.0-1SmEp2YeAOV7wmZWWdEr0a
+        include lsp-2.7.0.1-FAfMJt3cqrPCe9lxvT2Rnd
+        include lsp-types-2.3.0.1-DPtwvPcrL573oBBSK3Ygd0
+        include optparse-applicative-0.18.1.0-7cjXnZZAEltFXnUHxajLVj
+Linked component graph:
+    unit ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5
+        include Diff-1.0.2-LqeJxBIE7IpL5JAKaonpDM
+        include Glob-0.10.2-LaqCnRX2U4a106WQZoG92X
+        include aeson-2.2.4.1-LKN7Dar38UCDUGRYW3jhRo
+        include array-0.5.8.0-e202
+        include async-2.2.6-FR93zc6DnafIh9YBBxzluJ
+        include base-4.21.2.0-216a
+        include base16-bytestring-1.0.2.0-EP0GRazduuFC6xGALcM3pP
+        include binary-0.8.9.3-8c14
+        include bytestring-0.12.2.0-a09d
+        include case-insensitive-1.2.1.0-LlT1lrc2Xnq5O0uGGAkBAE
+        include co-log-core-0.3.2.6-EoLXImGaMA2308ne3kqanC
+        include containers-0.7-19b1
+        include cryptohash-sha1-0.11.101.0-64Mj4KsFC8o69uhYgWzO5f
+        include data-default-0.8.0.2-9plnOlu0RVoFFHham0bTmK
+        include deepseq-1.5.1.0-c1fe
+        include dependent-map-0.4.0.1-LF1C3FOxoVdrXGPkNa8Xt
+        include dependent-sum-0.7.2.0-IHOIgT4XgRX6SPShIxk9NH
+        include directory-1.3.10.1-aa24
+        include dlist-1.0-Li2GQXRbd2iFmjRytQrxRB
+        include edit-distance-0.2.2.1-5Qm4E2iwRoOj9VA7Lhkl5
+        include enummapset-0.7.3.0-HRBfMmHaCbKHFnHxC4cmHc
+        include exceptions-0.10.12-18e2
+        include extra-1.8.1-5htsrEv6tYjLDAepyFK20W
+        include filepath-1.5.5.0-5706
+        include fingertree-0.1.6.3-HsbqfSTBzmm3i7nCeQVQ0U
+        include focus-1.0.3.2-DhamvaZau5hI2KwH3zBKtK
+        include ghc-9.12.4-3251
+        include ghc-boot-9.12.4-38ca
+        include ghc-boot-th-9.12.4-4c27
+        include ghc-trace-events-0.1.2.10-DOHCK5U3ZIDCLNBKTaKYad
+        include haddock-library-1.11.0-c387
+        include hashable-1.5.1.0-GvKh6Oitao8FRBxiw0Mgkf
+        include hie-bios-0.17.0-36zjGkU1M0bKNSXbXG7kT2
+        include hiedb-0.7.0.0-88GAKPvtU87B8PfE5lEBlc
+        include hls-graph-2.13.0.0-2YzrlIL0slg7KsjmvlVuf3
+        include hls-plugin-api-2.13.0.0-1SmEp2YeAOV7wmZWWdEr0a
+        include implicit-hie-0.1.4.0-1Ohj1rjYkSPDsPMgcGtgry
+        include lens-5.3.6-FUC6LAKizjG2XOgYLOutN3
+        include lens-aeson-1.2.3-I1eicBZId6uJyMkLHxxFoj
+        include list-t-1.0.5.7-21CPvnX5tZQ36olBvO9BcH
+        include lsp-2.7.0.1-FAfMJt3cqrPCe9lxvT2Rnd
+        include lsp-types-2.3.0.1-DPtwvPcrL573oBBSK3Ygd0
+        include mtl-2.3.2-5c4f
+        include opentelemetry-0.8.0-1yT1nHWchdsADV9jlmqsPV
+        include optparse-applicative-0.18.1.0-7cjXnZZAEltFXnUHxajLVj
+        include os-string-2.0.10-d573
+        include parallel-3.2.2.0-6HaifnBToum92krIuV9IGp
+        include prettyprinter-1.7.1-BOx7My75bUgGvs4AGvcdml
+        include prettyprinter-ansi-terminal-1.1.3-EROTly2hGBmHXMWJNcLnXN
+        include process-1.6.26.1-f830
+        include random-1.2.1.3-KuYB2Vo7kLC1dN2CkDkkZc
+        include regex-tdfa-1.3.2.5-i6XNC0K00d8d7hfKM5TPM
+        include safe-exceptions-0.1.7.4-FjIXQhrZpiR16oYEJUrfmq
+        include sorted-list-0.2.3.1-Al7ciGHQMNvCm97z9kUScT
+        include sqlite-simple-0.4.19.0-8ZFiLq2b7dLDcAPCvjADiP
+        include stm-2.5.3.1-d211
+        include stm-containers-1.2.2-LDfSlExDoT437j71cTh8Ut
+        include syb-0.7.2.4-9gbEkWXTlFEELqLSyEUCvX
+        include text-2.1.4-781d
+        include text-rope-0.3-7ZWkjpvs28e2M4iOkG1Hn3
+        include time-1.14-3039
+        include transformers-0.6.3.0-9f97
+        include unix-2.8.8.0-6707
+        include unliftio-0.2.25.1-84PG2rWfL0tEaHlPoMMjOZ
+        include unliftio-core-0.2.1.0-Fh6ZrCntqNhHIw71Xm4WEC
+        include unordered-containers-0.2.20.1-6DpecqdZGKuGtkge1YAYT4
+        include vector-0.13.2.0-BkGTe0MWfBe3bf0Sc6eaJG
+        Control.Concurrent.Strict=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Control.Concurrent.Strict,Development.IDE=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE,Development.IDE.Core.Actions=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.Actions,Development.IDE.Core.Compile=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.Compile,Development.IDE.Core.Debouncer=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.Debouncer,Development.IDE.Core.FileStore=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.FileStore,Development.IDE.Core.FileUtils=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.FileUtils,Development.IDE.Core.IdeConfiguration=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.IdeConfiguration,Development.IDE.Core.LookupMod=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.LookupMod,Development.IDE.Core.OfInterest=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.OfInterest,Development.IDE.Core.PluginUtils=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.PluginUtils,Development.IDE.Core.PositionMapping=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.PositionMapping,Development.IDE.Core.Preprocessor=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.Preprocessor,Development.IDE.Core.ProgressReporting=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.ProgressReporting,Development.IDE.Core.RuleTypes=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.RuleTypes,Development.IDE.Core.Rules=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.Rules,Development.IDE.Core.Service=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.Service,Development.IDE.Core.Shake=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.Shake,Development.IDE.Core.Tracing=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.Tracing,Development.IDE.Core.UseStale=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.UseStale,Development.IDE.Core.WorkerThread=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Core.WorkerThread,Development.IDE.GHC.Compat=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat,Development.IDE.GHC.Compat.CmdLine=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.CmdLine,Development.IDE.GHC.Compat.Core=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Core,Development.IDE.GHC.Compat.Driver=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Driver,Development.IDE.GHC.Compat.Env=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Env,Development.IDE.GHC.Compat.Error=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Error,Development.IDE.GHC.Compat.Iface=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Iface,Development.IDE.GHC.Compat.Logger=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Logger,Development.IDE.GHC.Compat.Outputable=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Outputable,Development.IDE.GHC.Compat.Parser=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Parser,Development.IDE.GHC.Compat.Plugins=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Plugins,Development.IDE.GHC.Compat.Units=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Units,Development.IDE.GHC.Compat.Util=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Compat.Util,Development.IDE.GHC.CoreFile=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.CoreFile,Development.IDE.GHC.Error=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Error,Development.IDE.GHC.Orphans=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Orphans,Development.IDE.GHC.Util=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.GHC.Util,Development.IDE.Import.DependencyInformation=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Import.DependencyInformation,Development.IDE.Import.FindImports=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Import.FindImports,Development.IDE.LSP.HoverDefinition=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.LSP.HoverDefinition,Development.IDE.LSP.LanguageServer=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.LSP.LanguageServer,Development.IDE.LSP.Notifications=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.LSP.Notifications,Development.IDE.LSP.Outline=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.LSP.Outline,Development.IDE.LSP.Server=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.LSP.Server,Development.IDE.Main=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Main,Development.IDE.Main.HeapStats=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Main.HeapStats,Development.IDE.Monitoring.OpenTelemetry=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Monitoring.OpenTelemetry,Development.IDE.Plugin=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Plugin,Development.IDE.Plugin.Completions=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Plugin.Completions,Development.IDE.Plugin.Completions.Logic=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Plugin.Completions.Logic,Development.IDE.Plugin.Completions.Types=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Plugin.Completions.Types,Development.IDE.Plugin.HLS=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Plugin.HLS,Development.IDE.Plugin.HLS.GhcIde=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Plugin.HLS.GhcIde,Development.IDE.Plugin.Test=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Plugin.Test,Development.IDE.Plugin.TypeLenses=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Plugin.TypeLenses,Development.IDE.Session=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Session,Development.IDE.Session.Diagnostics=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Session.Diagnostics,Development.IDE.Session.Implicit=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Session.Implicit,Development.IDE.Spans.AtPoint=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Spans.AtPoint,Development.IDE.Spans.Common=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Spans.Common,Development.IDE.Spans.Documentation=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Spans.Documentation,Development.IDE.Spans.LocalBindings=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Spans.LocalBindings,Development.IDE.Spans.Pragmas=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Spans.Pragmas,Development.IDE.Types.Diagnostics=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Types.Diagnostics,Development.IDE.Types.Exports=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Types.Exports,Development.IDE.Types.HscEnvEq=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Types.HscEnvEq,Development.IDE.Types.KnownTargets=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Types.KnownTargets,Development.IDE.Types.Location=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Types.Location,Development.IDE.Types.Monitoring=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Types.Monitoring,Development.IDE.Types.Options=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Types.Options,Development.IDE.Types.Shake=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Development.IDE.Types.Shake,Generics.SYB.GHC=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Generics.SYB.GHC,Text.Fuzzy.Levenshtein=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Text.Fuzzy.Levenshtein,Text.Fuzzy.Parallel=ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5:Text.Fuzzy.Parallel
+    unit ghcide-2.13.0.0-8qxQK2BYad3CRh4wuKtncx-ghcide
+        include base-4.21.2.0-216a
+        include data-default-0.8.0.2-9plnOlu0RVoFFHham0bTmK
+        include extra-1.8.1-5htsrEv6tYjLDAepyFK20W
+        include ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5
+        include gitrev-1.3.1-65HBJbWw1WsCDvlXVzklci
+        include hls-plugin-api-2.13.0.0-1SmEp2YeAOV7wmZWWdEr0a
+        include lsp-2.7.0.1-FAfMJt3cqrPCe9lxvT2Rnd
+        include lsp-types-2.3.0.1-DPtwvPcrL573oBBSK3Ygd0
+        include optparse-applicative-0.18.1.0-7cjXnZZAEltFXnUHxajLVj
+Ready component graph:
+    definite ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5
+        depends Diff-1.0.2-LqeJxBIE7IpL5JAKaonpDM
+        depends Glob-0.10.2-LaqCnRX2U4a106WQZoG92X
+        depends aeson-2.2.4.1-LKN7Dar38UCDUGRYW3jhRo
+        depends array-0.5.8.0-e202
+        depends async-2.2.6-FR93zc6DnafIh9YBBxzluJ
+        depends base-4.21.2.0-216a
+        depends base16-bytestring-1.0.2.0-EP0GRazduuFC6xGALcM3pP
+        depends binary-0.8.9.3-8c14
+        depends bytestring-0.12.2.0-a09d
+        depends case-insensitive-1.2.1.0-LlT1lrc2Xnq5O0uGGAkBAE
+        depends co-log-core-0.3.2.6-EoLXImGaMA2308ne3kqanC
+        depends containers-0.7-19b1
+        depends cryptohash-sha1-0.11.101.0-64Mj4KsFC8o69uhYgWzO5f
+        depends data-default-0.8.0.2-9plnOlu0RVoFFHham0bTmK
+        depends deepseq-1.5.1.0-c1fe
+        depends dependent-map-0.4.0.1-LF1C3FOxoVdrXGPkNa8Xt
+        depends dependent-sum-0.7.2.0-IHOIgT4XgRX6SPShIxk9NH
+        depends directory-1.3.10.1-aa24
+        depends dlist-1.0-Li2GQXRbd2iFmjRytQrxRB
+        depends edit-distance-0.2.2.1-5Qm4E2iwRoOj9VA7Lhkl5
+        depends enummapset-0.7.3.0-HRBfMmHaCbKHFnHxC4cmHc
+        depends exceptions-0.10.12-18e2
+        depends extra-1.8.1-5htsrEv6tYjLDAepyFK20W
+        depends filepath-1.5.5.0-5706
+        depends fingertree-0.1.6.3-HsbqfSTBzmm3i7nCeQVQ0U
+        depends focus-1.0.3.2-DhamvaZau5hI2KwH3zBKtK
+        depends ghc-9.12.4-3251
+        depends ghc-boot-9.12.4-38ca
+        depends ghc-boot-th-9.12.4-4c27
+        depends ghc-trace-events-0.1.2.10-DOHCK5U3ZIDCLNBKTaKYad
+        depends haddock-library-1.11.0-c387
+        depends hashable-1.5.1.0-GvKh6Oitao8FRBxiw0Mgkf
+        depends hie-bios-0.17.0-36zjGkU1M0bKNSXbXG7kT2
+        depends hiedb-0.7.0.0-88GAKPvtU87B8PfE5lEBlc
+        depends hls-graph-2.13.0.0-2YzrlIL0slg7KsjmvlVuf3
+        depends hls-plugin-api-2.13.0.0-1SmEp2YeAOV7wmZWWdEr0a
+        depends implicit-hie-0.1.4.0-1Ohj1rjYkSPDsPMgcGtgry
+        depends lens-5.3.6-FUC6LAKizjG2XOgYLOutN3
+        depends lens-aeson-1.2.3-I1eicBZId6uJyMkLHxxFoj
+        depends list-t-1.0.5.7-21CPvnX5tZQ36olBvO9BcH
+        depends lsp-2.7.0.1-FAfMJt3cqrPCe9lxvT2Rnd
+        depends lsp-types-2.3.0.1-DPtwvPcrL573oBBSK3Ygd0
+        depends mtl-2.3.2-5c4f
+        depends opentelemetry-0.8.0-1yT1nHWchdsADV9jlmqsPV
+        depends optparse-applicative-0.18.1.0-7cjXnZZAEltFXnUHxajLVj
+        depends os-string-2.0.10-d573
+        depends parallel-3.2.2.0-6HaifnBToum92krIuV9IGp
+        depends prettyprinter-1.7.1-BOx7My75bUgGvs4AGvcdml
+        depends prettyprinter-ansi-terminal-1.1.3-EROTly2hGBmHXMWJNcLnXN
+        depends process-1.6.26.1-f830
+        depends random-1.2.1.3-KuYB2Vo7kLC1dN2CkDkkZc
+        depends regex-tdfa-1.3.2.5-i6XNC0K00d8d7hfKM5TPM
+        depends safe-exceptions-0.1.7.4-FjIXQhrZpiR16oYEJUrfmq
+        depends sorted-list-0.2.3.1-Al7ciGHQMNvCm97z9kUScT
+        depends sqlite-simple-0.4.19.0-8ZFiLq2b7dLDcAPCvjADiP
+        depends stm-2.5.3.1-d211
+        depends stm-containers-1.2.2-LDfSlExDoT437j71cTh8Ut
+        depends syb-0.7.2.4-9gbEkWXTlFEELqLSyEUCvX
+        depends text-2.1.4-781d
+        depends text-rope-0.3-7ZWkjpvs28e2M4iOkG1Hn3
+        depends time-1.14-3039
+        depends transformers-0.6.3.0-9f97
+        depends unix-2.8.8.0-6707
+        depends unliftio-0.2.25.1-84PG2rWfL0tEaHlPoMMjOZ
+        depends unliftio-core-0.2.1.0-Fh6ZrCntqNhHIw71Xm4WEC
+        depends unordered-containers-0.2.20.1-6DpecqdZGKuGtkge1YAYT4
+        depends vector-0.13.2.0-BkGTe0MWfBe3bf0Sc6eaJG
+    definite ghcide-2.13.0.0-8qxQK2BYad3CRh4wuKtncx-ghcide
+        depends base-4.21.2.0-216a
+        depends data-default-0.8.0.2-9plnOlu0RVoFFHham0bTmK
+        depends extra-1.8.1-5htsrEv6tYjLDAepyFK20W
+        depends ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5
+        depends gitrev-1.3.1-65HBJbWw1WsCDvlXVzklci
+        depends hls-plugin-api-2.13.0.0-1SmEp2YeAOV7wmZWWdEr0a
+        depends lsp-2.7.0.1-FAfMJt3cqrPCe9lxvT2Rnd
+        depends lsp-types-2.3.0.1-DPtwvPcrL573oBBSK3Ygd0
+        depends optparse-applicative-0.18.1.0-7cjXnZZAEltFXnUHxajLVj
+Using Cabal-3.14.2.0 compiled by ghc-9.12
+Using compiler: ghc-9.12.4
+Using install prefix:
+/nix/store/g11rbkxiyligiqnwk1g4fgg1l507dmpw-ghcide-2.13.0.0
+Executables installed in:
+/nix/store/g11rbkxiyligiqnwk1g4fgg1l507dmpw-ghcide-2.13.0.0/bin
+Libraries installed in:
+/nix/store/g11rbkxiyligiqnwk1g4fgg1l507dmpw-ghcide-2.13.0.0/lib/ghc-9.12.4/lib/x86_64-linux-ghc-9.12.4-3251/ghcide-2.13.0.0-GZq7n31aTWRsrC9Uhp1D5
+Dynamic Libraries installed in:
+/nix/store/g11rbkxiyligiqnwk1g4fgg1l507dmpw-ghcide-2.13.0.0/lib/ghc-9.12.4/lib/x86_64-linux-ghc-9.12.4-3251
+Private executables installed in:
+/nix/store/g11rbkxiyligiqnwk1g4fgg1l507dmpw-ghcide-2.13.0.0/libexec/x86_64-linux-ghc-9.12.4-3251/ghcide-2.13.0.0
+Data files installed in:
+/nix/store/g11rbkxiyligiqnwk1g4fgg1l507dmpw-ghcide-2.13.0.0/share/x86_64-linux-ghc-9.12.4-3251/ghcide-2.13.0.0
+Documentation installed in:
+/nix/store/6g8jxz651c60990yd1m99df9xp9rnx1x-ghcide-2.13.0.0-doc/share/doc/ghcide-2.13.0.0
+Configuration files installed in:
+/nix/store/g11rbkxiyligiqnwk1g4fgg1l507dmpw-ghcide-2.13.0.0/etc
+No alex found
+Using ar found on system at:
+/nix/store/mbyy19mdwnfvfwmdi0gqgggx0njvpl1w-binutils-wrapper-2.46/bin/ar
+No c2hs found
+No cpphs found
+No doctest found
+Using gcc version 15.2.0 given by user at:
+/nix/store/788mx070y81zjlg5ipcl0cra3afviw9k-gcc-wrapper-15.2.0/bin/gcc
+Using ghc version 9.12.4 found on system at:
+/nix/store/f7g95gp3fj45cipdck1hn949j6vnipkp-ghc-9.12.4/bin/ghc
+Using ghc-pkg version 9.12.4 found on system at:
+/nix/store/f7g95gp3fj45cipdck1hn949j6vnipkp-ghc-9.12.4/bin/ghc-pkg-9.12.4
+No ghcjs found
+No ghcjs-pkg found
+No greencard found
+Using haddock version 2.32.0 found on system at:
+/nix/store/f7g95gp3fj45cipdck1hn949j6vnipkp-ghc-9.12.4/bin/haddock-ghc-9.12.4
+No happy found
+No haskell-suite found
+No haskell-suite-pkg found
+No hmake found
+Using hpc version 0.69 found on system at:
+/nix/store/f7g95gp3fj45cipdck1hn949j6vnipkp-ghc-9.12.4/bin/hpc-ghc-9.12.4
+Using hsc2hs version 0.68.10 found on system at:
+/nix/store/f7g95gp3fj45cipdck1hn949j6vnipkp-ghc-9.12.4/bin/hsc2hs-ghc-9.12.4
+Using hscolour version 1.25 found on system at:
+/nix/store/pqqnc75s3pygfzsrai2ignvdqrdrgr9y-hscolour-1.25/bin/HsColour
+No jhc found
+Using ld found on system at:
+/nix/store/788mx070y81zjlg5ipcl0cra3afviw9k-gcc-wrapper-15.2.0/bin/ld
+No pkg-config found
+Using runghc version 9.12.4 found on system at:
+/nix/store/f7g95gp3fj45cipdck1hn949j6vnipkp-ghc-9.12.4/bin/runghc-9.12.4
+Using strip version 2.46 found on system at:
+/nix/store/788mx070y81zjlg5ipcl0cra3afviw9k-gcc-wrapper-15.2.0/bin/strip
+Using tar found on system at:
+/nix/store/k5akwnrn9x2afaj2va7g4a2zpdim8l43-gnutar-1.35/bin/tar
+No uhc found
+Running phase: buildPhase
+@nix { "action": "setPhase", "phase": "buildPhase" }
+Preprocessing library for ghcide-2.13.0.0...
+Building library for ghcide-2.13.0.0...
+[;1m<no location info>: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-42258\GHC-42258]8;;\] [[;1m[35m-Wunused-packages[0m[0m[;1m][0m[0m[;1m
+    The following packages were specified via -package or -package-id flags,
+    but were not needed for compilation:
+      - os-string-2.0.10 (exposed by flag -package-id os-string-2.0.10-d573)[0m[0m
+
+[ 1 of 79] Compiling Control.Concurrent.Strict ( src/Control/Concurrent/Strict.hs, dist/build/Control/Concurrent/Strict.o, dist/build/Control/Concurrent/Strict.dyn_o )
+[ 2 of 79] Compiling Development.IDE.Core.Debouncer ( src/Development/IDE/Core/Debouncer.hs, dist/build/Development/IDE/Core/Debouncer.o, dist/build/Development/IDE/Core/Debouncer.dyn_o )
+[ 3 of 79] Compiling Development.IDE.Core.FileUtils ( src/Development/IDE/Core/FileUtils.hs, dist/build/Development/IDE/Core/FileUtils.o, dist/build/Development/IDE/Core/FileUtils.dyn_o )
+[ 4 of 79] Compiling Development.IDE.Core.PositionMapping ( src/Development/IDE/Core/PositionMapping.hs, dist/build/Development/IDE/Core/PositionMapping.o, dist/build/Development/IDE/Core/PositionMapping.dyn_o )
+[;1msrc/Development/IDE/Core/PositionMapping.hs:31:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Data.List’ is redundant
+      except perhaps to import instances from ‘Data.List’
+    To import instances alone, use: import Data.List()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m31 |[0m[0m [;1m[35mimport           Data.List[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[ 5 of 79] Compiling Development.IDE.Core.WorkerThread ( src/Development/IDE/Core/WorkerThread.hs, dist/build/Development/IDE/Core/WorkerThread.o, dist/build/Development/IDE/Core/WorkerThread.dyn_o )
+[;1msrc/Development/IDE/Core/WorkerThread.hs:13:45: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38856\GHC-38856]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘AsyncCancelled, AsyncCancelled’
+    from module ‘Control.Concurrent.Async’ is redundant[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m13 |[0m[0m import           Control.Concurrent.Async  ([;1m[35mAsyncCancelled (AsyncCancelled)[0m[0m,
+[;1m[34m   |[0m[0m[;1m[35m                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Core/WorkerThread.hs:18:45: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38856\GHC-38856]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Exception, fromException’
+    from module ‘Control.Exception.Safe’ is redundant[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m18 |[0m[0m import           Control.Exception.Safe    ([;1m[35mException (fromException)[0m[0m,
+[;1m[34m   |[0m[0m[;1m[35m                                             ^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[ 6 of 79] Compiling Development.IDE.GHC.Compat.CmdLine ( src/Development/IDE/GHC/Compat/CmdLine.hs, dist/build/Development/IDE/GHC/Compat/CmdLine.o, dist/build/Development/IDE/GHC/Compat/CmdLine.dyn_o )
+[ 7 of 79] Compiling Development.IDE.GHC.Compat.Core ( src/Development/IDE/GHC/Compat/Core.hs, dist/build/Development/IDE/GHC/Compat/Core.o, dist/build/Development/IDE/GHC/Compat/Core.dyn_o )
+[;1msrc/Development/IDE/GHC/Compat/Core.hs:273:5: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-75356\GHC-75356]8;;\] [[;1m[35m-Wdodgy-exports[0m[0m[;1m][0m[0m[;1m
+    The export item ‘Warn(..)’ suggests that
+    ‘Warn’ has (in-scope) constructors or record fields,
+               but it has none[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m273 |[0m[0m     [;1m[35mWarn(..)[0m[0m,
+[;1m[34m    |[0m[0m[;1m[35m     ^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat/Core.hs:367:5: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-47854\GHC-47854]8;;\] [[;1m[35m-Wduplicate-exports[0m[0m[;1m][0m[0m[;1m
+    ‘PlainGhcException’ is exported by ‘module GHC.Utils.Panic’ and ‘Plain.PlainGhcException’[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m367 |[0m[0m     [;1m[35mmodule GHC.Utils.Panic[0m[0m,
+[;1m[34m    |[0m[0m[;1m[35m     ^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat/Core.hs:421:47: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-99623\GHC-99623]8;;\] [[;1m[35m-Wdodgy-imports[0m[0m[;1m][0m[0m[;1m
+    The import item ‘GHC.Driver.CmdLine.Warn(..)’ suggests that
+    ‘GHC.Driver.CmdLine.Warn’ has (in-scope) constructors or record fields,
+                                  but it has none[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m421 |[0m[0m import           GHC.Driver.CmdLine          ([;1m[35mWarn (..)[0m[0m)
+[;1m[34m    |[0m[0m[;1m[35m                                               ^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat/Core.hs:487:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘GHC.Data.Bag’ is redundant
+      except perhaps to import instances from ‘GHC.Data.Bag’
+    To import instances alone, use: import GHC.Data.Bag()[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m487 |[0m[0m [;1m[35mimport           GHC.Data.Bag[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat/Core.hs:773:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38417\GHC-38417]8;;\] [[;1m[35m-Wmissing-signatures[0m[0m[;1m][0m[0m[;1m
+    Top-level binding with no type signature:
+      lookupGlobalRdrEnv :: GlobalRdrEnvX GREInfo
+                            -> OccName -> [GlobalRdrEltX GREInfo][0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m773 |[0m[0m [;1m[35mlookupGlobalRdrEnv[0m[0m gre_env occ = lookupGRE gre_env (LookupOccName occ AllRelevantGREs)
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^[0m[0m
+
+[ 8 of 79] Compiling Development.IDE.GHC.Compat.Driver ( src/Development/IDE/GHC/Compat/Driver.hs, dist/build/Development/IDE/GHC/Compat/Driver.o, dist/build/Development/IDE/GHC/Compat/Driver.dyn_o )
+[ 9 of 79] Compiling Development.IDE.GHC.Compat.Env ( src/Development/IDE/GHC/Compat/Env.hs, dist/build/Development/IDE/GHC/Compat/Env.o, dist/build/Development/IDE/GHC/Compat/Env.dyn_o )
+[10 of 79] Compiling Development.IDE.GHC.Compat.Outputable ( src/Development/IDE/GHC/Compat/Outputable.hs, dist/build/Development/IDE/GHC/Compat/Outputable.o, dist/build/Development/IDE/GHC/Compat/Outputable.dyn_o )
+[11 of 79] Compiling Development.IDE.GHC.Compat.Logger ( src/Development/IDE/GHC/Compat/Logger.hs, dist/build/Development/IDE/GHC/Compat/Logger.o, dist/build/Development/IDE/GHC/Compat/Logger.dyn_o )
+[12 of 79] Compiling Development.IDE.GHC.Compat.Iface ( src/Development/IDE/GHC/Compat/Iface.hs, dist/build/Development/IDE/GHC/Compat/Iface.o, dist/build/Development/IDE/GHC/Compat/Iface.dyn_o )
+[13 of 79] Compiling Development.IDE.GHC.Compat.Units ( src/Development/IDE/GHC/Compat/Units.hs, dist/build/Development/IDE/GHC/Compat/Units.o, dist/build/Development/IDE/GHC/Compat/Units.dyn_o )
+[14 of 79] Compiling Development.IDE.GHC.Compat.Util ( src/Development/IDE/GHC/Compat/Util.hs, dist/build/Development/IDE/GHC/Compat/Util.o, dist/build/Development/IDE/GHC/Compat/Util.dyn_o )
+[15 of 79] Compiling Development.IDE.GHC.Compat.Parser ( src/Development/IDE/GHC/Compat/Parser.hs, dist/build/Development/IDE/GHC/Compat/Parser.o, dist/build/Development/IDE/GHC/Compat/Parser.dyn_o )
+[;1msrc/Development/IDE/GHC/Compat/Parser.hs:28:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The qualified import of ‘GHC.Parser.Annotation’ is redundant
+      except perhaps to import instances from ‘GHC.Parser.Annotation’
+    To import instances alone, use: import GHC.Parser.Annotation()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m28 |[0m[0m [;1m[35mimport qualified GHC.Parser.Annotation           as Anno[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[16 of 79] Compiling Development.IDE.GHC.Compat.Plugins ( src/Development/IDE/GHC/Compat/Plugins.hs, dist/build/Development/IDE/GHC/Compat/Plugins.o, dist/build/Development/IDE/GHC/Compat/Plugins.dyn_o )
+[17 of 79] Compiling Development.IDE.GHC.Compat ( src/Development/IDE/GHC/Compat.hs, dist/build/Development/IDE/GHC/Compat.o, dist/build/Development/IDE/GHC/Compat.dyn_o )
+[;1msrc/Development/IDE/GHC/Compat.hs:69:5: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-47854\GHC-47854]8;;\] [[;1m[35m-Wduplicate-exports[0m[0m[;1m][0m[0m[;1m
+    ‘tidyOpenType’ is exported by ‘tidyOpenType’ and ‘module Development.IDE.GHC.Compat.Core’[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m69 |[0m[0m     [;1m[35mtidyOpenType[0m[0m,
+[;1m[34m   |[0m[0m[;1m[35m     ^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:77:5: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-47854\GHC-47854]8;;\] [[;1m[35m-Wduplicate-exports[0m[0m[;1m][0m[0m[;1m
+    ‘hugElts’ is exported by ‘hugElts’ and ‘module Development.IDE.GHC.Compat.Core’[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m77 |[0m[0m     [;1m[35mhugElts[0m[0m,
+[;1m[34m   |[0m[0m[;1m[35m     ^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:122:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Data.List’ is redundant
+      except perhaps to import instances from ‘Data.List’
+    To import instances alone, use: import Data.List()[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m122 |[0m[0m [;1m[35mimport           Data.List                               (foldl')[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:142:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘GHC.Core.TyCo.Tidy’ is redundant
+      except perhaps to import instances from ‘GHC.Core.TyCo.Tidy’
+    To import instances alone, use: import GHC.Core.TyCo.Tidy()[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m142 |[0m[0m [;1m[35mimport           GHC.Core.TyCo.Tidy                      (tidyOpenType)[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:280:11: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62412\GHC-62412]8;;\] [[;1m[35m-Wsimplifiable-class-constraints[0m[0m[;1m][0m[0m[;1m
+    • The constraint ‘HasLoc (GenLocated a e)’ matches
+        instance HasLoc l => HasLoc (GenLocated l a)
+          -- Defined in ‘GHC.Parser.Annotation’
+      This makes type inference for inner bindings fragile;
+        either use MonoLocalBinds, or simplify it using the instance
+    • In the type signature:
+        reLocA :: (HasLoc (GenLocated a e), HasAnnotation b) =>
+                  GenLocated a e -> GenLocated b e[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m280 |[0m[0m reLocA :: [;1m[35m(HasLoc (GenLocated a e), HasAnnotation b)[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:331:7: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-uni-patterns[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a pattern binding:
+        Patterns of type ‘Maybe FilePath’ not matched: Nothing[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m331 |[0m[0m   let [;1m[35mJust src_file = ml_hs_file $ ms_location ms[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:509:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38417\GHC-38417]8;;\] [[;1m[35m-Wmissing-signatures[0m[0m[;1m][0m[0m[;1m
+    Top-level binding with no type signature:
+      extract_cons :: DataDefnCons a -> [a][0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m509 |[0m[0m [;1m[35mextract_cons[0m[0m (NewTypeCon x)      = [x]
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^[0m[0m
+
+[18 of 79] Compiling Development.IDE.GHC.Compat.Error ( src/Development/IDE/GHC/Compat/Error.hs, dist/build/Development/IDE/GHC/Compat/Error.o, dist/build/Development/IDE/GHC/Compat/Error.dyn_o )
+[19 of 79] Compiling Development.IDE.GHC.CPP ( src/Development/IDE/GHC/CPP.hs, dist/build/Development/IDE/GHC/CPP.o, dist/build/Development/IDE/GHC/CPP.dyn_o )
+[;1msrc/Development/IDE/GHC/CPP.hs:32:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The qualified import of ‘GHC.SysTools.Tasks’ is redundant
+      except perhaps to import instances from ‘GHC.SysTools.Tasks’
+    To import instances alone, use: import GHC.SysTools.Tasks()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m32 |[0m[0m [;1m[35mimport qualified GHC.SysTools.Tasks              as Pipeline[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[20 of 79] Compiling Development.IDE.GHC.CoreFile ( src/Development/IDE/GHC/CoreFile.hs, dist/build/Development/IDE/GHC/CoreFile.o, dist/build/Development/IDE/GHC/CoreFile.dyn_o )
+[21 of 79] Compiling Development.IDE.Main.HeapStats ( src/Development/IDE/Main/HeapStats.hs, dist/build/Development/IDE/Main/HeapStats.o, dist/build/Development/IDE/Main/HeapStats.dyn_o )
+[22 of 79] Compiling Development.IDE.Session.Implicit ( session-loader/Development/IDE/Session/Implicit.hs, dist/build/Development/IDE/Session/Implicit.o, dist/build/Development/IDE/Session/Implicit.dyn_o )
+[23 of 79] Compiling Development.IDE.Types.Action ( src/Development/IDE/Types/Action.hs, dist/build/Development/IDE/Types/Action.o, dist/build/Development/IDE/Types/Action.dyn_o )
+[24 of 79] Compiling Development.IDE.Types.Location ( src/Development/IDE/Types/Location.hs, dist/build/Development/IDE/Types/Location.o, dist/build/Development/IDE/Types/Location.dyn_o )
+[25 of 79] Compiling Development.IDE.Types.Diagnostics ( src/Development/IDE/Types/Diagnostics.hs, dist/build/Development/IDE/Types/Diagnostics.o, dist/build/Development/IDE/Types/Diagnostics.dyn_o )
+[;1msrc/Development/IDE/Types/Diagnostics.hs:32:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Control.Applicative’ is redundant
+      except perhaps to import instances from ‘Control.Applicative’
+    To import instances alone, use: import Control.Applicative()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m32 |[0m[0m [;1m[35mimport           Control.Applicative            ((<|>))[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Types/Diagnostics.hs:58:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Text.Printf’ is redundant
+      except perhaps to import instances from ‘Text.Printf’
+    To import instances alone, use: import Text.Printf()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m58 |[0m[0m [;1m[35mimport           Text.Printf                    (printf)[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[26 of 79] Compiling Development.IDE.Session.Diagnostics ( session-loader/Development/IDE/Session/Diagnostics.hs, dist/build/Development/IDE/Session/Diagnostics.o, dist/build/Development/IDE/Session/Diagnostics.dyn_o )
+[27 of 79] Compiling Development.IDE.GHC.Util ( src/Development/IDE/GHC/Util.hs, dist/build/Development/IDE/GHC/Util.o, dist/build/Development/IDE/GHC/Util.dyn_o )
+[28 of 79] Compiling Development.IDE.GHC.Orphans ( src/Development/IDE/GHC/Orphans.hs, dist/build/Development/IDE/GHC/Orphans.o, dist/build/Development/IDE/GHC/Orphans.dyn_o )
+[29 of 79] Compiling Development.IDE.Types.KnownTargets ( src/Development/IDE/Types/KnownTargets.hs, dist/build/Development/IDE/Types/KnownTargets.o, dist/build/Development/IDE/Types/KnownTargets.dyn_o )
+[30 of 79] Compiling Development.IDE.Types.Exports ( src/Development/IDE/Types/Exports.hs, dist/build/Development/IDE/Types/Exports.o, dist/build/Development/IDE/Types/Exports.dyn_o )
+[31 of 79] Compiling Development.IDE.Spans.Common ( src/Development/IDE/Spans/Common.hs, dist/build/Development/IDE/Spans/Common.o, dist/build/Development/IDE/Spans/Common.dyn_o )
+[32 of 79] Compiling Development.IDE.Plugin.Completions.Types ( src/Development/IDE/Plugin/Completions/Types.hs, dist/build/Development/IDE/Plugin/Completions/Types.o, dist/build/Development/IDE/Plugin/Completions/Types.dyn_o )
+[33 of 79] Compiling Development.IDE.GHC.Error ( src/Development/IDE/GHC/Error.hs, dist/build/Development/IDE/GHC/Error.o, dist/build/Development/IDE/GHC/Error.dyn_o )
+[34 of 79] Compiling Development.IDE.Types.HscEnvEq ( src/Development/IDE/Types/HscEnvEq.hs, dist/build/Development/IDE/Types/HscEnvEq.o, dist/build/Development/IDE/Types/HscEnvEq.dyn_o )
+[;1msrc/Development/IDE/Types/HscEnvEq.hs:28:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Ide.PluginUtils’ is redundant
+      except perhaps to import instances from ‘Ide.PluginUtils’
+    To import instances alone, use: import Ide.PluginUtils()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m28 |[0m[0m [;1m[35mimport           Ide.PluginUtils                 (toAbsolute)[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Types/HscEnvEq.hs:30:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘System.Directory’ is redundant
+      except perhaps to import instances from ‘System.Directory’
+    To import instances alone, use: import System.Directory()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m30 |[0m[0m [;1m[35mimport           System.Directory                (makeAbsolute)[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Types/HscEnvEq.hs:57:5: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-40910\GHC-40910]8;;\] [[;1m[35m-Wunused-matches[0m[0m[;1m][0m[0m[;1m
+    Defined but not used: ‘file_cache’[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m57 |[0m[0m     [;1m[35mfile_cache[0m[0m <- newIORef M.empty
+[;1m[34m   |[0m[0m[;1m[35m     ^^^^^^^^^^[0m[0m
+
+[35 of 79] Compiling Development.IDE.Spans.LocalBindings ( src/Development/IDE/Spans/LocalBindings.hs, dist/build/Development/IDE/Spans/LocalBindings.o, dist/build/Development/IDE/Spans/LocalBindings.dyn_o )
+[36 of 79] Compiling Development.IDE.Import.FindImports ( src/Development/IDE/Import/FindImports.hs, dist/build/Development/IDE/Import/FindImports.o, dist/build/Development/IDE/Import/FindImports.dyn_o )
+[;1msrc/Development/IDE/Import/FindImports.hs:200:11: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘FindResult’ not matched:
+            Found _ _
+            NoPackage _
+            FoundMultiple _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m200 |[0m[0m           [;1m[35mnotFound[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m           ^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/Import/FindImports.hs:213:15: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘FindResult’ not matched:
+            Found _ _
+            NoPackage _
+            FoundMultiple _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m213 |[0m[0m            in [;1m[35mnotFound {fr_unusables = unusables'}[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Import/FindImports.hs:215:11: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘FindResult’ not matched:
+            Found _ _
+            NoPackage _
+            FoundMultiple _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m215 |[0m[0m           [;1m[35mnotFound {fr_suggestions = suggest}[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[37 of 79] Compiling Development.IDE.Import.DependencyInformation ( src/Development/IDE/Import/DependencyInformation.hs, dist/build/Development/IDE/Import/DependencyInformation.o, dist/build/Development/IDE/Import/DependencyInformation.dyn_o )
+[38 of 79] Compiling Development.IDE.Core.RuleTypes ( src/Development/IDE/Core/RuleTypes.hs, dist/build/Development/IDE/Core/RuleTypes.o, dist/build/Development/IDE/Core/RuleTypes.dyn_o )
+[39 of 79] Compiling Development.IDE.GHC.Warnings ( src/Development/IDE/GHC/Warnings.hs, dist/build/Development/IDE/GHC/Warnings.o, dist/build/Development/IDE/GHC/Warnings.dyn_o )
+[40 of 79] Compiling Development.IDE.Core.Tracing ( src/Development/IDE/Core/Tracing.hs, dist/build/Development/IDE/Core/Tracing.o, dist/build/Development/IDE/Core/Tracing.dyn_o )
+[41 of 79] Compiling Development.IDE.Core.Preprocessor ( src/Development/IDE/Core/Preprocessor.hs, dist/build/Development/IDE/Core/Preprocessor.o, dist/build/Development/IDE/Core/Preprocessor.dyn_o )
+[42 of 79] Compiling Development.IDE.Types.Monitoring ( src/Development/IDE/Types/Monitoring.hs, dist/build/Development/IDE/Types/Monitoring.o, dist/build/Development/IDE/Types/Monitoring.dyn_o )
+[43 of 79] Compiling Development.IDE.Monitoring.OpenTelemetry ( src/Development/IDE/Monitoring/OpenTelemetry.hs, dist/build/Development/IDE/Monitoring/OpenTelemetry.o, dist/build/Development/IDE/Monitoring/OpenTelemetry.dyn_o )
+[44 of 79] Compiling Development.IDE.Types.Options ( src/Development/IDE/Types/Options.hs, dist/build/Development/IDE/Types/Options.o, dist/build/Development/IDE/Types/Options.dyn_o )
+[45 of 79] Compiling Development.IDE.Core.ProgressReporting ( src/Development/IDE/Core/ProgressReporting.hs, dist/build/Development/IDE/Core/ProgressReporting.o, dist/build/Development/IDE/Core/ProgressReporting.dyn_o )
+[46 of 79] Compiling Development.IDE.Types.Shake ( src/Development/IDE/Types/Shake.hs, dist/build/Development/IDE/Types/Shake.o, dist/build/Development/IDE/Types/Shake.dyn_o )
+[47 of 79] Compiling Development.IDE.Core.Shake ( src/Development/IDE/Core/Shake.hs, dist/build/Development/IDE/Core/Shake.o, dist/build/Development/IDE/Core/Shake.dyn_o )
+[;1msrc/Development/IDE/Core/Shake.hs:111:58: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38856\GHC-38856]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘foldl'’ from module ‘Data.List.Extra’ is redundant[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m111 |[0m[0m import           Data.List.Extra                        ([;1m[35mfoldl'[0m[0m, partition,
+[;1m[34m    |[0m[0m[;1m[35m                                                          ^^^^^^[0m[0m
+
+[48 of 79] Compiling Development.IDE.Session ( session-loader/Development/IDE/Session.hs, dist/build/Development/IDE/Session.o, dist/build/Development/IDE/Session.dyn_o )
+[;1msession-loader/Development/IDE/Session.hs:1244:25: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-90584\GHC-90584]8;;\] [[;1m[35m-Wderiving-typeable[0m[0m[;1m][0m[0m[;1m
+    • Deriving ‘Typeable’ has no effect: all types now auto-derive Typeable
+    • In the data declaration for ‘PackageSetupException’[0m[0m
+[;1m[34m     |[0m[0m
+[;1m[34m1244 |[0m[0m     deriving (Eq, Show, [;1m[35mTypeable[0m[0m)
+[;1m[34m     |[0m[0m[;1m[35m                         ^^^^^^^^[0m[0m
+
+[49 of 79] Compiling Development.IDE.LSP.Server ( src/Development/IDE/LSP/Server.hs, dist/build/Development/IDE/LSP/Server.o, dist/build/Development/IDE/LSP/Server.dyn_o )
+[50 of 79] Compiling Development.IDE.Plugin ( src/Development/IDE/Plugin.hs, dist/build/Development/IDE/Plugin.o, dist/build/Development/IDE/Plugin.dyn_o )
+[51 of 79] Compiling Development.IDE.Plugin.HLS ( src/Development/IDE/Plugin/HLS.hs, dist/build/Development/IDE/Plugin/HLS.o, dist/build/Development/IDE/Plugin/HLS.dyn_o )
+[52 of 79] Compiling Development.IDE.Core.LookupMod ( src/Development/IDE/Core/LookupMod.hs, dist/build/Development/IDE/Core/LookupMod.o, dist/build/Development/IDE/Core/LookupMod.dyn_o )
+[53 of 79] Compiling Development.IDE.Core.IdeConfiguration ( src/Development/IDE/Core/IdeConfiguration.hs, dist/build/Development/IDE/Core/IdeConfiguration.o, dist/build/Development/IDE/Core/IdeConfiguration.dyn_o )
+[54 of 79] Compiling Development.IDE.LSP.LanguageServer ( src/Development/IDE/LSP/LanguageServer.hs, dist/build/Development/IDE/LSP/LanguageServer.o, dist/build/Development/IDE/LSP/LanguageServer.dyn_o )
+[55 of 79] Compiling Development.IDE.Core.OfInterest ( src/Development/IDE/Core/OfInterest.hs, dist/build/Development/IDE/Core/OfInterest.o, dist/build/Development/IDE/Core/OfInterest.dyn_o )
+[56 of 79] Compiling Development.IDE.Core.FileStore ( src/Development/IDE/Core/FileStore.hs, dist/build/Development/IDE/Core/FileStore.o, dist/build/Development/IDE/Core/FileStore.dyn_o )
+[57 of 79] Compiling Development.IDE.Core.Compile ( src/Development/IDE/Core/Compile.hs, dist/build/Development/IDE/Core/Compile.o, dist/build/Development/IDE/Core/Compile.dyn_o )
+[;1msrc/Development/IDE/Core/Compile.hs:117:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘GHC.Types.HpcInfo’ is redundant
+      except perhaps to import instances from ‘GHC.Types.HpcInfo’
+    To import instances alone, use: import GHC.Types.HpcInfo()[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m117 |[0m[0m [;1m[35mimport           GHC.Types.HpcInfo[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Core/Compile.hs:1048:27: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-40910\GHC-40910]8;;\] [[;1m[35m-Wunused-matches[0m[0m[;1m][0m[0m[;1m
+    Defined but not used: ‘ms’[0m[0m
+[;1m[34m     |[0m[0m
+[;1m[34m1048 |[0m[0m mergeEnvs env mg dep_info [;1m[35mms[0m[0m extraMods envs = do
+[;1m[34m     |[0m[0m[;1m[35m                           ^^[0m[0m
+
+[58 of 79] Compiling Development.IDE.Spans.Documentation ( src/Development/IDE/Spans/Documentation.hs, dist/build/Development/IDE/Spans/Documentation.o, dist/build/Development/IDE/Spans/Documentation.dyn_o )
+[59 of 79] Compiling Development.IDE.Spans.AtPoint ( src/Development/IDE/Spans/AtPoint.hs, dist/build/Development/IDE/Spans/AtPoint.o, dist/build/Development/IDE/Spans/AtPoint.dyn_o )
+[60 of 79] Compiling Development.IDE.Core.FileExists ( src/Development/IDE/Core/FileExists.hs, dist/build/Development/IDE/Core/FileExists.o, dist/build/Development/IDE/Core/FileExists.dyn_o )
+[61 of 79] Compiling Development.IDE.Core.Service ( src/Development/IDE/Core/Service.hs, dist/build/Development/IDE/Core/Service.o, dist/build/Development/IDE/Core/Service.dyn_o )
+[62 of 79] Compiling Development.IDE.LSP.Notifications ( src/Development/IDE/LSP/Notifications.hs, dist/build/Development/IDE/LSP/Notifications.o, dist/build/Development/IDE/LSP/Notifications.dyn_o )
+[63 of 79] Compiling Development.IDE.Core.PluginUtils ( src/Development/IDE/Core/PluginUtils.hs, dist/build/Development/IDE/Core/PluginUtils.o, dist/build/Development/IDE/Core/PluginUtils.dyn_o )
+[64 of 79] Compiling Development.IDE.Core.Actions ( src/Development/IDE/Core/Actions.hs, dist/build/Development/IDE/Core/Actions.o, dist/build/Development/IDE/Core/Actions.dyn_o )
+[65 of 79] Compiling Development.IDE.Core.Rules ( src/Development/IDE/Core/Rules.hs, dist/build/Development/IDE/Core/Rules.o, dist/build/Development/IDE/Core/Rules.dyn_o )
+[;1msrc/Development/IDE/Core/Rules.hs:1253:33: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-02256\GHC-02256]8;;\] [[;1m[35m-Wambiguous-fields[0m[0m[;1m][0m[0m[;1m
+    Ambiguous record update with parent type constructor ‘GhcSessionDepsConfig’.
+    This type-directed disambiguation mechanism will not be supported by -XDuplicateRecordFields in future releases of GHC.
+    Consider disambiguating using module qualification instead.[0m[0m
+[;1m[34m     |[0m[0m
+[;1m[34m1253 |[0m[0m     loadGhcSession recorder def{[;1m[35mfullModuleGraph[0m[0m}
+[;1m[34m     |[0m[0m[;1m[35m                                 ^^^^^^^^^^^^^^^[0m[0m
+
+[66 of 79] Compiling Development.IDE.Plugin.Test ( src/Development/IDE/Plugin/Test.hs, dist/build/Development/IDE/Plugin/Test.o, dist/build/Development/IDE/Plugin/Test.dyn_o )
+[67 of 79] Compiling Development.IDE.LSP.Outline ( src/Development/IDE/LSP/Outline.hs, dist/build/Development/IDE/LSP/Outline.o, dist/build/Development/IDE/LSP/Outline.dyn_o )
+[68 of 79] Compiling Development.IDE.LSP.HoverDefinition ( src/Development/IDE/LSP/HoverDefinition.hs, dist/build/Development/IDE/LSP/HoverDefinition.o, dist/build/Development/IDE/LSP/HoverDefinition.dyn_o )
+[69 of 79] Compiling Development.IDE  ( src/Development/IDE.hs, dist/build/Development/IDE.o, dist/build/Development/IDE.dyn_o )
+[70 of 79] Compiling Development.IDE.Spans.Pragmas ( src/Development/IDE/Spans/Pragmas.hs, dist/build/Development/IDE/Spans/Pragmas.o, dist/build/Development/IDE/Spans/Pragmas.dyn_o )
+[;1msrc/Development/IDE/Spans/Pragmas.hs:156:27: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m156 |[0m[0m           ITvarsym "#" -> [;1m[35mdefaultParserState{ isLastTokenHash = True }[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:158:42: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m158 |[0m[0m             | isDownwardLineHaddock s -> [;1m[35mdefaultParserState{ mode = ModeHaddock }[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:160:17: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m160 |[0m[0m                 [;1m[35mdefaultParserState[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                 ^^^^^^^^^^^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:165:17: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m165 |[0m[0m                 [;1m[35mdefaultParserState[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                 ^^^^^^^^^^^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:169:43: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m169 |[0m[0m             | isDownwardBlockHaddock s -> [;1m[35mdefaultParserState{ mode = ModeHaddock }[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:171:17: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m171 |[0m[0m                 [;1m[35mdefaultParserState[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                 ^^^^^^^^^^^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:178:27: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m178 |[0m[0m           ITvarsym "#" -> [;1m[35mdefaultParserState{ isLastTokenHash = True }[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:186:17: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m186 |[0m[0m                 [;1m[35mdefaultParserState[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                 ^^^^^^^^^^^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:193:17: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m193 |[0m[0m                 [;1m[35mdefaultParserState[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                 ^^^^^^^^^^^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:203:17: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m203 |[0m[0m                 [;1m[35mdefaultParserState{[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                 ^^^^^^^^^^^^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:207:17: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched:
+            ParserStateDone _
+            ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m207 |[0m[0m                 [;1m[35mdefaultParserState{[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                 ^^^^^^^^^^^^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:214:13: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m214 |[0m[0m             [;1m[35mdefaultParserState{ isLastTokenHash = True }[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:223:17: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m223 |[0m[0m                 [;1m[35mdefaultParserState{[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                 ^^^^^^^^^^^^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:230:28: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m230 |[0m[0m             | otherwise -> [;1m[35mdefaultParserState{ lastBlockCommentLine = endLine }[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:234:27: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m234 |[0m[0m           ITvarsym "#" -> [;1m[35mdefaultParserState{ isLastTokenHash = True }[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:247:17: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched: ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m247 |[0m[0m                 [;1m[35mdefaultParserState{ nextPragma = NextPragmaInfo (endLine + 1) Nothing, lastPragmaLine = endLine }[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Spans/Pragmas.hs:259:17: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘ParserState’ not matched:
+            ParserStateDone _
+            ParserStateDone _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m259 |[0m[0m                 [;1m[35mdefaultParserState{ lastBlockCommentLine = endLine }[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[71 of 79] Compiling Development.IDE.Plugin.TypeLenses ( src/Development/IDE/Plugin/TypeLenses.hs, dist/build/Development/IDE/Plugin/TypeLenses.o, dist/build/Development/IDE/Plugin/TypeLenses.dyn_o )
+[;1msrc/Development/IDE/Plugin/TypeLenses.hs:19:56: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38856\GHC-38856]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘to’ from module ‘Control.Lens’ is redundant[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m19 |[0m[0m import           Control.Lens                         ([;1m[35mto[0m[0m, (?~), (^?))
+[;1m[34m   |[0m[0m[;1m[35m                                                        ^^[0m[0m
+
+[;1msrc/Development/IDE/Plugin/TypeLenses.hs:55:56: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38856\GHC-38856]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘stripTcRnMessageContext’
+    from module ‘Development.IDE.GHC.Compat.Error’ is redundant[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m55 |[0m[0m                                                        [;1m[35mstripTcRnMessageContext[0m[0m)
+[;1m[34m   |[0m[0m[;1m[35m                                                        ^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Plugin/TypeLenses.hs:60:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘GHC.Core.TyCo.Tidy’ is redundant
+      except perhaps to import instances from ‘GHC.Core.TyCo.Tidy’
+    To import instances alone, use: import GHC.Core.TyCo.Tidy()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m60 |[0m[0m [;1m[35mimport           GHC.Core.TyCo.Tidy                   (tidyOpenType)[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Plugin/TypeLenses.hs:94:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Text.Regex.TDFA’ is redundant
+      except perhaps to import instances from ‘Text.Regex.TDFA’
+    To import instances alone, use: import Text.Regex.TDFA()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m94 |[0m[0m [;1m[35mimport           Text.Regex.TDFA                      ((=~))[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[72 of 79] Compiling Development.IDE.Core.UseStale ( src/Development/IDE/Core/UseStale.hs, dist/build/Development/IDE/Core/UseStale.o, dist/build/Development/IDE/Core/UseStale.dyn_o )
+[73 of 79] Compiling Generics.SYB.GHC ( src/Generics/SYB/GHC.hs, dist/build/Generics/SYB/GHC.o, dist/build/Generics/SYB/GHC.dyn_o )
+[74 of 79] Compiling Text.Fuzzy.Parallel ( src/Text/Fuzzy/Parallel.hs, dist/build/Text/Fuzzy/Parallel.o, dist/build/Text/Fuzzy/Parallel.dyn_o )
+[75 of 79] Compiling Text.Fuzzy.Levenshtein ( src/Text/Fuzzy/Levenshtein.hs, dist/build/Text/Fuzzy/Levenshtein.o, dist/build/Text/Fuzzy/Levenshtein.dyn_o )
+[76 of 79] Compiling Development.IDE.Plugin.Completions.Logic ( src/Development/IDE/Plugin/Completions/Logic.hs, dist/build/Development/IDE/Plugin/Completions/Logic.o, dist/build/Development/IDE/Plugin/Completions/Logic.dyn_o )
+[77 of 79] Compiling Development.IDE.Plugin.Completions ( src/Development/IDE/Plugin/Completions.hs, dist/build/Development/IDE/Plugin/Completions.o, dist/build/Development/IDE/Plugin/Completions.dyn_o )
+[78 of 79] Compiling Development.IDE.Plugin.HLS.GhcIde ( src/Development/IDE/Plugin/HLS/GhcIde.hs, dist/build/Development/IDE/Plugin/HLS/GhcIde.o, dist/build/Development/IDE/Plugin/HLS/GhcIde.dyn_o )
+[79 of 79] Compiling Development.IDE.Main ( src/Development/IDE/Main.hs, dist/build/Development/IDE/Main.o, dist/build/Development/IDE/Main.dyn_o )
+[;1m<no location info>: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-42258\GHC-42258]8;;\] [[;1m[35m-Wunused-packages[0m[0m[;1m][0m[0m[;1m
+    The following packages were specified via -package or -package-id flags,
+    but were not needed for compilation:
+      - os-string-2.0.10 (exposed by flag -package-id os-string-2.0.10-d573)[0m[0m
+
+[ 1 of 79] Compiling Control.Concurrent.Strict ( src/Control/Concurrent/Strict.hs, dist/build/Control/Concurrent/Strict.p_o )
+[ 2 of 79] Compiling Development.IDE.Core.Debouncer ( src/Development/IDE/Core/Debouncer.hs, dist/build/Development/IDE/Core/Debouncer.p_o )
+[ 3 of 79] Compiling Development.IDE.Core.FileUtils ( src/Development/IDE/Core/FileUtils.hs, dist/build/Development/IDE/Core/FileUtils.p_o )
+[ 4 of 79] Compiling Development.IDE.Core.PositionMapping ( src/Development/IDE/Core/PositionMapping.hs, dist/build/Development/IDE/Core/PositionMapping.p_o )
+[;1msrc/Development/IDE/Core/PositionMapping.hs:31:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Data.List’ is redundant
+      except perhaps to import instances from ‘Data.List’
+    To import instances alone, use: import Data.List()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m31 |[0m[0m [;1m[35mimport           Data.List[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[ 5 of 79] Compiling Development.IDE.Core.WorkerThread ( src/Development/IDE/Core/WorkerThread.hs, dist/build/Development/IDE/Core/WorkerThread.p_o )
+[;1msrc/Development/IDE/Core/WorkerThread.hs:13:45: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38856\GHC-38856]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘AsyncCancelled, AsyncCancelled’
+    from module ‘Control.Concurrent.Async’ is redundant[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m13 |[0m[0m import           Control.Concurrent.Async  ([;1m[35mAsyncCancelled (AsyncCancelled)[0m[0m,
+[;1m[34m   |[0m[0m[;1m[35m                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Core/WorkerThread.hs:18:45: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38856\GHC-38856]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Exception, fromException’
+    from module ‘Control.Exception.Safe’ is redundant[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m18 |[0m[0m import           Control.Exception.Safe    ([;1m[35mException (fromException)[0m[0m,
+[;1m[34m   |[0m[0m[;1m[35m                                             ^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[ 6 of 79] Compiling Development.IDE.GHC.Compat.CmdLine ( src/Development/IDE/GHC/Compat/CmdLine.hs, dist/build/Development/IDE/GHC/Compat/CmdLine.p_o )
+[ 7 of 79] Compiling Development.IDE.GHC.Compat.Core ( src/Development/IDE/GHC/Compat/Core.hs, dist/build/Development/IDE/GHC/Compat/Core.p_o )
+[;1msrc/Development/IDE/GHC/Compat/Core.hs:273:5: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-75356\GHC-75356]8;;\] [[;1m[35m-Wdodgy-exports[0m[0m[;1m][0m[0m[;1m
+    The export item ‘Warn(..)’ suggests that
+    ‘Warn’ has (in-scope) constructors or record fields,
+               but it has none[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m273 |[0m[0m     [;1m[35mWarn(..)[0m[0m,
+[;1m[34m    |[0m[0m[;1m[35m     ^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat/Core.hs:367:5: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-47854\GHC-47854]8;;\] [[;1m[35m-Wduplicate-exports[0m[0m[;1m][0m[0m[;1m
+    ‘PlainGhcException’ is exported by ‘module GHC.Utils.Panic’ and ‘Plain.PlainGhcException’[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m367 |[0m[0m     [;1m[35mmodule GHC.Utils.Panic[0m[0m,
+[;1m[34m    |[0m[0m[;1m[35m     ^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat/Core.hs:421:47: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-99623\GHC-99623]8;;\] [[;1m[35m-Wdodgy-imports[0m[0m[;1m][0m[0m[;1m
+    The import item ‘GHC.Driver.CmdLine.Warn(..)’ suggests that
+    ‘GHC.Driver.CmdLine.Warn’ has (in-scope) constructors or record fields,
+                                  but it has none[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m421 |[0m[0m import           GHC.Driver.CmdLine          ([;1m[35mWarn (..)[0m[0m)
+[;1m[34m    |[0m[0m[;1m[35m                                               ^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat/Core.hs:487:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘GHC.Data.Bag’ is redundant
+      except perhaps to import instances from ‘GHC.Data.Bag’
+    To import instances alone, use: import GHC.Data.Bag()[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m487 |[0m[0m [;1m[35mimport           GHC.Data.Bag[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat/Core.hs:773:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38417\GHC-38417]8;;\] [[;1m[35m-Wmissing-signatures[0m[0m[;1m][0m[0m[;1m
+    Top-level binding with no type signature:
+      lookupGlobalRdrEnv :: GlobalRdrEnvX GREInfo
+                            -> OccName -> [GlobalRdrEltX GREInfo][0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m773 |[0m[0m [;1m[35mlookupGlobalRdrEnv[0m[0m gre_env occ = lookupGRE gre_env (LookupOccName occ AllRelevantGREs)
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^[0m[0m
+
+[ 8 of 79] Compiling Development.IDE.GHC.Compat.Driver ( src/Development/IDE/GHC/Compat/Driver.hs, dist/build/Development/IDE/GHC/Compat/Driver.p_o )
+[ 9 of 79] Compiling Development.IDE.GHC.Compat.Env ( src/Development/IDE/GHC/Compat/Env.hs, dist/build/Development/IDE/GHC/Compat/Env.p_o )
+[10 of 79] Compiling Development.IDE.GHC.Compat.Outputable ( src/Development/IDE/GHC/Compat/Outputable.hs, dist/build/Development/IDE/GHC/Compat/Outputable.p_o )
+[11 of 79] Compiling Development.IDE.GHC.Compat.Logger ( src/Development/IDE/GHC/Compat/Logger.hs, dist/build/Development/IDE/GHC/Compat/Logger.p_o )
+[12 of 79] Compiling Development.IDE.GHC.Compat.Iface ( src/Development/IDE/GHC/Compat/Iface.hs, dist/build/Development/IDE/GHC/Compat/Iface.p_o )
+[13 of 79] Compiling Development.IDE.GHC.Compat.Units ( src/Development/IDE/GHC/Compat/Units.hs, dist/build/Development/IDE/GHC/Compat/Units.p_o )
+[14 of 79] Compiling Development.IDE.GHC.Compat.Util ( src/Development/IDE/GHC/Compat/Util.hs, dist/build/Development/IDE/GHC/Compat/Util.p_o )
+[15 of 79] Compiling Development.IDE.GHC.Compat.Parser ( src/Development/IDE/GHC/Compat/Parser.hs, dist/build/Development/IDE/GHC/Compat/Parser.p_o )
+[;1msrc/Development/IDE/GHC/Compat/Parser.hs:28:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The qualified import of ‘GHC.Parser.Annotation’ is redundant
+      except perhaps to import instances from ‘GHC.Parser.Annotation’
+    To import instances alone, use: import GHC.Parser.Annotation()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m28 |[0m[0m [;1m[35mimport qualified GHC.Parser.Annotation           as Anno[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[16 of 79] Compiling Development.IDE.GHC.Compat.Plugins ( src/Development/IDE/GHC/Compat/Plugins.hs, dist/build/Development/IDE/GHC/Compat/Plugins.p_o )
+[17 of 79] Compiling Development.IDE.GHC.Compat ( src/Development/IDE/GHC/Compat.hs, dist/build/Development/IDE/GHC/Compat.p_o )
+[;1msrc/Development/IDE/GHC/Compat.hs:69:5: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-47854\GHC-47854]8;;\] [[;1m[35m-Wduplicate-exports[0m[0m[;1m][0m[0m[;1m
+    ‘tidyOpenType’ is exported by ‘tidyOpenType’ and ‘module Development.IDE.GHC.Compat.Core’[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m69 |[0m[0m     [;1m[35mtidyOpenType[0m[0m,
+[;1m[34m   |[0m[0m[;1m[35m     ^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:77:5: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-47854\GHC-47854]8;;\] [[;1m[35m-Wduplicate-exports[0m[0m[;1m][0m[0m[;1m
+    ‘hugElts’ is exported by ‘hugElts’ and ‘module Development.IDE.GHC.Compat.Core’[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m77 |[0m[0m     [;1m[35mhugElts[0m[0m,
+[;1m[34m   |[0m[0m[;1m[35m     ^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:122:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Data.List’ is redundant
+      except perhaps to import instances from ‘Data.List’
+    To import instances alone, use: import Data.List()[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m122 |[0m[0m [;1m[35mimport           Data.List                               (foldl')[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:142:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘GHC.Core.TyCo.Tidy’ is redundant
+      except perhaps to import instances from ‘GHC.Core.TyCo.Tidy’
+    To import instances alone, use: import GHC.Core.TyCo.Tidy()[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m142 |[0m[0m [;1m[35mimport           GHC.Core.TyCo.Tidy                      (tidyOpenType)[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:280:11: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62412\GHC-62412]8;;\] [[;1m[35m-Wsimplifiable-class-constraints[0m[0m[;1m][0m[0m[;1m
+    • The constraint ‘HasLoc (GenLocated a e)’ matches
+        instance HasLoc l => HasLoc (GenLocated l a)
+          -- Defined in ‘GHC.Parser.Annotation’
+      This makes type inference for inner bindings fragile;
+        either use MonoLocalBinds, or simplify it using the instance
+    • In the type signature:
+        reLocA :: (HasLoc (GenLocated a e), HasAnnotation b) =>
+                  GenLocated a e -> GenLocated b e[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m280 |[0m[0m reLocA :: [;1m[35m(HasLoc (GenLocated a e), HasAnnotation b)[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:331:7: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-uni-patterns[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a pattern binding:
+        Patterns of type ‘Maybe FilePath’ not matched: Nothing[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m331 |[0m[0m   let [;1m[35mJust src_file = ml_hs_file $ ms_location ms[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/GHC/Compat.hs:509:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38417\GHC-38417]8;;\] [[;1m[35m-Wmissing-signatures[0m[0m[;1m][0m[0m[;1m
+    Top-level binding with no type signature:
+      extract_cons :: DataDefnCons a -> [a][0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m509 |[0m[0m [;1m[35mextract_cons[0m[0m (NewTypeCon x)      = [x]
+[;1m[34m    |[0m[0m[;1m[35m ^^^^^^^^^^^^[0m[0m
+
+[18 of 79] Compiling Development.IDE.GHC.Compat.Error ( src/Development/IDE/GHC/Compat/Error.hs, dist/build/Development/IDE/GHC/Compat/Error.p_o )
+[19 of 79] Compiling Development.IDE.GHC.CPP ( src/Development/IDE/GHC/CPP.hs, dist/build/Development/IDE/GHC/CPP.p_o )
+[;1msrc/Development/IDE/GHC/CPP.hs:32:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The qualified import of ‘GHC.SysTools.Tasks’ is redundant
+      except perhaps to import instances from ‘GHC.SysTools.Tasks’
+    To import instances alone, use: import GHC.SysTools.Tasks()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m32 |[0m[0m [;1m[35mimport qualified GHC.SysTools.Tasks              as Pipeline[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[20 of 79] Compiling Development.IDE.GHC.CoreFile ( src/Development/IDE/GHC/CoreFile.hs, dist/build/Development/IDE/GHC/CoreFile.p_o )
+[21 of 79] Compiling Development.IDE.Main.HeapStats ( src/Development/IDE/Main/HeapStats.hs, dist/build/Development/IDE/Main/HeapStats.p_o )
+[22 of 79] Compiling Development.IDE.Session.Implicit ( session-loader/Development/IDE/Session/Implicit.hs, dist/build/Development/IDE/Session/Implicit.p_o )
+[23 of 79] Compiling Development.IDE.Types.Action ( src/Development/IDE/Types/Action.hs, dist/build/Development/IDE/Types/Action.p_o )
+[24 of 79] Compiling Development.IDE.Types.Location ( src/Development/IDE/Types/Location.hs, dist/build/Development/IDE/Types/Location.p_o )
+[25 of 79] Compiling Development.IDE.Types.Diagnostics ( src/Development/IDE/Types/Diagnostics.hs, dist/build/Development/IDE/Types/Diagnostics.p_o )
+[;1msrc/Development/IDE/Types/Diagnostics.hs:32:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Control.Applicative’ is redundant
+      except perhaps to import instances from ‘Control.Applicative’
+    To import instances alone, use: import Control.Applicative()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m32 |[0m[0m [;1m[35mimport           Control.Applicative            ((<|>))[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Types/Diagnostics.hs:58:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Text.Printf’ is redundant
+      except perhaps to import instances from ‘Text.Printf’
+    To import instances alone, use: import Text.Printf()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m58 |[0m[0m [;1m[35mimport           Text.Printf                    (printf)[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[26 of 79] Compiling Development.IDE.Session.Diagnostics ( session-loader/Development/IDE/Session/Diagnostics.hs, dist/build/Development/IDE/Session/Diagnostics.p_o )
+[27 of 79] Compiling Development.IDE.GHC.Util ( src/Development/IDE/GHC/Util.hs, dist/build/Development/IDE/GHC/Util.p_o )
+[28 of 79] Compiling Development.IDE.GHC.Orphans ( src/Development/IDE/GHC/Orphans.hs, dist/build/Development/IDE/GHC/Orphans.p_o )
+[29 of 79] Compiling Development.IDE.Types.KnownTargets ( src/Development/IDE/Types/KnownTargets.hs, dist/build/Development/IDE/Types/KnownTargets.p_o )
+[30 of 79] Compiling Development.IDE.Types.Exports ( src/Development/IDE/Types/Exports.hs, dist/build/Development/IDE/Types/Exports.p_o )
+[31 of 79] Compiling Development.IDE.Spans.Common ( src/Development/IDE/Spans/Common.hs, dist/build/Development/IDE/Spans/Common.p_o )
+[32 of 79] Compiling Development.IDE.Plugin.Completions.Types ( src/Development/IDE/Plugin/Completions/Types.hs, dist/build/Development/IDE/Plugin/Completions/Types.p_o )
+[33 of 79] Compiling Development.IDE.GHC.Error ( src/Development/IDE/GHC/Error.hs, dist/build/Development/IDE/GHC/Error.p_o )
+[34 of 79] Compiling Development.IDE.Types.HscEnvEq ( src/Development/IDE/Types/HscEnvEq.hs, dist/build/Development/IDE/Types/HscEnvEq.p_o )
+[;1msrc/Development/IDE/Types/HscEnvEq.hs:28:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Ide.PluginUtils’ is redundant
+      except perhaps to import instances from ‘Ide.PluginUtils’
+    To import instances alone, use: import Ide.PluginUtils()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m28 |[0m[0m [;1m[35mimport           Ide.PluginUtils                 (toAbsolute)[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Types/HscEnvEq.hs:30:1: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-66111\GHC-66111]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘System.Directory’ is redundant
+      except perhaps to import instances from ‘System.Directory’
+    To import instances alone, use: import System.Directory()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m30 |[0m[0m [;1m[35mimport           System.Directory                (makeAbsolute)[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Types/HscEnvEq.hs:57:5: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-40910\GHC-40910]8;;\] [[;1m[35m-Wunused-matches[0m[0m[;1m][0m[0m[;1m
+    Defined but not used: ‘file_cache’[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m57 |[0m[0m     [;1m[35mfile_cache[0m[0m <- newIORef M.empty
+[;1m[34m   |[0m[0m[;1m[35m     ^^^^^^^^^^[0m[0m
+
+[35 of 79] Compiling Development.IDE.Spans.LocalBindings ( src/Development/IDE/Spans/LocalBindings.hs, dist/build/Development/IDE/Spans/LocalBindings.p_o )
+[36 of 79] Compiling Development.IDE.Import.FindImports ( src/Development/IDE/Import/FindImports.hs, dist/build/Development/IDE/Import/FindImports.p_o )
+[;1msrc/Development/IDE/Import/FindImports.hs:200:11: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘FindResult’ not matched:
+            Found _ _
+            NoPackage _
+            FoundMultiple _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m200 |[0m[0m           [;1m[35mnotFound[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m           ^^^^^^^^...[0m[0m
+
+[;1msrc/Development/IDE/Import/FindImports.hs:213:15: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘FindResult’ not matched:
+            Found _ _
+            NoPackage _
+            FoundMultiple _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m213 |[0m[0m            in [;1m[35mnotFound {fr_unusables = unusables'}[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[;1msrc/Development/IDE/Import/FindImports.hs:215:11: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-62161\GHC-62161]8;;\] [[;1m[35m-Wincomplete-record-updates[0m[0m[;1m][0m[0m[;1m
+    Pattern match(es) are non-exhaustive
+    In a record update:
+        Patterns of type ‘FindResult’ not matched:
+            Found _ _
+            NoPackage _
+            FoundMultiple _[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m215 |[0m[0m           [;1m[35mnotFound {fr_suggestions = suggest}[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+
+[37 of 79] Compiling Development.IDE.Import.DependencyInformation ( src/Development/IDE/Import/DependencyInformation.hs, dist/build/Development/IDE/Import/DependencyInformation.p_o )
+[38 of 79] Compiling Development.IDE.Core.RuleTypes ( src/Development/IDE/Core/RuleTypes.hs, dist/build/Development/IDE/Core/RuleTypes.p_o )
+[39 of 79] Compiling Development.IDE.GHC.Warnings ( src/Development/IDE/GHC/Warnings.hs, dist/build/Development/IDE/GHC/Warnings.p_o )
+[40 of 79] Compiling Development.IDE.Core.Tracing ( src/Development/IDE/Core/Tracing.hs, dist/build/Development/IDE/Core/Tracing.p_o )
+[41 of 79] Compiling Development.IDE.Core.Preprocessor ( src/Development/IDE/Core/Preprocessor.hs, dist/build/Development/IDE/Core/Preprocessor.p_o )
+[42 of 79] Compiling Development.IDE.Types.Monitoring ( src/Development/IDE/Types/Monitoring.hs, dist/build/Development/IDE/Types/Monitoring.p_o )
+[43 of 79] Compiling Development.IDE.Monitoring.OpenTelemetry ( src/Development/IDE/Monitoring/OpenTelemetry.hs, dist/build/Development/IDE/Monitoring/OpenTelemetry.p_o )
+[44 of 79] Compiling Development.IDE.Types.Options ( src/Development/IDE/Types/Options.hs, dist/build/Development/IDE/Types/Options.p_o )
+[45 of 79] Compiling Development.IDE.Core.ProgressReporting ( src/Development/IDE/Core/ProgressReporting.hs, dist/build/Development/IDE/Core/ProgressReporting.p_o )
+[46 of 79] Compiling Development.IDE.Types.Shake ( src/Development/IDE/Types/Shake.hs, dist/build/Development/IDE/Types/Shake.p_o )
+[47 of 79] Compiling Development.IDE.Core.Shake ( src/Development/IDE/Core/Shake.hs, dist/build/Development/IDE/Core/Shake.p_o )
+[;1msrc/Development/IDE/Core/Shake.hs:111:58: [;1m[35mwarning[0m[0m[;1m: []8;;https://errors.haskell.org/messages/GHC-38856\GHC-38856]8;;\] [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘foldl'’ from module ‘Data.List.Extra’ is redundant[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m111 |[0m[0m import           Data.List.Extra                        ([;1m[35mfoldl'[0m[0m, partition,
+[;1m[34m    |[0m[0m[;1m[35m                                                          ^^^^^^[0m[0m
+
+[;1m<no location info>: [;1m[31merror[0m[0m[;1m:[0m[0m[;1m
+    panic! (the 'impossible' happened)
+  GHC version 9.12.4:
+	lookupIdSubst
+  ww_a3bCN
+  InScope {eta_B0 eta_B1 wild_Xd ds1_Xe ipv_Xf ipv1_Xg ds1_Xh ipv_Xi
+           ipv1_Xj s_Xk ds_Xl ipv_Xm ipv1_Xn s_Xo ds1_Xp ipv_Xq ipv1_Xr
+           wild_Xs ds1_Xt ipv_Xu ipv1_Xv s_ah9H ds1_ah9I ipv_ah9K ipv1_ah9L
+           s_ahao ds1_ahap ipv_ahaq ipv1_ahar ds_aHu5 ipv_aHua ipv1_aHud
+           wild_a2oPk recorder_a37da fp_a37db ver_a37dc k_a37dd current0_a37dk
+           addTag_a37dz tag_a37dW env_a37dZ $cshowsPrec_a3a3A $cshow_a3a86
+           $cshowList_a3a8e $cpretty_a3a8w $cprettyList_a3ad9 $krep_a3aqv
+           $krep_a3aqw $krep_a3aqx $krep_a3aqy $krep_a3aqz $krep_a3aqA
+           $krep_a3aqB $krep_a3aqC $krep_a3aqD $krep_a3aqE $krep_a3aqF
+           $krep_a3aqG $krep_a3aqH $krep_a3aqI $krep_a3aqJ $krep_a3aqK
+           $krep_a3aqL $krep_a3aqM $krep_a3aqN $krep_a3aqO $krep_a3aqP
+           $krep_a3aqQ $krep_a3aqR $krep_a3aqS $krep_a3aqT $krep_a3aqU
+           $krep_a3aqV $krep_a3aqW $krep_a3aqX $krep_a3aqY $krep_a3aqZ
+           $krep_a3ar0 $krep_a3ar1 $krep_a3ar2 $krep_a3ar3 $krep_a3ar4
+           $krep_a3ar5 $krep_a3ar6 $krep_a3ar7 $krep_a3ar8 $krep_a3ar9
+           $krep_a3ara $krep_a3arb $krep_a3arc $krep_a3ard $krep_a3are
+           $krep_a3arf $krep_a3arg $krep_a3arh $krep_a3ari $krep_a3arj
+           $krep_a3ark $krep_a3arl $krep_a3arm $krep_a3arn $krep_a3aro
+           $krep_a3arp $krep_a3arq $krep_a3arr $krep_a3ars $krep_a3art
+           $krep_a3aru $krep_a3arv $krep_a3arw $krep_a3arx $krep_a3ary
+           $krep_a3arz $krep_a3arA $krep_a3arB $krep_a3arC $krep_a3arD
+           $krep_a3arE $krep_a3arF $krep_a3arG $krep_a3arH $krep_a3arI
+           $krep_a3arJ $krep_a3arK $krep_a3arL $krep_a3arM $krep_a3arN
+           $krep_a3arO $krep_a3arP $krep_a3arQ $krep_a3arR $krep_a3arS
+           $krep_a3arT $krep_a3arU $krep_a3arV $krep_a3arW $krep_a3arX
+           $krep_a3arY $krep_a3arZ $krep_a3as0 $krep_a3as1 $krep_a3as2
+           $krep_a3as3 $krep_a3as4 $krep_a3as5 $krep_a3as6 $krep_a3as7
+           $krep_a3as8 $krep_a3as9 $krep_a3asa $krep_a3asb $krep_a3asc
+           $krep_a3asd $krep_a3ase $krep_a3asf $krep_a3asg $krep_a3ash
+           $krep_a3asi $krep_a3asj $krep_a3ask $krep_a3asl $krep_a3asm
+           $krep_a3asn $krep_a3aso $krep_a3asp $krep_a3asq $krep_a3asr
+           $krep_a3ass $krep_a3ast $krep_a3asu eta_a3cyT ds1_a3czj ipv_a3czk
+           ipv1_a3czl ds_d3avy ds_d3aw8 ds_d3aw9 ds_d3awa ds_d3awb ds_d3awc
+           ds_d3awd ds_d3awe ds_d3awf ds_d3awg ds_d3awh ds_d3awi ds_d3awj
+           ds_d3awk ds_d3awl ds_d3awm ds_d3awn ds_d3awo ds_d3awp ds_d3awq
+           ds_d3awr ds_d3aws ds_d3awt ds_d3awu ds_d3awv ds_d3aww ds_d3awx
+           ds_d3awy ds_d3awz build newnessCheck uptoDate stale runIdeActionT
+           rootDir stopMonitoring shakeDatabaseProfile shakeExtras
+           shakeSession shakeDb cancelShakeSession loaderQueue restartQueue
+           dirtyKeys defaultConfig vfsVar persistentKeys hiedbWriter withHieDb
+           clientCapabilities actionQueue exportsMap knownTargetsVar ideNc
+           restartShakeSession ideTesting progress positionMapping
+           semanticTokensId semanticTokensCache publishedDiagnostics
+           hiddenDiagnostics diagnostics state globals idePlugins
+           shakeRecorder debouncer lspEnv tLoaderQueue tRestartQueue
+           tIndexQueue indexProgressReporting indexCompleted indexPending
+           indexQueue getShakeExtras getShakeExtrasRules getClientConfigAction
+           getPluginConfigAction addPersistentRule getVirtualFile addIdeGlobal
+           addIdeGlobalExtras getIdeGlobalExtras getIdeGlobalAction
+           getIdeGlobalState getIdeOptions getIdeOptionsIO deleteValue
+           knownTargets shakeOpen shakeSessionInit shakeShut mkDelayedAction
+           delayedAction shakeEnqueue newSession getDiagnostics
+           getHiddenDiagnostics garbageCollectDirtyKeys
+           garbageCollectDirtyKeysOlderThan preservedKeys define
+           defineNoDiagnostics use useWithStale useWithStale_ usesWithStale_
+           runIdeAction askShake mkUpdater useWithStaleFast useWithStaleFast'
+           useNoFile use_ useNoFile_ uses_ uses usesWithStale
+           useWithSeparateFingerprintRule useWithSeparateFingerprintRule_
+           defineEarlyCutoff defineNoFile defineEarlyCutOffNoFile
+           defineEarlyCutoff' traceA ideLogger actionLogger
+           updatePositionMapping updatePositionMappingHelper runWithSignal
+           $tc'LogCreateHieDbExportsMapStart
+           $tc'LogCreateHieDbExportsMapFinish $tc'LogBuildSessionRestart
+           $tc'LogBuildSessionRestartTakingTooLong $tc'LogDelayedAction
+           $tc'LogBuildSessionFinish $tc'LogDiagsDiffButNoLspEnv
+           $tc'LogDefineEarlyCutoffRuleNoDiagHasDiag
+           $tc'LogDefineEarlyCutoffRuleCustomNewnessHasDiag
+           $tc'LogCancelledAction $tc'LogSessionInitialised
+           $tc'LogLookupPersistentKey $tc'LogShakeGarbageCollection
+           $tc'LogSetFilesOfInterest $tcLog $fPrettyLog $tc'HieDbWriter
+           $tcHieDbWriter $tc'ThreadQueue $tcThreadQueue $tcIsIdeGlobal
+           $tc'C:IsIdeGlobal $tc'GlobalIdeOptions $tcGlobalIdeOptions
+           $fIsIdeGlobalTYPEGlobalIdeOptions $tc'ShakeSession $tcShakeSession
+           $tc'VFSUnmodified $tc'VFSModified $tcVFSModified $tc'FastResult
+           $tcFastResult $tc'Rule $tc'RuleNoDiagnostics
+           $tc'RuleWithCustomNewnessCheck $tc'RuleWithOldValue $tcRuleBody
+           $tc'StoreItem' $tcStoreItem' $tcShakeExtras $tc'IdeState
+           $tcIdeState $tc'IdeAction $tcIdeAction
+           $fMonadReaderShakeExtrasIdeAction $fMonadIOIdeAction
+           $fFunctorIdeAction $fApplicativeIdeAction $fMonadIdeAction
+           $fSemigroupIdeAction $fShowLog $trModule $csconcat_s3bqk
+           cancelShakeSession_s3bqy $trModule_s3bqR $trModule_s3bqS
+           $trModule_s3bqT $trModule_s3bqU $krep_s3bqV $krep_s3bqW $krep_s3bqX
+           $krep_s3bqY $krep_s3bqZ $krep_s3br0 $krep_s3br1 $krep_s3br2
+           $krep_s3br3 $krep_s3br4 $krep_s3br5 $krep_s3br6 $krep_s3br7
+           $krep_s3br8 $krep_s3br9 $krep_s3bra $krep_s3brb $krep_s3brc
+           $krep_s3brd $krep_s3bre $krep_s3brf $krep_s3brg $krep_s3brh
+           $krep_s3brj $krep_s3brk $krep_s3brl $krep_s3brm $krep_s3brn
+           $krep_s3bro $krep_s3brp $krep_s3brq $krep_s3brr $krep_s3brs
+           $krep_s3bru $krep_s3brv $krep_s3brw $krep_s3brx $krep_s3bry
+           $tcLog_s3brA $tcLog_s3brB $tc'LogCreateHieDbExportsMapStart_s3brC
+           $tc'LogCreateHieDbExportsMapStart_s3brD
+           $tc'LogSessionInitialised_s3brE $tc'LogSessionInitialised_s3brF
+           $tc'LogBuildSessionRestart_s3brG $tc'LogBuildSessionRestart_s3brH
+           $tc'LogBuildSessionFinish_s3brI $tc'LogBuildSessionFinish_s3brJ
+           $tc'LogSetFilesOfInterest_s3brK $tc'LogSetFilesOfInterest_s3brL
+           $tc'LogDiagsDiffButNoLspEnv_s3brM $tc'LogDiagsDiffButNoLspEnv_s3brN
+           $tc'LogBuildSessionRestartTakingTooLong_s3brO
+           $tc'LogBuildSessionRestartTakingTooLong_s3brP
+           $tc'LogDelayedAction_s3brQ $tc'LogDelayedAction_s3brR
+           $tc'LogShakeGarbageCollection_s3brS
+           $tc'LogShakeGarbageCollection_s3brT
+           $tc'LogDefineEarlyCutoffRuleNoDiagHasDiag_s3brU
+           $tc'LogDefineEarlyCutoffRuleNoDiagHasDiag_s3brV
+           $tc'LogDefineEarlyCutoffRuleCustomNewnessHasDiag_s3brW
+           $tc'LogDefineEarlyCutoffRuleCustomNewnessHasDiag_s3brX
+           $tc'LogCreateHieDbExportsMapFinish_s3brY
+           $tc'LogCreateHieDbExportsMapFinish_s3brZ
+           $tc'LogCancelledAction_s3bs0 $tc'LogCancelledAction_s3bs1
+           $tc'LogLookupPersistentKey_s3bs2 $tc'LogLookupPersistentKey_s3bs3
+           $tcHieDbWriter_s3bs4 $tcHieDbWriter_s3bs5 $tc'HieDbWriter_s3bs6
+           $tc'HieDbWriter_s3bs7 $tcThreadQueue_s3bs8 $tcThreadQueue_s3bs9
+           $tc'ThreadQueue_s3bsa $tc'ThreadQueue_s3bsb $tcIsIdeGlobal_s3bsc
+           $tcIsIdeGlobal_s3bsd $krep_s3bse $krep_s3bsf
+           $tc'C:IsIdeGlobal_s3bsg $tc'C:IsIdeGlobal_s3bsh
+           $tcGlobalIdeOptions_s3bsi $tcGlobalIdeOptions_s3bsj
+           $tc'GlobalIdeOptions_s3bsk $tc'GlobalIdeOptions_s3bsl
+           $cp1IsIdeGlobal_s3bsm $tcShakeSession_s3bsn $tcShakeSession_s3bso
+           $tc'ShakeSession_s3bsp $tc'ShakeSession_s3bsq $krep_s3bsr
+           $tcVFSModified_s3bss $tcVFSModified_s3bst $tc'VFSUnmodified_s3bsu
+           $tc'VFSUnmodified_s3bsv $tc'VFSModified_s3bsw $tc'VFSModified_s3bsx
+           $tcFastResult_s3bsy $tcFastResult_s3bsz $krep_s3bsA
+           $tc'FastResult_s3bsB $tc'FastResult_s3bsC $tcRuleBody_s3bsD
+           $tcRuleBody_s3bsE $krep_s3bsF $krep_s3bsG
+           $tc'RuleWithOldValue_s3bsH $tc'RuleWithOldValue_s3bsI
+           $tc'Rule_s3bsJ $tc'Rule_s3bsK $tc'RuleNoDiagnostics_s3bsL
+           $tc'RuleNoDiagnostics_s3bsM $tc'RuleWithCustomNewnessCheck_s3bsN
+           $tc'RuleWithCustomNewnessCheck_s3bsO $tcStoreItem'_s3bsP
+           $tcStoreItem'_s3bsQ $tc'StoreItem'_s3bsR $tc'StoreItem'_s3bsS
+           $tcIdeAction_s3bsT $tcIdeAction_s3bsU $krep_s3bsV $tcIdeState_s3bsW
+           $tcIdeState_s3bsX $tcShakeExtras_s3bsY $tcShakeExtras_s3bsZ
+           $tc'IdeState_s3bt0 $tc'IdeState_s3bt1 $krep_s3bt2 $krep_s3bt3
+           $krep_s3bt4 $tc'IdeAction_s3bt5 $tc'IdeAction_s3bt6
+           $dKnownSymbol_s3bt7 $dIP_s3bt8 $dIP_s3bt9 $dIP_s3bta $dIP_s3btb
+           $dIP_s3btc $dIP_s3btd $dIP_s3bte $dIP_s3btf $dIP_s3btg $dIP_s3bth
+           $dIP_s3bti $dIP_s3btj $dIP_s3btk $dIP_s3btl $dIP_s3btm $dIP_s3btn
+           $dIP_s3bto $dIP_s3btp $dIP_s3btq $dIP_s3bts $dIP_s3btt $dIP_s3btu
+           $dIP_s3btv $dIP_s3btw $dIP_s3btx $dIP_s3bty $dIP_s3btz $dIP_s3btA
+           $dIP_s3btB $dIP_s3bud $dIP_s3bue $dIP_s3buf $dIP_s3bug $dIP_s3buh
+           $dIP_s3bui $dIP_s3buj $dIP_s3buk $dIP_s3bul $dIP_s3bum
+           $dTypeable_s3bun $dIP_s3bvb $dIP_s3bvc $dIP_s3bvd $dIP_s3bve
+           $dIP_s3bvf $dIP_s3bvg $dIP_s3bvh $dIP_s3bvi $dIP_s3bvj $dIP_s3bvk
+           $dIP_s3bvl $dIP_s3bvm $dIP_s3bvn $dIP_s3bvo $dIP_s3bvp $dIP_s3bvq
+           $dIP_s3bvr $dIP_s3bvs $dIP_s3bvt $dIP_s3bvu $dIP_s3bvv $dIP_s3bvw
+           $dIP_s3bvx $dIP_s3bvy $dIP_s3bvz $dIP_s3bvA $dIP_s3bvB $dIP_s3bvC
+           $dIP_s3bvD $dIP_s3bvE $dIP_s3bvF $dIP_s3bvG $dIP_s3bvH $dIP_s3bvI
+           $dIP_s3bvJ $dIP_s3bvK $dIP_s3bvL $dIP_s3bvM $dIP_s3bvN $dIP_s3bvO
+           $dIP_s3bvP $dIP_s3bvQ $dIP_s3bvR $dIP_s3bvS $dIP_s3bvT $dIP_s3bvU
+           $dIP_s3bvV $dIP_s3bvW $dIP_s3bvX $dIP_s3bvY $cliftIO_s3bwb
+           $dIP_s3bwc $dIP_s3bwd $dIP_s3bwe $dIP_s3bwf $dIP_s3bwg $dIP_s3bwh
+           $dIP_s3bwi $dIP_s3bwj $dIP_s3bwk $dIP_s3bwl $dIP_s3bxL $dIP_s3bxM
+           $dIP_s3bxN $dIP_s3bxO $dIP_s3bxP $dIP_s3bxQ $dIP_s3bxR $dIP_s3bxS
+           $dIP_s3bxT $dIP_s3bxU $dPretty_s3bA5 $cpure_s3bFD $dIP_s3bGV
+           $dIP_s3bGW $dIP_s3bGX $dIP_s3bGY $dIP_s3bGZ $dIP_s3bH0 $dIP_s3bH1
+           $dIP_s3bH2 $dIP_s3bH3 $dIP_s3bH4 $dIP_s3bIt $dIP_s3bIu $dIP_s3bIv
+           $dIP_s3bIw $dIP_s3bIx $dIP_s3bIy $dIP_s3bIz $dIP_s3bIA $dIP_s3bIB
+           $dIP_s3bIC $dIP_s3bID $dIP_s3bIE $dIP_s3bIF $dIP_s3bIG $dIP_s3bIH
+           $dIP_s3bII $dIP_s3bIJ $dIP_s3bIK $dIP_s3bIL $dIP_s3bIM $dIP_s3bIN
+           $dIP_s3bIO $dIP_s3bIP $dIP_s3bIQ $dIP_s3bIR $dIP_s3bIS $dIP_s3bIT
+           $dIP_s3bIU $dIP_s3bIV $creader_s3bJd $c>>_s3bJE $creturn_s3bJN
+           $dTypeable_s3bKe $dTypeable_s3bKf $dTypeable_s3bKg $dTypeable_s3bKh
+           $dTypeable_s3bKi $dTypeable_s3bKj $dTypeable_s3bNE $dTypeable_s3bNF
+           $dTypeable_s3bNG $dTypeable_s3bNH askShake_s3bTs
+           getAllDiagnostics_s3cf9 mappingForVersion_s3cC8 $c<>_s3cG7
+           addTagUnsafe_s3cXT $sgetIdeGlobalAction_s3cYS $suses__s3cZr
+           $suses_s3d0k $suseWithoutDependency_s3d0O $slookup#_s3d1f
+           $sunstream_s3d28 $snew_s3d2b $slookup_s3d2j $sunion_s3d3I
+           $ssplit_s3d3X $s$wsplit_s3d4y $sinsert_s3d5v $sinsertR_s3d6a
+           $slookupWithDefault_s3d6e $stoList_s3d6p $sfold_s3d6N
+           $sinsert'_s3d7d $s$winsert'_s3d7N $s$wupdateOrSnocWithKey_s3d7W
+           $s^_s3d86 $s$fMonadReaderT_$c>>=_s3d8a
+           $s$fApplicativeReaderT_$c<*_s3d8p $s$fApplicativeReaderT_$c*>_s3d8E
+           $s$fApplicativeReaderT_$cliftA2_s3d8W
+           $s$fApplicativeReaderT_$c<*>_s3d9b $s$fFunctorReaderT_$c<$_s3d9o
+           $s$fFunctorReaderT_$cfmap_s3d9s lvl_s3d9Q lvl_s3da6 $sgo15_s3dal
+           $sgo15_s3daq poly_g_s3daF lvl_s3daX lvl_s3db1 lvl_s3db8 lvl_s3dba
+           poly_f_s3dbb lvl_s3dbe lvl_s3dbg lvl_s3dbj lvl_s3dbm lvl_s3dbp
+           $dTypeable_s3dbX $dShow_s3dc1 $dTypeable_s3dc4 $dHashable_s3dc8
+           lvl_s3dcd lvl_s3dcf $dTypeable_s3dcl $dShow_s3dcp $dTypeable_s3dcs
+           $dEq_s3dcu $dHashable_s3dcw $dNFData_s3dcy $dCTuple5_s3dcA
+           lvl_s3dcF lvl_s3dcH lvl_s3dcY m1_s3dcZ $dIP_s3ddT $dIP_s3ddX
+           $dIP_s3de1 $dIP_s3de5 $dIP_s3de7 $dIP_s3de9 $dIP_s3deb $dIP_s3ded
+           $dIP_s3def $dIP_s3deh $dIP_s3der $dIP_s3dev $dIP_s3dez $dIP_s3deD
+           $dIP_s3deF $dIP_s3deH $dIP_s3deJ $dIP_s3deL $dIP_s3deN $dIP_s3deP
+           $dTypeable_s3deS $d~_s3deU $dIP_s3deY $dIP_s3df2 $dIP_s3df6
+           $dIP_s3dfa $dIP_s3dfc $dIP_s3dfe $dIP_s3dfg $dIP_s3dfi $dIP_s3dfk
+           $dIP_s3dfm lvl_s3dfu m1_s3dfv lvl_s3dfO lvl_s3dfT lvl_s3dfY
+           lvl_s3dg3 lvl_s3dg8 lvl_s3dgd lvl_s3dgi lvl_s3dgn lvl_s3dgs
+           lvl_s3dgD lvl_s3dgI lvl_s3dgN lvl_s3dgS lvl_s3dgX lvl_s3dh2
+           lvl_s3dh3 lvl_s3dh8 lvl_s3dhd lvl_s3dhi lvl_s3dhn lvl_s3dhs
+           lvl_s3dhx lvl_s3dhy lvl_s3dhz lvl_s3dhF poly_$d~_s3dhI lvl_s3die
+           lvl_s3dig $dIP12_s3dih lvl_s3dij lvl_s3dim lvl_s3diq lvl_s3dit
+           lvl_s3diu lvl_s3dix eta_s3diy lvl_s3diz lvl_s3diC lvl_s3diF
+           lvl_s3diI lvl_s3diL lvl_s3diM lvl_s3diN lvl_s3diO lvl_s3diP
+           lvl_s3diQ lvl_s3diT lvl_s3diW lvl_s3diZ lvl_s3dj2 lvl_s3dj3
+           lvl_s3dj4 lvl_s3dj5 lvl_s3dj6 lvl_s3dj7 lvl_s3dj8 lvl_s3djb
+           lvl_s3djc lvl_s3djd lvl_s3dje lvl_s3djf lvl_s3djg lvl_s3djj
+           lvl_s3djm lvl_s3djp lvl_s3djs lvl_s3djt lvl_s3dju lvl_s3djv
+           lvl_s3djw lvl_s3djx lvl_s3djA lvl_s3djD lvl_s3djG lvl_s3djJ
+           lvl_s3djK lvl_s3djL lvl_s3djM lvl_s3djN lvl_s3djO lvl_s3djR
+           lvl_s3djS lvl_s3djT $dIP_s3djY $dIP_s3dk2 $dIP_s3dk6 $dIP_s3dka
+           $dIP_s3dkc $dIP_s3dke $dIP_s3dkg $dIP_s3dki $dIP_s3dkk lvl_s3dkl
+           $dIP_s3dkm lvl_s3dkI lvl_s3dkO lvl_s3dkS lvl_s3dkT lvl_s3dkX
+           lvl_s3dl2 lvl_s3dld lvl_s3dlf lvl_s3dlg lvl_s3dlj lvl_s3dll
+           lvl_s3dlm lvl_s3dln lvl_s3dlo lvl_s3dlq lvl_s3dls lvl_s3dlw
+           lvl_s3dlB lvl_s3dlG lvl_s3dlN lvl_s3dlP lvl_s3dlQ lvl_s3dlR
+           lvl_s3dlS lvl_s3dlU lvl_s3dlX lvl_s3dlZ lvl_s3dm0 lvl_s3dm1
+           lvl_s3dm2 lvl_s3dm4 lvl_s3dm6 lvl_s3dm7 lvl_s3dmd lvl_s3dmf
+           lvl_s3dmg lvl_s3dmi lvl_s3dmo lvl_s3dmq lvl_s3dmr lvl_s3dmt
+           lvl_s3dmu lvl_s3dmA lvl_s3dmC lvl_s3dmD lvl_s3dmF lvl_s3dmG
+           lvl_s3dmH lvl_s3dmI lvl_s3dmK lvl_s3dmL lvl_s3dmM lvl_s3dmP
+           lvl_s3dmS lvl_s3dmV lvl_s3dmY lvl_s3dmZ lvl_s3dn0 lvl_s3dn1
+           lvl_s3dn2 lvl_s3dn3 lvl_s3dn6 lvl_s3dn9 lvl_s3dnc lvl_s3dnf
+           lvl_s3dng lvl_s3dnh lvl_s3dni lvl_s3dnj lvl_s3dnk m1_s3dnn
+           $dIP_s3dnr $dIP_s3dnv $dIP_s3dnz $dIP_s3dnD $dIP_s3dnF $dIP_s3dnH
+           $dIP_s3dnJ $dIP_s3dnL $dIP_s3dnN lvl_s3dnQ lvl_s3dnT lvl_s3dod
+           lvl_s3dos lvl_s3dot lvl_s3doz lvl_s3doH lvl_s3doV lvl_s3dpx
+           lvl_s3dpK lvl_s3dpX lvl_s3dpY lvl_s3dpZ ds_s3dq2 lvl_s3dq3 ds_s3dq4
+           lvl_s3dq6 ds_s3dq7 lvl_s3dq9 ds_s3dqa lvl_s3dqc ds_s3dqd lvl_s3dqf
+           ds_s3dqg lvl_s3dqi ds_s3dqj lvl_s3dqk ds_s3dqn lvl_s3dqo ds_s3dqp
+           lvl_s3dqr ds_s3dqs lvl_s3dqt $dIP_s3dqH $dIP_s3dqL $dIP_s3dqP
+           $dIP_s3dqT $dIP_s3dqV $dIP_s3dqX $dIP_s3dqZ $dIP_s3dr1 $dIP_s3dr3
+           lvl_s3dr4 lvl_s3dr6 lvl_s3drB lvl_s3drO lvl_s3drP lvl_s3ds2
+           lvl_s3ds9 lvl_s3dsa lvl_s3dsb lvl_s3dsc lvl_s3dsd lvl_s3dsg
+           lvl_s3dsh lvl_s3dsi lvl_s3dsj lvl_s3dsk lvl_s3dsn lvl_s3dso
+           seconds_s3dsr lvl_s3dss eta2_s3dst lvl_s3dsu lvl_s3dsx lvl_s3dsy
+           lvl_s3dsA lvl_s3dsB lvl_s3dsC lvl_s3dsF lvl_s3dsH ds_s3dsI f1_s3dsJ
+           lvl_s3dsM lvl_s3dsN lvl_s3dsQ lvl_s3dsR lvl_s3dsU lvl_s3dsV
+           lvl_s3dsY lvl_s3dsZ lvl_s3dt2 lvl_s3dt3 lvl_s3dtb lvl_s3dtd
+           $dIP_s3dti $dIP_s3dtm $dIP_s3dtq $dIP_s3dtu $dIP_s3dtw $dIP_s3dty
+           $dIP_s3dtA $dIP_s3dtC $dIP_s3dtE $dIP_s3dtG lvl_s3dtL lvl_s3dtM
+           uri_s3dtP lvl_s3dtR newDiagsBySource_s3dtV newDiagsBySource_s3dtX
+           lvl_s3dtZ lvl_s3du2 lvl_s3du6 lvl_s3du7 lvl_s3du8 lvl_s3du9
+           hash_s3duc lvl_s3dun test_s3duo update_s3dur ds_s3dux lvl_s3duz
+           lvl_s3duA lvl_s3duD lvl_s3duE lvl_s3duH lvl_s3duI lvl_s3duK
+           uri'_s3duL lvl_s3duM lvl_s3duQ lvl_s3duR hash_s3duU lvl_s3dv5
+           test_s3dv6 lvl_s3dv7 lvl_s3dv8 lvl_s3dvb lvl_s3dvd lvl_s3dvg
+           lvl_s3dvh params_s3dvk params_s3dvo params_s3dvq eta3_s3dvs
+           $dIP_s3dxK $dIP_s3dxO $dIP_s3dxS $dIP_s3dxW $dIP_s3dxY $dIP_s3dy0
+           $dIP_s3dy2 $dIP_s3dy4 $dIP_s3dy6 $dIP_s3dy8 $dIP_s3dyc $dIP_s3dyg
+           $dIP_s3dyk $dIP_s3dyo $dIP_s3dyq $dIP_s3dys $dIP_s3dyu $dIP_s3dyw
+           $dIP_s3dyy $dIP_s3dyA lvl_s3dyH lvl_s3dyJ lvl_s3dyP lvl_s3dyR
+           poly_f_s3dyU lvl_s3dyY lvl_s3dz0 poly_f_s3dz3 lvl_s3dz7 lvl_s3dz8
+           lvl_s3dz9 lvl_s3dza lvl_s3dzb lvl_s3dzc $dIP_s3dzi $dIP_s3dzm
+           $dIP_s3dzq $dIP_s3dzu $dIP_s3dzw $dIP_s3dzy $dIP_s3dzA $dIP_s3dzC
+           $dIP_s3dzE lvl_s3dzF $dIP_s3dzG fn_s3dzJ lvl_s3dzL lvl_s3dzN
+           lvl_s3dzQ poly_$d~_s3dzU lvl_s3dzW lvl_s3dA0 lvl_s3dA2 $dIP_s3dA7
+           $dIP_s3dAb $dIP_s3dAf $dIP_s3dAj $dIP_s3dAl $dIP_s3dAn $dIP_s3dAp
+           $dIP_s3dAr $dIP_s3dAt $dIP_s3dAv lvl_s3dAw lvl_s3dAD lvl_s3dAK
+           lvl_s3dAP lvl_s3dAQ lvl_s3dAR lvl_s3dAS lvl_s3dAT lvl_s3dAW
+           lvl_s3dB0 eta2_s3dB1 lvl_s3dB3 lvl_s3dB4 lvl_s3dB5 lvl_s3dB6
+           lastValueIO_s3dDg getValues_s3dHj lvl_s3dLe lvl_s3dY9 lvl_s3dYa
+           lvl_s3dYd lvl_s3dYe $dIP_s3dYh $dIP_s3dYi $dIP_s3dYj $dIP_s3dYk
+           $dIP_s3dYl $dIP_s3dYm $dIP_s3dYn $dIP_s3dYo $dIP_s3dYp $dIP_s3dYq
+           $dIP_s3dYr $dIP_s3dYs $dIP_s3dYt $dIP_s3dYu $dIP_s3dYv $dIP_s3dYw
+           lvl_s3dYx lvl_s3dYy lvl_s3dYz lvl_s3dYA lvl_s3dYB lvl_s3dYC
+           lvl_s3dYD lvl_s3dYE lvl_s3dYF lvl_s3dYG lvl_s3dYH lvl_s3dYI
+           lvl_s3dYJ $dIP_s3dYK $dIP_s3dYL $dIP_s3dYM $dIP_s3dYN $dIP_s3dYO
+           $dIP_s3dYP $dIP_s3dYQ $dIP_s3dYR f_s3dYS f_s3dYT lvl_s3dYU f_s3dYV
+           f_s3dYW f_s3dYX f_s3dYY f_s3dYZ f_s3dZ0 lvl_s3dZ1 $dIP_s3dZl
+           $dIP_s3dZm $dIP_s3dZn $dIP_s3dZo lvl_s3dZp lvl_s3dZq lvl_s3dZr
+           lvl_s3dZs lvl_s3dZt lvl_s3dZu lvl_s3dZv lvl_s3dZw $dIP_s3e0I
+           $dIP_s3e0J $dIP_s3e0K $dIP_s3e0L lvl_s3e0M lvl_s3e0N lvl_s3e0O
+           lvl_s3e0P lvl_s3e0Q lvl_s3e0R lvl_s3e0S lvl_s3e0T lvl_s3e0U
+           lvl_s3e0V lvl_s3e0W lvl_s3e0X lvl_s3e0Y lvl_s3e0Z lvl_s3e10
+           lvl_s3e11 $dIP_s3e12 $dIP_s3e13 $dIP_s3e14 $dIP_s3e15 $dIP_s3e16
+           $dIP_s3e17 $dIP_s3e18 $dIP_s3e19 $dIP_s3e1a $dIP_s3e1b $dIP_s3e1c
+           $dIP_s3e1d $dIP_s3e1e $dIP_s3e1f $dIP_s3e1g $dIP_s3e1h $dIP_s3e1i
+           $dIP_s3e1j $dIP_s3e1k $dIP_s3e1l $dIP_s3e1m $dIP_s3e1n $dIP_s3e1o
+           $dIP_s3e1p $dIP_s3e1q $dIP_s3e1r $dIP_s3e1s $dIP_s3e1t $dIP_s3e1u
+           $dIP_s3e1v $dIP_s3e1w $dIP_s3e1x $dIP_s3e1y $dIP_s3e1z $dIP_s3e1A
+           $dIP_s3e1B $dIP_s3e1C $dIP_s3e1D $dIP_s3e1E $dIP_s3e1F $dIP_s3e1G
+           $dIP_s3e1H $dIP_s3e1I $dIP_s3e1J $dIP_s3e1K $dIP_s3e1L $dIP_s3e1M
+           $dIP_s3e1N $dIP_s3e1O $dIP_s3e1P $dIP_s3e1Q $dIP_s3e1R $dIP_s3e1S
+           $dIP_s3e1T $dIP_s3e1U $dIP_s3e1V $dIP_s3e1W $dIP_s3e1X $dIP_s3e1Y
+           $dIP_s3e1Z $dIP_s3e20 $dIP_s3e21 $dIP_s3e22 $dIP_s3e23 $dIP_s3e24
+           $dIP_s3e25 $dIP_s3e26 $dIP_s3e27 $dIP_s3e28 $dIP_s3e29 $dIP_s3e2a
+           $dIP_s3e2b lvl_s3e2c lvl_s3e2d lvl_s3e2e $dKnownSymbol_s3e3a
+           lvl_s3e3x lvl_s3e3y $sdelete_s3e4m $slookup_s3e4x
+           $sgetIdeGlobalExtras_s3e4G $wpoly_go2_s3eiL $wpoly_go1_s3ej2
+           $wpoly_go15_s3em4 $wpoly_go2_s3epE $wpoly_go1_s3eq0 $wlvl_s3eqJ
+           $wuseWithSeparateFingerprintRule_s3es7 $wgo15_s3esC
+           $wrunWithSignal_s3etm $wlvl_s3ewg $wlvl_s3exD $wlvl_s3exO
+           $wcountRelevantKeys_s3eEJ $wtest_s3eJj $wtest_s3eJA
+           $wupdatePositionMappingHelper_s3eOM $wupdatePositionMapping_s3ePE
+           $supdateFileDiagnostics_s3eS3}
+  Call stack:
+      CallStack (from HasCallStack):
+        callStackDoc, called at compiler/GHC/Utils/Panic.hs:190:37 in ghc-9.12.4-3251:GHC.Utils.Panic
+        pprPanic, called at compiler/GHC/Core/Subst.hs:196:17 in ghc-9.12.4-3251:GHC.Core.Subst
+
+Please report this as a GHC bug:  https://www.haskell.org/ghc/reportabug
+[0m[0m
+
+[73 of 79] Compiling Generics.SYB.GHC ( src/Generics/SYB/GHC.hs, dist/build/Generics/SYB/GHC.p_o )
+[74 of 79] Compiling Text.Fuzzy.Parallel ( src/Text/Fuzzy/Parallel.hs, dist/build/Text/Fuzzy/Parallel.p_o )
+[75 of 79] Compiling Text.Fuzzy.Levenshtein ( src/Text/Fuzzy/Levenshtein.hs, dist/build/Text/Fuzzy/Levenshtein.p_o )

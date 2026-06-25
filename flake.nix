@@ -22,13 +22,13 @@
         myDevTools = [
           hPkgs.ghc # GHC compiler in the desired version (will be available on PATH)
 	  # hPkgs.ghc-internal
-          hPkgs.ghcid # Continuous terminal Haskell compile checker
-          hPkgs.ormolu # Haskell formatter
-          hPkgs.hlint # Haskell codestyle checker
+          # hPkgs.ghcid # Continuous terminal Haskell compile checker
+          # hPkgs.ormolu # Haskell formatter
+          # hPkgs.hlint # Haskell codestyle checker
           hPkgs.hoogle # Lookup Haskell documentation
-          hPkgs.haskell-language-server # LSP server for editor
+          # hPkgs.haskell-language-server # LSP server for editor
 	  #oldPkg.haskellPackages.haskell-debugger
-          hPkgs.implicit-hie # auto generate LSP hie.yaml file from cabal
+          # hPkgs.implicit-hie # auto generate LSP hie.yaml file from cabal
           # hPkgs.retrie # Haskell refactoring tool
           # hPkgs.cabal-install
           stack-wrapped
@@ -66,6 +66,19 @@
 	  pkgs.libdwarf
 	  pkgs.numactl
 	  pkgs.elfutils
+	  pkgs.alex
+	  hPkgs.c2hs
+	  hPkgs.cpphs
+	  pkgs.doctest
+	  #hPkgs.ghcjs
+	  #pkgs.ghcjs-pkg
+	  #hPkgs.greencard
+	  pkgs.happy
+	  #hPkgs.haskell-suite
+	  #pkgs.haskell-suite-pkg
+	  #hPkgs.hmake
+	  #hPkgs.jhc
+	  #hPkgs.uhc
 	  #pkgs.pkg-config-unwrapped
           #hPkgs.pantry_0_11_2 
 	  #hPkgs.text_2_1_4

@@ -31,11 +31,11 @@ import Data.Profunctor.Composition
 import Data.Proxy
 -}
 import Data.Functor.Day as Day
-import Control.Comonad.Cofree
+import Control.Comonad.Cofree as Cof
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Env
 import Control.Monad
-import Control.Monad.Free
+import Control.Monad.Free as F
 import Control.Monad.Reader as R
 import Control.Monad.Trans.Adjoint as M
 import Data.Bitraversable
@@ -180,10 +180,10 @@ adjCombW ::
   (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
   Either (W.AdjointT f1 g1 w a) (W.AdjointT f2 g2 w b) ->
   W.AdjointT (f1 :+: f2) (g1 :*: g2) w (Either a b)
-adjCombW (Right (W.AdjointT a1)) =
-   W.AdjointT $ ((fmap . fmap) (\g -> (fmap Left g) :*: (fmap Left $ tabulateAdjunction (const $ extract a1) ))) $ L1 a1
-adjCombW (Left (W.AdjointT a2)) =
-   W.AdjointT $ (((fmap . fmap) (\g2 -> (fmap Right $ tabulateAdjunction (const $ extract a2) ) :*: (fmap Right g2)) . R1) a2)
+adjCombW (Left w@(W.AdjointT a1)) =
+   W.AdjointT $ ((fmap . fmap) (\g -> (fmap Left g) :*: (fmap Left $ tabulateAdjunction (const $ extract w) ))) $ L1 a1
+adjCombW (Right w@(W.AdjointT a2)) =
+   W.AdjointT $ (((fmap . fmap) (\g2 -> (fmap Right $ tabulateAdjunction (const $ extract w) ) :*: (fmap Right g2)) . R1) a2)
 
 (@+*) ::
   (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
@@ -200,15 +200,16 @@ freelyW :: (Adjunction f g, Comonad w) =>
 freelyW lw = W.AdjointT $ fmap (foldl1 (liftW2) ) $ sequence $ 
    fmap (\w-> (Free . fmap (Pure . fmap (\g-> [coiter (const g) (extract w)] )) . W.runAdjointT) w) $ lw
 -}
+{-
 adjDayW ::
-  (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
+  (Adjunction f1 g1, Adjunction f2 g2, ComonadApply w) =>
   W.AdjointT f1 g1 w a ->
   W.AdjointT f2 g2 w b ->
   W.AdjointT (Day f1 f2) (Day g1 g2) w ((a,b),(a,b))
 adjDayW (W.AdjointT w1) (W.AdjointT w2) = W.AdjointT $ 
    Day ((fmap . fmap) (\ga1 -> Day ga1 (extract $ extractL w2)) w1 (\x y -> (x,y))) 
        ((fmap . fmap) (\ga2 -> Day (extract $ extractL w1) ga2 (\x y -> (x,y))) w2)
-       (\x y -> (x,y))
+       (\x y -> (_a x, _b y))
 
 adjUnDay ::
   (Adjunction f1 g1, Adjunction f2 g2, Comonad w) =>
@@ -218,27 +219,27 @@ adjUnDay w@(W.AdjointT (Day wf1 wf2)) =
    ( W.AdjointT $ (fmap . fmap) (\(Day g1 g2)-> fmap (const $ extract w) g1) wf1
    , W.AdjointT $ (fmap . fmap) (\(Day g1 g2)-> fmap (const $ extract w) g2) wf2
    )
-
+-}
 newtype FixAdjoint f g a = FixAdjoint 
-  { runFixAdjoint :: AdjointT f g (FixAdjoint f g) a }
+  { runFixAdjoint :: W.AdjointT f g (FixAdjoint f g) a }
 
-zeroFCAdjoint :: Adjunction f g => w a -> W.AdjointT (Free f) (Cofree g) w a
+zeroFCAdjoint :: (Adjunction f g, Comonad w) => w a -> W.AdjointT (Free f) (Cofree g) w a
 zeroFCAdjoint wa = W.AdjointT $ Pure $ fmap (\a-> coiter (\a1-> tabulateAdjunction (const a1)) a ) wa
 
-oneFCAdjoint :: Adjunction f g => 
+oneFCAdjoint :: (Adjunction f g, Comonad w) => 
    W.AdjointT f g w a -> 
    W.AdjointT (Free f) (Cofree g) w a
-oneFCAdjoint w@(W.AdjointT fwga) = W.AdjointT $ Free fmap (\wga-> 
-   Pure $ fmap (\ga -> unfold (\ga1-> (extract w, fmap (const ga1) ga1 )) ga) wga) fwga
+oneFCAdjoint w@(W.AdjointT fwga) = W.AdjointT $ Free $ fmap (\wga-> 
+   Pure $ fmap (\ga -> Cof.unfold (\ga1-> (extract w, fmap (const ga1) ga1 )) ga) wga) fwga
 
-unionFCAdj :: (Adjunction f g ComonadApply w) => 
+unionFCAdj :: (Adjunction f g, ComonadApply w) => 
    W.AdjointT (Free f) (Cofree g) w a -> 
    W.AdjointT (Free f) (Cofree g) w a -> 
    W.AdjointT (Free f) (Cofree g) w a
 unionFCAdj w1@(W.AdjointT fwga1) w2@(W.AdjointT fwga2) = W.AdjointT $
    fwga1 >>= (\wga1 -> do
    wga2 <- fwga2
-   return $ liftW2 (\ ga1 ga2 -> unfold f (False,ga1,ga2)) wga1 wga2
+   return $ liftW2 (\ ga1 ga2 -> Cof.unfold f (False,ga1,ga2)) wga1 wga2
    )
    where 
       f (False,a :< ga1,ga2) = (a , fmap (\a1-> (True,a1,ga2)) ga1)
@@ -248,15 +249,15 @@ unionFCAdj w1@(W.AdjointT fwga1) w2@(W.AdjointT fwga2) = W.AdjointT $
 -- Мы берем монаду/комонаду текущего слоя и заворачиваем ее в базовый AdjointT.
 stepAdjoint 
   :: Adjunction f g 
-  => AdjointT f g (AdjointT (Free f) (Cofree g) w) a 
-  -> AdjointT (Free f) (Cofree g) w a
+  => W.AdjointT f g (W.AdjointT (Free f) (Cofree g) w) a 
+  -> W.AdjointT (Free f) (Cofree g) w a
 stepAdjoint (W.AdjointT ffwgga) =  undefined -- Раскрывает ньютайп и пересобирает через Roll / (:<)
 
 -- | Обратная операция — снятие одного слоя рекурсии.
 unstepAdjoint 
   :: Adjunction f g 
-  => AdjointT (Free f) (Cofree g) w a 
-  -> AdjointT f g (AdjointT (Free f) (Cofree g) w) a
+  => W.AdjointT (Free f) (Cofree g) w a 
+  -> W.AdjointT f g (W.AdjointT (Free f) (Cofree g) w) a
 unstepAdjoint = undefined
 
 

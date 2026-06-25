@@ -132,10 +132,10 @@ mapAOW f (a :< b) = (hoistWAdj f a) :< (fmap (mapAOW f) $ hoistWAdj f b)
 
 -- New module needed
 --
-Par1Objetc :: 
+par1Objetc :: 
    w () -> 
    AdjObject w Par1 Par1 Par1 Par1 
-Par1Object w = unfold (\wx-> (W.AdjointT $ Par1 $ fmap Par1 w , W.AdjointT $ Par1 $ fmap (Par1 . Par1Object) w ) ) w
+par1Object w = unfold (\wx-> (W.AdjointT $ Par1 $ fmap Par1 w , W.AdjointT $ Par1 $ fmap (Par1 . Par1Object) w ) ) w
 
 idObjetc :: 
    w () -> 

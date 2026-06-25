@@ -1,6 +1,6 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.36.0.
+-- This file has been generated from package.yaml by hpack version 0.39.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -31,6 +31,9 @@ library
       Control.Core.Generic
       Control.Core.ParticalCompos
       Control.Core.Postlude
+      Control.Higher.Adjunction
+      Control.Object.Base
+      Control.PolyAdjoint.Adjunction
   other-modules:
       Paths_adj_combinators
   autogen-modules:
@@ -48,7 +51,10 @@ library
     , distributive
     , extra
     , free
+    , functor-combinators
+    , kan-extensions
     , mtl
+    , profunctors
   default-language: Haskell2010
 
 executable adj-combinators-exe
@@ -71,7 +77,10 @@ executable adj-combinators-exe
     , distributive
     , extra
     , free
+    , functor-combinators
+    , kan-extensions
     , mtl
+    , profunctors
   default-language: Haskell2010
 
 test-suite adj-combinators-test
@@ -95,5 +104,8 @@ test-suite adj-combinators-test
     , distributive
     , extra
     , free
+    , functor-combinators
+    , kan-extensions
     , mtl
+    , profunctors
   default-language: Haskell2010

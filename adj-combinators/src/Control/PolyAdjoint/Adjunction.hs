@@ -17,7 +17,7 @@ class Adjunction (f :: k1 -> k2) (g :: k2 -> k1) | f -> g, g -> f where
    rightDjunct :: (a -> g b) -> f a -> b
    rightAdjunct f = counit . fmap f
 
-newtype SAdj f a = SAdj {unSAdj :: f a} deriving
+newtype SAdj f a = SAdj {unSAdj :: f a} deriving ()
 
 instance AdjS.Adjunction f g => Adjunction (SAdj f) (SAdj g) where
    unit a = fmap (SAdj . fmap SAdj) unit a

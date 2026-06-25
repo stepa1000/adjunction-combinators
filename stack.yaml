@@ -17,7 +17,7 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2023-01-01.yaml
-resolver: ghc-9.8.2 # https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/24/28.yaml
+resolver: ghc-9.12.4 # https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/24/28.yaml
  
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -146,8 +146,12 @@ extra-deps:
 - happy-lib-2.1.7@sha256:e15498775b118d8985275573e2659d248e66f75e076f09adb85be38e4edfb0dd,6081
 - safe-0.3.21@sha256:b928ea1645876788155b38ce85c7e46d157a1bb41d2b05f5770b13d60bc6a3f7,2400
 - th-expand-syns-0.4.12.0@sha256:bb5f7482afb3b85dec2e955c72adf99976811b77561b87472529e62c4cbbcf33,2042
-
-
+- directory-1.3.10.1@sha256:bf029d8163ccae567cc6a5aa8f654016f58dfc066d15f8a8f7c74b8ca855562c,3174
+#- filepath-1.5.5.0@sha256:c6ec08084ffc90838ad36d03c3792be70fa171942a3677ec68e9be8b437754fe,5314
+- process-1.6.27.0@sha256:0512ed17e7e312a6412859abcb37a7bcc81b94cbb797a1ba2a8c78a5d3055d32,2947
+- unix-2.8.8.0@sha256:0b239653389dbc5f33129d92ef31e44172c53e6ada373d636d89f09d23cc6009,10318
+- file-io-0.1.6@sha256:5e3466f15993e499db47d79d09c519d6d37c143cfe94fb46dd218bf2f6f3fd39,3550
+- filepath-1.4.301.0@sha256:2c5d05f98759938db45757016ec406ed2c6021cd9018a53fedb76b9d5a8239ea,6128
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
