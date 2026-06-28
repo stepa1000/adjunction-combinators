@@ -45,6 +45,7 @@ library
       adjunctions
     , barbies
     , base >=4.7 && <5
+    , bifunctors
     , coandkleisli
     , comonad
     , containers
@@ -71,6 +72,7 @@ executable adj-combinators-exe
     , adjunctions
     , barbies
     , base >=4.7 && <5
+    , bifunctors
     , coandkleisli
     , comonad
     , containers
@@ -98,6 +100,7 @@ test-suite adj-combinators-test
     , adjunctions
     , barbies
     , base >=4.7 && <5
+    , bifunctors
     , coandkleisli
     , comonad
     , containers

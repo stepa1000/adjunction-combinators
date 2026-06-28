@@ -1,34 +1,54 @@
+{-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE PolyKinds #-}
+{-# LANGUAGE MultiParamTypeClasses #-} -- Для связи нескольких параметров (cat1, cat2, f, g)
+{-# LANGUAGE FunctionalDependencies #-} -- Для связей f -> g, g -> f
+{-# LANGUAGE PolyKinds #-}              -- Для поддержки категорий над любыми видами
+{-# LANGUAGE FlexibleContexts #-}       -- Для сложных ограничений в сигнатурах
+{-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE RankNTypes #-}
+
 module Control.PolyAdjoint.Adjunction where
 
 import Data.Kind
 import Data.Profunctor
+import Data.Profunctor.Composition
 import Data.Functor.Contravariant
+import Data.Bifunctor.Product
+import qualified Control.Category as Cat
+import Control.Comonad.Trans.Env
+import Data.Bifunctor.Tannen
+import Data.Proxy
+import Control.Arrow
 
-import Data.Functor.Adjunction as AdjS
+import qualified Data.Functor.Adjunction as AdjS
 
-class Adjunction (f :: k1 -> k2) (g :: k2 -> k1) | f -> g, g -> f where
-   unit :: a -> g (f a)
-   unit           = leftAdjunct id
-   counit :: f (g a) -> a
-   counit         = rightAdjunct id
+class (Cat.Category cat1, Cat.Category cat2) => Adjunction cat1 cat2 (f :: k1 -> k2) (g :: k2 -> k1) 
+   | f -> g, g -> f, cat1 -> cat2, cat2 -> cat1, cat1 -> f, f -> cat1 where
+   unit :: forall (a :: k1). cat1 a (g (f a))
+   --unit           = leftAdjunct id
+   counit :: forall (a :: k2). cat2 (f (g a)) a
+   --counit         = rightAdjunct id
 
-   leftAdjunct :: (f a -> b) -> a -> g b 
-   leftAdjunct f  = fmap f . unit
-   rightDjunct :: (a -> g b) -> f a -> b
-   rightAdjunct f = counit . fmap f
+   leftAdjunct :: forall (a :: k1) (b :: k2). (cat2 (f a) b) -> cat1 a (g b) 
+   --leftAdjunct f  = fmap f . unit
+   rightAdjunct :: forall (a :: k1) (b :: k2). (cat1 a (g b)) -> cat2 (f a) b
+   --rightAdjunct f = counit . fmap f
 
 newtype SAdj f a = SAdj {unSAdj :: f a} deriving ()
 
-instance AdjS.Adjunction f g => Adjunction (SAdj f) (SAdj g) where
-   unit a = fmap (SAdj . fmap SAdj) unit a
-   counit = counit . fmap (unSAdj . fmap unSAdj)
+newtype SAdjTannen (f :: * -> *) (g :: * -> *) a b = SAdjTannen {runSAdjTannen :: forall x. TannenPF (f x, g x) (->) a b} deriving ()
+
+instance AdjS.Adjunction f g => Adjunction (SAdjTannen f g) (SAdjTannen f g) (SAdj f) (SAdj g) where
+   unit = arr $ \ a -> fmap (SAdj . fmap SAdj) AdjS.unit a
+   counit = arr $ AdjS.counit . fmap unSAdj . unSAdj 
    
-   leftADjunct f a = SAdj $ leftAdjunct (f . unSAdj) a
-   rightDjunct g fa = rightDjunct (unSAdj . g) (unSAdj fa)
+   leftAdjunct f a = arr $ SAdj $ AdjS.leftAdjunct (f . SAdj) a
+   rightAdjunct g fa = arr $ AdjS.rightAdjunct (unSAdj . g) (unSAdj fa)
 
 data Nat = Z | S Nat
 data DeltaObj (n :: Nat)
-
+{-
 newtype SSet = SSet {getSimplex :: forall n. DeltaObj n -> Type}
 
 data Cat = Cat {object :: Type, arrows :: Type -> Type -> Type}
@@ -51,6 +71,8 @@ instance Adjunction Realize Nerve where
          colapsePathToArrows :: Path (Nerve c) -> arrows c x y
 	 colapsePathToArrows (SingleArrow (Nerve chain)) = chain
 	 colapsePathToArrows (ComposePath p1 p2) = (colapsePathToArrows p1) .>>>. (colapsePathToArrows p2)
+-}
+
 {-
 class TheBijection k1 k2 where
    toBij :: forall (a :: k1) (b :: k2). a -> b
@@ -71,33 +93,35 @@ instance TheBijection k1 k2 => Adjunction ((TheKind k1) :: k1 -> k2) (g :: k2 ->
 
 --instance TheBijection k1 k2 => Adjunction ((TheKind k1) :: k1 -> k2) (g :: k2 -> k1)
 
-newtype GStar (f :: k -> Type) (a :: k) (b :: Type) =
-   GStar {runGStar :: a -> f b}
+newtype GStar cat (f :: k -> Type) a b =
+   GStar {runGStar :: cat a (f b)}
 
-instance Functor f => Profunctor (GStar f) where
+instance Functor f => Profunctor (GStar (->) f) where
    dimap f g (GStar h) = GStar (\a -> fmap g (h (f a)))
 
-newtype GCostar (g :: k -> Type) (a :: k) (b :: Type) =
-   GCostar {runGCostar :: g a -> b}
+newtype GCostar cat (g :: k -> Type) a b =
+   GCostar {runGCostar :: cat (g a) b}
 
-instance Functor f => Profunctor (GCostar f) where
+instance Functor f => Profunctor (GCostar (->) f) where
    dimap f g (GCostar h) = GCostar (\ga -> g (h (fmap f ga)))
 
 class (Profunctor l, Profunctor r) => ProAdjunction l r | l -> r, r -> l where
    proUnit :: a -> b -> Procompose r l a b
    proCounit :: Procompose l r a b -> a -> b
 
-instance (Adjunction f g, Functor f, Functor g)
-   => ProAdjunction (GStar (f :: Type -> Type)) (GCostar (g :: Type -> Type)) where
-   proUnit a b = Procompose rightPro leftPro
+newtype TannenPF f p a b = TannenPF {runTannenPF :: Tannen (Env (Proxy f)) p a b} deriving ()
+
+instance (Adjunction (->) (->) f g, Functor f, Functor g)
+   => ProAdjunction (GStar (->) (f :: Type -> Type)) (GCostar (->) (g :: Type -> Type)) where
+   proUnit a b = Procompose rightPro (GStar (\_-> fmap (\ga-> fmap (const b) ga) (unit a)))
       where
-         leftPro = GStar (\_-> fmap (\_-> b) (unit a)))
+         --leftPro = _a $ GStar (\_-> fmap (\_-> b) (unit a))
 	 rightPro = GCostar counit
-   proCounit (Procompos (GStar leftOp) (GCostar rightOp)) a = let
-      ga = unit a
-      x = rightOp (fmap (\_-> a) ga)
+   proCounit (Procompose (GStar leftOp) (GCostar rightOp)) a = let
+      ga = unit a -- g (f a)
+      x = rightOp (fmap (\fa-> a) ga)
       fb = leftOp x
-      in counit fb
+      in counit $ fmap (\b-> fmap (const b) ga) fb
 
 instance (ProAdjunction l1 r1, ProAdjunction l2 r2) => ProAdjunction (Procompose l1 l2) (Procompose r2 r1)  where
    proUnit a b = case proUnit a b of
@@ -111,7 +135,7 @@ instance (ProAdjunction l1 r1, ProAdjunction l2 r2) => ProAdjunction (Procompose
       in f1 a . f2 a
 
 instance (ProAdjunction l1 r1, ProAdjunction l2 r2) => ProAdjunction (Product l1 l2) (Product r1 r2)  where
-   proUnit a b = case proUnit a b ofa
+   proUnit a b = case proUnit a b of
       Procompose r1 l1 -> case proUnit a b of
          Procompose r2 l2 -> Procompose (Pair r1 r2) (Pair l1 l2)
    proCounit (Procompose (Pair l1 l2) (Pair r1 r2)) a = proCounit (Procompose l1 r1) a

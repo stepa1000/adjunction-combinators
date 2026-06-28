@@ -1,12 +1,15 @@
 {-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE KindSignatures #-}
+{-# LANGUAGE StarIsType #-}
 
 module Control.Higher.Adjunction where
 
 import Data.Functor.Combinator
 import Control.Monad.Free as F
 
-class (HFunctor t, HFunctor u) => HAdjunction t u where
+class (HFunctor t, HFunctor u) => HAdjunction (t :: (* -> *) -> * -> *) (u :: (* -> *) -> * -> *) | t -> u, u -> twhere
    leftHAdjunct :: (Functor f, Functor g) => (t f ~> g) -> (f ~> u g)
    rightHAdjunct :: (Functor f, Functor g) => (f ~> u g) -> (t f ~> g)
 
@@ -26,10 +29,10 @@ instance Functor g => Functor (BoolReaderF g) where
    fmap f (BoolReaderF h) = BoolReaderF $ \b-> fmap f $ h b
 
 instance HFunctor BoolReaderF where
-   hfmap f (BoolReaderF h) = BoolReaderF $ \b-> f $ h b
+   hmap f (BoolReaderF h) = BoolReaderF $ \b-> f $ h b
 
 instance HAdjunction PairF BoolReaderF where
-   leftHAdjunct nat fx = BoolReader (\b->
+   leftHAdjunct nat fx = BoolReaderF (\b->
       if b then nat (PairF (fx,fx) ) else nat (PairF (fx,fx) )
       )
    rightHAdjunct nat (PairF (fx,fy)) = let
@@ -37,17 +40,19 @@ instance HAdjunction PairF BoolReaderF where
       BoolReaderF hy = nat fy
       in hx True
 
-class HFUnctor m => HMonad m where
+class HFunctor m => HMonad (m :: (* -> *) -> * -> *) where
    hreturn :: Functor f => f ~> m f
    hjoin :: Functor f => m (m f) ~> m f
 
 hunit :: (HAdjunction t u, Functor f) => f ~> u (t f)
 hunit = leftHAdjunct id
 
-instance HAdjunction t u => HMonad (Comp t u) where
-   hreturn fx = Comp (hunit fx)
+newtype CompH (t :: (* -> *) -> * -> *) (u :: (* -> *) -> * -> *) (f :: * -> *) (a :: *) = CompH {runCompH :: u (t f) a}
 
-   hjoin (CompH ututf) = CompH (hfmap (rightHAdjunct runCompH) ututf)
+instance HAdjunction t u => HMonad (CompH t u) where
+   hreturn fx = CompH (hunit fx)
+
+   hjoin (CompH ututf) = CompH (hfmap (rightHAdjunct runCompH) $ _a ututf)
 
 class HFunctor w => HComonad w where
    hextract :: w f ~> f
@@ -56,28 +61,28 @@ class HFunctor w => HComonad w where
 hcoiunit :: (HAdjunction t u, Functor f) => (t (u f)) ~> f
 hcoiunit = rightHAdjunct id
 
-newtype CompHCo t u f a = CompHCo {runCompHCo :: t (u f) a}
+newtype CompHCo (t :: (* -> *) -> * -> *) (u :: (* -> *) -> * -> *) f a = CompHCo {runCompHCo :: t (u f) a}
 
 instance (HFunctor t, HFunctor u, Functor f) => Functor (CompHCo t u f) where
    fmap f (CompHCo x) = CompHCo $ fmap f x
 
 instance (HFunctor t, HFunctor u) => HFunctor (CompHCo t u) where
-   hfmap f (CompHCo x) = CompHCo $ hfmap (hfmap f) x
+   hmap f (CompHCo x) = CompHCo $ hfmap (hfmap f) x
 
 instance HAdjunction t u => HComonad (CompHCo t u) where
    hextract (CompHCo tuf) = hcounit tuf
 
    hcojoin (CompHCo tuf) = CompHCo (hfmap (leftAdjunct CompHCo) tuf)
-
+{-
 newtype HComp u v f a = HComp {runHComp :: u (v f) a}
 
 instance (HFunctor t, HFunctor u, Functor f) => Functor (HComp t u f) where
    fmap f (HComp x) = HComp $ fmap f x
 
 instance (HFunctor t, HFunctor u) => HFunctor (HComp t u) where
-   hfmap f (HComp x) = HComp $ hfmap (hfmap f) x
-
-data HSum u v f a = HInL (u f a) | HInR (v f a)
+   hmap f (HComp x) = HComp $ hfmap (hfmap f) x
+-}
+data HSum (u :: (* -> *) -> * -> *) (v :: (* -> *) -> * -> *) f a = HInL (u f a) | HInR (v f a)
 
 
 
@@ -86,16 +91,16 @@ instance (HFunctor t, HFunctor u, Functor f) => Functor (HSum t u f) where
    fmap f (HInR x) = HInR $ fmap f x
 
 instance (HFunctor t, HFunctor u) => HFunctor (HSum t u) where
-   hfmap f (HInL x) = HInL $ hfmap f x
-   hfmap f (HInR x) = HInR $ hfmap f x
+   hmap f (HInL x) = HInL $ hmap f x
+   hmap f (HInR x) = HInR $ hmap f x
 
-newtype HProd u v f a = HProd {runHProd :: (u f a, v f a)}
+newtype HProd (u :: (* -> *) -> * -> *) (v :: (* -> *) -> * -> *) f a = HProd {runHProd :: (u f a, v f a)}
 
 instance (HFunctor t, HFunctor u, Functor f) => Functor (HProd t u f) where
    fmap f (HProd (x,y)) = HProd (fmap f x, fmap f y)
 
 instance (HFunctor t, HFunctor u) => HFunctor (HProd t u) where
-   hfmap f (HProd (x,y)) = HProd (hfmap f x, hfmap f y)
+   hmap f (HProd (x,y)) = HProd (hfmap f x, hfmap f y)
 
 instance (HAdjunction t1 u1, HAdjunction t2 u2) => HAdjunction (HSum t1 t2) (HProd u1 u2) where
    leftHAdjunct nat fx = HProd (natL fx, natR fx)
@@ -110,8 +115,8 @@ instance (HAdjunction t1 u1, HAdjunction t2 u2) => HAdjunction (HSum t1 t2) (HPr
       in rightHAdjunct getLeft t1f
    
 instance HAdjunction F.Free IdentityT where
-   leftAdjunct nat fx = IdentityT $ nat $ Free $ fmap Pure fx
-   rightAdjunct nat (Free freeStruct) = foldFeree (runIdentityT . nat) freeStruct
+   leftHAdjunct nat fx = IdentityT $ nat $ Free $ fmap Pure fx
+   rightHAdjunct nat (Free freeStruct) = foldFeree (runIdentityT . nat) freeStruct
       where
          foldFree _ (Pure x) = error "g is not Monad"
 	 foldFree u (Free x) = u (fmap (foldFree) x)
