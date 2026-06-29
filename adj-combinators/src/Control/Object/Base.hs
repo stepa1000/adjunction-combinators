@@ -30,11 +30,12 @@ import Data.Profunctor
 import Data.Profunctor.Composition
 import Data.Proxy
 -}
-import Control.Comonad.Cofree
+import Control.Comonad.Cofree as W
 import Control.Comonad.Trans.Adjoint as W
 import Control.Comonad.Trans.Env
 import Control.Monad
-import Control.Monad.Free
+import Control.Monad.Free as M
+import Control.Monad.Trans.Free as M
 import Control.Monad.Reader as R
 import Control.Monad.Trans.Adjoint as M
 import Data.Bitraversable
@@ -43,6 +44,7 @@ import Data.Function
 import Data.Functor.Adjunction
 -- import Data.Profunctor.Strong
 import GHC.Generics
+import Data.Functor.Identity
 import Prelude as Pre
 
 import Control.Core.Composition
@@ -110,6 +112,7 @@ adjObjComb (wv1 :< wo1) (wv2 :< wo2) = let
    wo = freelyW (wo1 @+* wo2)
    in (void wv) :< (fmap (const $ adjObjComb (extract wo1) (extract wo2)) wo)
 -}
+{-
 adjObjDay :: 
    ( Comonad w
    , Adjunction fo1 go1, Adjunction fv1 gv1
@@ -121,7 +124,7 @@ adjObjDay (wv1 :< wo1) (wv2 :< wo2) = let
    wv = adjDayW wv1 wv2
    wo = adjDayW wo1 wo2
    in wv :< (fmap (const $ adjObjDay (extract wo1) (extract wo2)) wo)
-
+-}
 -- MAPS
 --
 mapAOW :: 
@@ -132,39 +135,39 @@ mapAOW f (a :< b) = (hoistWAdj f a) :< (fmap (mapAOW f) $ hoistWAdj f b)
 
 -- New module needed
 --
-par1Objetc :: 
+par1Object :: 
    w () -> 
    AdjObject w Par1 Par1 Par1 Par1 
-par1Object w = unfold (\wx-> (W.AdjointT $ Par1 $ fmap Par1 w , W.AdjointT $ Par1 $ fmap (Par1 . Par1Object) w ) ) w
+par1Object w = W.unfold (\wx-> (W.AdjointT $ Par1 $ fmap Par1 w , W.AdjointT $ Par1 $ fmap (Par1 . Par1Object) w ) ) w
 
-idObjetc :: 
+idObject :: 
    w () -> 
    AdjObject w Identity Identity Identity Identity 
-idObject w = unfold (\wx-> (W.AdjointT $ Identity $ fmap Identity w , W.AdjointT $ Identity $ fmap (Identity . idObject) w ) ) w
+idObject w = W.unfold (\wx-> (W.AdjointT $ Identity $ fmap Identity w , W.AdjointT $ Identity $ fmap (Identity . idObject) w ) ) w
 
 vuObject ::
    w () -> 
    AdjObject w V1 U1 V1 U1
-vuObject w = unfold (\wx-> (V1 , V1 ) ) w
+vuObject w = W.unfold (\wx-> (V1 , V1 ) ) w
 
 viewObject :: (Comonad w, Adjunction fo go, Adjunction fv gv)
    (W.AdjointT fo go w () -> (W.AdjointT fv gv w (), W.AdjointT fo go w ())) ->
    W.AdjointT fo go w () ->
-   AdjObject w fo go fv gv ->
+   AdjObject w fo go fv gv 
    --AdjObject w fo go (fv2 :.: fv) (gv :.: gv2)
 viewObject f w = unfold ((\(x,y)->(x,dublicate y)) . f) w
 
 reviewObject :: (Comonad w, Adjunction fo go, Adjunction fv gv)
    ((W.AdjointT fv gv w (), W.AdjointT fo go w ()) -> (W.AdjointT fv gv w (), W.AdjointT fo go w ())) ->
    AdjObject w fo go fv gv ->
-   AdjObject w fo go fv gv ->
+   AdjObject w fo go fv gv 
    --AdjObject w fo go (fv2 :.: fv) (gv :.: gv2)
 reviewObject f (a :< w) = ((\(x,y)->(x :< fmap (const $ reviewObject f $ extract w) y)) $ f (a, (void w)))
 
 upviewObject :: (Comonad w, Adjunction fo go, Adjunction fv gv)
    ((W.AdjointT fv gv w (), W.AdjointT fo go w ()) -> (W.AdjointT fv gv w (), W.AdjointT fo go w ())) ->
    AdjObject w fo go fv gv ->
-   AdjObject w fo go fv gv ->
+   AdjObject w fo go fv gv 
    --AdjObject w fo go (fv2 :.: fv) (gv :.: gv2)
 upviewObject f (a :< w) = viewObject (\z-> f (a,z)) (void w)--((\(x,y)->(x :< fmap (const $ viewObject (\z-> f ()) $ extract w) y)) $ f (a, (void w)))
 
@@ -307,9 +310,9 @@ instance (AdjHas f1 g1 w a, AdjHas f2 g2 w b) => AdjHas (Day f1 f2) (Day g1 g2) 
 
 -- newtype TimeTick = TimeTick Integer
 
-newtype DeltaTick p = DeltaTick Integer deriving
+newtype DeltaTick p = DeltaTick Integer deriving ()
  
-newtype Tick p = Tick Integer deriving
+newtype Tick p = Tick Integer deriving ()
 
 type HasTick p f g w = AdjHas f g w (Tick p)-- (EnvT (Tick p) Identity) (ReaderT (Tick p) Identity) w (Tick p)
 
@@ -328,9 +331,9 @@ initTick (Proxy :: Proxy p) wi = viewObject (\w-> f w ) (adjSet $ fmap (\i-> (De
 	 in if t >= dt then (adjSet $ fmap (const (Tick 0)) w', adjSet $ fmap (const (DeltaTick dt, Tick 0)) w' ) 
 	    else (adjSet $ fmap (const (Tick $ t + 1)) w', adjSet $ fmap (const (DeltaTick dt, Tick $ t + 1)) w' )  
 
-type Updater a = Updater (a -> a) deriving
+newtype Updater a = Updater (a -> a) deriving ()
 
-type UpdaterType a = UpdaterType (TypeRep (Update a)) deriving
+newtype UpdaterType a = UpdaterType (TypeRep (Update a)) deriving ()
 
 type HasUpdater a f g w = AdjHas f g w (Updater a)
 

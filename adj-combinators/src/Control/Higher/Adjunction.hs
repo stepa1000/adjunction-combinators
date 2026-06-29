@@ -3,13 +3,15 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE StarIsType #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Control.Higher.Adjunction where
 
 import Data.Functor.Combinator
 import Control.Monad.Free as F
 
-class (HFunctor t, HFunctor u) => HAdjunction (t :: (* -> *) -> * -> *) (u :: (* -> *) -> * -> *) | t -> u, u -> twhere
+class (HFunctor t, HFunctor u) => HAdjunction (t :: (* -> *) -> * -> *) (u :: (* -> *) -> * -> *) | t -> u, u -> t where
    leftHAdjunct :: (Functor f, Functor g) => (t f ~> g) -> (f ~> u g)
    rightHAdjunct :: (Functor f, Functor g) => (f ~> u g) -> (t f ~> g)
 
@@ -21,7 +23,7 @@ instance Functor f => Functor (PairF f) where
 instance HFunctor PairF where
    hmap f (PairF (x,y)) = PairF (f x,f y)
 
-hfmap = hmap
+-- hfmap = hmap
 
 newtype BoolReaderF g a = BoolReaderF (Bool -> g a)
 
@@ -44,35 +46,35 @@ class HFunctor m => HMonad (m :: (* -> *) -> * -> *) where
    hreturn :: Functor f => f ~> m f
    hjoin :: Functor f => m (m f) ~> m f
 
-hunit :: (HAdjunction t u, Functor f) => f ~> u (t f)
+hunit :: (HAdjunction t u, Functor (t f), Functor f) => f ~> u (t f)
 hunit = leftHAdjunct id
 
 newtype CompH (t :: (* -> *) -> * -> *) (u :: (* -> *) -> * -> *) (f :: * -> *) (a :: *) = CompH {runCompH :: u (t f) a}
-
+{-
 instance HAdjunction t u => HMonad (CompH t u) where
    hreturn fx = CompH (hunit fx)
 
-   hjoin (CompH ututf) = CompH (hfmap (rightHAdjunct runCompH) $ _a ututf)
-
+   hjoin (CompH ututf) = CompH (hfmap (rightHAdjunct runCompH) $ ututf)
+-}
 class HFunctor w => HComonad w where
-   hextract :: w f ~> f
-   hcojoin :: w f ~> w (w f)
+   hextract :: (Functor f, Functor (w f)) => w f ~> f
+   hcojoin :: (Functor f, Functor (w f)) => w f ~> w (w f)
 
-hcoiunit :: (HAdjunction t u, Functor f) => (t (u f)) ~> f
-hcoiunit = rightHAdjunct id
+hcounit :: (HAdjunction t u, Functor (u f), Functor f) => (t (u f)) ~> f
+hcounit = rightHAdjunct id
 
 newtype CompHCo (t :: (* -> *) -> * -> *) (u :: (* -> *) -> * -> *) f a = CompHCo {runCompHCo :: t (u f) a}
 
-instance (HFunctor t, HFunctor u, Functor f) => Functor (CompHCo t u f) where
+instance (HFunctor t, HFunctor u, Functor f, Functor (t f), Functor (u f), Functor (t (u f))) => Functor (CompHCo t u f) where
    fmap f (CompHCo x) = CompHCo $ fmap f x
 
 instance (HFunctor t, HFunctor u) => HFunctor (CompHCo t u) where
-   hmap f (CompHCo x) = CompHCo $ hfmap (hfmap f) x
-
+   hmap f (CompHCo x) = CompHCo $ hmap (hmap f) x
+{-
 instance HAdjunction t u => HComonad (CompHCo t u) where
    hextract (CompHCo tuf) = hcounit tuf
 
-   hcojoin (CompHCo tuf) = CompHCo (hfmap (leftAdjunct CompHCo) tuf)
+   hcojoin (CompHCo tuf) = CompHCo (hmap (leftHAdjunct CompHCo) tuf)-}
 {-
 newtype HComp u v f a = HComp {runHComp :: u (v f) a}
 
@@ -86,7 +88,7 @@ data HSum (u :: (* -> *) -> * -> *) (v :: (* -> *) -> * -> *) f a = HInL (u f a)
 
 
 
-instance (HFunctor t, HFunctor u, Functor f) => Functor (HSum t u f) where
+instance (HFunctor t, HFunctor u, Functor f, Functor (t f), Functor (u f)) => Functor (HSum t u f) where
    fmap f (HInL x) = HInL $ fmap f x
    fmap f (HInR x) = HInR $ fmap f x
 
@@ -96,12 +98,13 @@ instance (HFunctor t, HFunctor u) => HFunctor (HSum t u) where
 
 newtype HProd (u :: (* -> *) -> * -> *) (v :: (* -> *) -> * -> *) f a = HProd {runHProd :: (u f a, v f a)}
 
-instance (HFunctor t, HFunctor u, Functor f) => Functor (HProd t u f) where
+instance (HFunctor t, HFunctor u, Functor f, Functor (t f), Functor (u f)) => Functor (HProd t u f) where
    fmap f (HProd (x,y)) = HProd (fmap f x, fmap f y)
-
+{-
 instance (HFunctor t, HFunctor u) => HFunctor (HProd t u) where
    hmap f (HProd (x,y)) = HProd (hfmap f x, hfmap f y)
-
+   -}
+{-
 instance (HAdjunction t1 u1, HAdjunction t2 u2) => HAdjunction (HSum t1 t2) (HProd u1 u2) where
    leftHAdjunct nat fx = HProd (natL fx, natR fx)
       where
@@ -113,13 +116,15 @@ instance (HAdjunction t1 u1, HAdjunction t2 u2) => HAdjunction (HSum t1 t2) (HPr
    rightHAdjunct nat (HInR t1f) = let
       getLeft fx = let HProd (_,u1g) = nat fx in u1g
       in rightHAdjunct getLeft t1f
-   
+-}
+{-
 instance HAdjunction F.Free IdentityT where
    leftHAdjunct nat fx = IdentityT $ nat $ Free $ fmap Pure fx
-   rightHAdjunct nat (Free freeStruct) = foldFeree (runIdentityT . nat) freeStruct
+   rightHAdjunct nat (Free freeStruct) = foldFree2 (runIdentityT . nat) freeStruct
       where
-         foldFree _ (Pure x) = error "g is not Monad"
-	 foldFree u (Free x) = u (fmap (foldFree) x)
+         foldFree2 _ (Pure x) = error "g is not Monad"
+	 foldFree2 u (Free x) = u (fmap (foldFree2) x)
+	-}
 
 
 

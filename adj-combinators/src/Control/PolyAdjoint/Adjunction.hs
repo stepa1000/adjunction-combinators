@@ -38,14 +38,14 @@ class (Cat.Category cat1, Cat.Category cat2) => Adjunction cat1 cat2 (f :: k1 ->
 newtype SAdj f a = SAdj {unSAdj :: f a} deriving ()
 
 newtype SAdjTannen (f :: * -> *) (g :: * -> *) a b = SAdjTannen {runSAdjTannen :: forall x. TannenPF (f x, g x) (->) a b} deriving ()
-
+{-
 instance AdjS.Adjunction f g => Adjunction (SAdjTannen f g) (SAdjTannen f g) (SAdj f) (SAdj g) where
    unit = arr $ \ a -> fmap (SAdj . fmap SAdj) AdjS.unit a
    counit = arr $ AdjS.counit . fmap unSAdj . unSAdj 
    
    leftAdjunct f a = arr $ SAdj $ AdjS.leftAdjunct (f . SAdj) a
    rightAdjunct g fa = arr $ AdjS.rightAdjunct (unSAdj . g) (unSAdj fa)
-
+-}
 data Nat = Z | S Nat
 data DeltaObj (n :: Nat)
 {-
@@ -93,13 +93,13 @@ instance TheBijection k1 k2 => Adjunction ((TheKind k1) :: k1 -> k2) (g :: k2 ->
 
 --instance TheBijection k1 k2 => Adjunction ((TheKind k1) :: k1 -> k2) (g :: k2 -> k1)
 
-newtype GStar cat (f :: k -> Type) a b =
+newtype GStar cat (f :: k1 -> k2) a b =
    GStar {runGStar :: cat a (f b)}
 
 instance Functor f => Profunctor (GStar (->) f) where
    dimap f g (GStar h) = GStar (\a -> fmap g (h (f a)))
 
-newtype GCostar cat (g :: k -> Type) a b =
+newtype GCostar cat (g :: k2 -> k1) a b =
    GCostar {runGCostar :: cat (g a) b}
 
 instance Functor f => Profunctor (GCostar (->) f) where
@@ -111,18 +111,28 @@ class (Profunctor l, Profunctor r) => ProAdjunction l r | l -> r, r -> l where
 
 newtype TannenPF f p a b = TannenPF {runTannenPF :: Tannen (Env (Proxy f)) p a b} deriving ()
 
-instance (Adjunction (->) (->) f g, Functor f, Functor g)
-   => ProAdjunction (GStar (->) (f :: Type -> Type)) (GCostar (->) (g :: Type -> Type)) where
-   proUnit a b = Procompose rightPro (GStar (\_-> fmap (\ga-> fmap (const b) ga) (unit a)))
+newtype CoAndStarTannen (f :: * -> *) (g :: * -> *) a b = CoAndStarTannen {runCoAndStarTannen :: forall x. TannenPF (f x, g x) (->) a b} deriving ()
+{-
+class PolyProfunctor cat p where
+   dimap :: cat a b -> cat c d -> cat (p b c) (p a d)
+
+class (Profunctor l, Profunctor r) => PolyProAdjunction cat l r | l -> r, r -> l where
+   pproUnit :: cat a b -> Procompose r l a b
+   pproCounit :: Procompose l r a b -> cat a b
+
+instance (Arrow cat, Adjunction cat cat f g, Functor f, Functor g)
+   => PolyProAdjunction cat (GStar cat (f :: k1 -> k2)) (GCostar cat (g :: k2 -> k1)) where
+   pproUnit a b = Procompose rightPro (GStar $ _a $ arr (\_-> fmap (\ga-> fmap (const b) ga)) <<< (unit <<< arr (const a) ))
       where
          --leftPro = _a $ GStar (\_-> fmap (\_-> b) (unit a))
 	 rightPro = GCostar counit
-   proCounit (Procompose (GStar leftOp) (GCostar rightOp)) a = let
+   pproCounit (Procompose (GStar leftOp) (GCostar rightOp)) a = let
       ga = unit a -- g (f a)
       x = rightOp (fmap (\fa-> a) ga)
       fb = leftOp x
       in counit $ fmap (\b-> fmap (const b) ga) fb
-
+-}
+{-
 instance (ProAdjunction l1 r1, ProAdjunction l2 r2) => ProAdjunction (Procompose l1 l2) (Procompose r2 r1)  where
    proUnit a b = case proUnit a b of
       Procompose r1 l1 -> case proUnit a b of
@@ -139,5 +149,5 @@ instance (ProAdjunction l1 r1, ProAdjunction l2 r2) => ProAdjunction (Product l1
       Procompose r1 l1 -> case proUnit a b of
          Procompose r2 l2 -> Procompose (Pair r1 r2) (Pair l1 l2)
    proCounit (Procompose (Pair l1 l2) (Pair r1 r2)) a = proCounit (Procompose l1 r1) a
-
+-}
 -- class IsabelNucleus r f g
